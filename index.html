@@ -1,0 +1,2257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Blueprint — Renaissance High School Class of 2001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --maroon: #6B1429;
+    --maroon-dark: #4A0D1C;
+    --maroon-deep: #2E0810;
+    --maroon-mid: #8B1E35;
+    --maroon-light: #C4556A;
+    --maroon-pale: #F5E8EB;
+    --cream: #F9F3EE;
+    --white: #FFFFFF;
+    --gold: #C9A84C;
+    --text-dark: #1A0508;
+    --text-mid: #4A1520;
+    --text-light: #8B4A57;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--maroon-deep);
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(180px, 35vw, 420px);
+    color: var(--maroon-dark);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    letter-spacing: -0.02em;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.6;
+  }
+
+  .hero-grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .nav {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ─── GALLERY ─── */
+  .gallery {
+    background: #120407;
+    padding: 6rem 4rem;
+    overflow: hidden;
+  }
+
+  .gallery .section-title { color: var(--white); }
+  .gallery .section-label { color: var(--gold); }
+
+  .gallery-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 3.5rem;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    gap: 3px;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--maroon-deep);
+  }
+
+  .gallery-item:first-child {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: sepia(20%) contrast(1.05);
+    transition: transform 0.5s ease, filter 0.3s;
+    min-height: 200px;
+  }
+
+  .gallery-item:first-child img { min-height: 420px; }
+
+  .gallery-item:hover img {
+    transform: scale(1.04);
+    filter: sepia(0%) contrast(1.1);
+  }
+
+  .gallery-item-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(46,8,16,0.7) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.25rem;
+  }
+
+  .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+
+  .gallery-item-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .gallery-marquee {
+    margin-top: 3rem;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding-top: 2rem;
+  }
+
+  .gallery-marquee-inner {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.15);
+  }
+
+  .gallery-marquee-inner span { color: var(--gold); margin: 0 1rem; }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ─── LIGHTBOX ─── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox.active { display: flex; }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    filter: sepia(10%) contrast(1.05);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.5);
+    font-size: 28px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: color 0.2s;
+  }
+
+  .lightbox-close:hover { color: var(--gold); }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 1rem 1.25rem;
+    transition: border-color 0.2s, color 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .lightbox-nav:hover { border-color: var(--gold); color: var(--gold); }
+  .lightbox-prev { left: 2rem; }
+  .lightbox-next { right: 2rem; }
+
+  .lightbox-counter {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+  }
+
+  /* ─── DIRECTORY ─── */
+  .directory {
+    background: var(--cream);
+    padding: 6rem 4rem;
+  }
+
+  .directory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .directory-search-wrap {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .directory-search {
+    background: var(--white);
+    border: 1px solid rgba(107,20,41,0.2);
+    padding: 0.75rem 1.25rem;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-dark);
+    outline: none;
+    width: 280px;
+    border-radius: 0;
+    transition: border-color 0.2s;
+  }
+
+  .directory-search:focus { border-color: var(--maroon); }
+  .directory-search::placeholder { color: rgba(107,20,41,0.35); }
+
+  .dir-filter-btn {
+    background: transparent;
+    border: 1px solid rgba(107,20,41,0.25);
+    color: var(--text-light);
+    padding: 0.75rem 1.25rem;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .dir-filter-btn.active,
+  .dir-filter-btn:hover {
+    background: var(--maroon);
+    color: var(--white);
+    border-color: var(--maroon);
+  }
+
+  .directory-stats {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .directory-stats strong { color: var(--maroon); }
+
+  .directory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .classmate-card {
+    background: var(--white);
+    border: 1px solid rgba(107,20,41,0.1);
+    padding: 1.5rem;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+  }
+
+  .classmate-card:hover {
+    border-color: var(--maroon);
+    transform: translateY(-2px);
+  }
+
+  .classmate-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    background: var(--maroon-pale);
+    color: var(--maroon);
+    border: 2px solid rgba(107,20,41,0.12);
+    flex-shrink: 0;
+  }
+
+  .classmate-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 0.3rem;
+  }
+
+  .classmate-now {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+
+  .classmate-status {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+  }
+
+  .classmate-status.registered {
+    background: rgba(107,20,41,0.08);
+    color: var(--maroon);
+  }
+
+  .classmate-status.not-yet {
+    background: rgba(136,135,128,0.1);
+    color: #888;
+  }
+
+  .classmate-status.lost {
+    background: rgba(239,159,39,0.12);
+    color: #7a5010;
+  }
+
+  .directory-cta {
+    margin-top: 3rem;
+    background: var(--maroon-pale);
+    border-left: 4px solid var(--maroon);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .directory-cta p {
+    font-size: 14px;
+    color: var(--text-mid);
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  .directory-cta strong { color: var(--maroon); font-weight: 500; }
+
+  .hidden-card { display: none; }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(80px, 18vw, 200px);
+    line-height: 0.88;
+    color: var(--white);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 3vw, 28px);
+    color: rgba(255,255,255,0.7);
+    font-style: italic;
+    margin-bottom: 3rem;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-tagline {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .hero-tagline span {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .hero-tagline .dot {
+    color: var(--gold);
+    letter-spacing: 0;
+  }
+
+  .hero-date-badge {
+    background: var(--maroon);
+    border: 1px solid var(--gold);
+    padding: 1rem 2.5rem;
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-date-badge .date-main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--white);
+    letter-spacing: 0.1em;
+    display: block;
+  }
+
+  .hero-date-badge .date-sub {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    background: var(--maroon);
+    color: var(--white);
+    border: 1px solid var(--maroon-light);
+    padding: 1rem 2.5rem;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--maroon-mid); border-color: var(--gold); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 1rem 2.5rem;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    display: inline-block;
+  }
+
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-footer {
+    position: relative;
+    z-index: 10;
+    padding: 1.5rem 4rem;
+    border-top: 1px solid rgba(201,168,76,0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .hero-footer p {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+  }
+
+  .deadline-pill {
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 0.4rem 1rem;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* ─── SECTION SHARED ─── */
+  section { padding: 6rem 4rem; }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--maroon-light);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 0.9;
+    color: var(--maroon-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  /* ─── ABOUT ─── */
+  .about {
+    background: var(--white);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-text p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-mid);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text p strong {
+    color: var(--maroon);
+    font-weight: 500;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--maroon-pale);
+    border: 1px solid var(--maroon-pale);
+  }
+
+  .stat-item {
+    background: var(--white);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    color: var(--maroon);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  /* ─── EVENTS ─── */
+  .events {
+    background: var(--maroon-deep);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .events .section-title { color: var(--white); }
+  .events .section-label { color: var(--gold); }
+
+  .events-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: rgba(255,255,255,0.6);
+    font-style: italic;
+    max-width: 500px;
+    margin-bottom: 4rem;
+    line-height: 1.6;
+  }
+
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.1);
+    margin-top: 3rem;
+  }
+
+  .event-card {
+    background: var(--maroon-dark);
+    padding: 3rem 2.5rem;
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .event-card:hover { background: var(--maroon); }
+
+  .event-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .event-card:hover::before { opacity: 1; }
+
+  .event-day {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .event-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.03em;
+  }
+
+  .event-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 2rem;
+  }
+
+  .event-detail {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+  }
+
+  .event-detail-icon {
+    font-size: 12px;
+    color: var(--gold);
+    min-width: 16px;
+    margin-top: 2px;
+  }
+
+  .event-detail-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+  }
+
+  .event-price {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .event-price-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .event-price-note {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    text-align: right;
+    max-width: 100px;
+  }
+
+  /* ─── TICKETS ─── */
+  .tickets {
+    background: var(--cream);
+  }
+
+  .tickets-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    margin-top: 3rem;
+  }
+
+  .vip-card {
+    background: var(--maroon-dark);
+    padding: 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vip-card::after {
+    content: 'VIP';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 140px;
+    color: rgba(255,255,255,0.04);
+    position: absolute;
+    bottom: -20px;
+    right: -10px;
+    line-height: 1;
+  }
+
+  .vip-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--maroon-deep);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+  }
+
+  .vip-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  .vip-exclusive {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+    display: block;
+  }
+
+  .vip-includes {
+    list-style: none;
+    margin-bottom: 2.5rem;
+  }
+
+  .vip-includes li {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .vip-includes li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .vip-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .vip-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .vip-price-detail {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+
+  .guest-tickets h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--maroon-dark);
+    letter-spacing: 0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  .guest-tickets .guest-sub {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .ticket-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(107,20,41,0.12);
+  }
+
+  .ticket-row-info {}
+
+  .ticket-row-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
+  }
+
+  .ticket-row-venue {
+    font-size: 13px;
+    color: var(--text-light);
+  }
+
+  .ticket-row-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--maroon);
+    letter-spacing: 0.05em;
+  }
+
+  .payment-info {
+    margin-top: 3rem;
+    background: var(--maroon-pale);
+    border-left: 4px solid var(--maroon);
+    padding: 1.5rem 2rem;
+  }
+
+  .payment-info h4 {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .payment-info p {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  .payment-info strong { color: var(--maroon); font-weight: 500; }
+
+  /* ─── REGISTRATION FORM ─── */
+  .register {
+    background: var(--maroon);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .register::before {
+    content: '01';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 400px;
+    color: rgba(255,255,255,0.03);
+    position: absolute;
+    right: -2rem;
+    bottom: -4rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .register .section-title { color: var(--white); }
+  .register .section-label { color: var(--gold); }
+
+  .register-intro {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    max-width: 500px;
+    line-height: 1.8;
+    margin-bottom: 4rem;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 760px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group.full { grid-column: 1 / -1; }
+
+  .form-group label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--white);
+    padding: 0.9rem 1.1rem;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.12);
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: rgba(255,255,255,0.25);
+  }
+
+  .form-group select option {
+    background: var(--maroon-dark);
+    color: var(--white);
+  }
+
+  .ticket-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
+  }
+
+  .ticket-option {
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  .ticket-option input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .ticket-option.selected {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.1);
+  }
+
+  .ticket-option-info {}
+
+  .ticket-option-name {
+    font-size: 14px;
+    color: var(--white);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .ticket-option-date {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.05em;
+  }
+
+  .ticket-option-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--gold);
+  }
+
+  .ticket-check {
+    display: none;
+    width: 18px;
+    height: 18px;
+    background: var(--gold);
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--maroon-deep);
+  }
+
+  .ticket-option.selected .ticket-check { display: flex; }
+
+  .form-total {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    margin-top: 0.5rem;
+  }
+
+  .form-total-label {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .form-total-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+
+  .form-submit {
+    grid-column: 1 / -1;
+    background: var(--white);
+    color: var(--maroon-dark);
+    border: none;
+    padding: 1.25rem;
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+  }
+
+  .form-submit:hover { background: var(--gold); }
+
+  .form-note {
+    grid-column: 1 / -1;
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.7;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  /* ─── POLICY ─── */
+  .policy {
+    background: var(--maroon-deep);
+    padding: 4rem;
+  }
+
+  .policy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+
+  .policy-item {}
+
+  .policy-icon {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .policy-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .policy-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.8;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #1A0508;
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .footer-left {}
+
+  .footer-school {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: rgba(255,255,255,0.8);
+    font-style: italic;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .footer-class {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .footer-right {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.2);
+    text-align: right;
+  }
+
+  /* ─── CONFIRMATION MODAL ─── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--maroon-dark);
+    padding: 3.5rem;
+    max-width: 540px;
+    width: 90%;
+    border: 1px solid rgba(201,168,76,0.3);
+    text-align: center;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    font-size: 20px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .modal-icon {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .modal h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--white);
+    margin-bottom: 1rem;
+    letter-spacing: 0.03em;
+  }
+
+  .modal p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .modal-zelle {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    text-align: left;
+  }
+
+  .modal-zelle .zelle-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-zelle .zelle-detail {
+    font-size: 15px;
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .modal-btn {
+    background: var(--gold);
+    color: var(--maroon-deep);
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+
+  .modal-summary {
+    text-align: left;
+    margin: 1.5rem 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 1.5rem;
+  }
+
+  .modal-summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .modal-summary-row.total {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    font-weight: 500;
+    color: var(--white);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .nav { padding: 1.5rem 2rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 2rem; }
+    .about { grid-template-columns: 1fr; gap: 3rem; }
+    .events-grid { grid-template-columns: 1fr; }
+    .tickets-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .form-grid { grid-template-columns: 1fr; }
+    .ticket-selector { grid-template-columns: 1fr; }
+    .policy-grid { grid-template-columns: 1fr; }
+    .hero-footer { flex-direction: column; gap: 1rem; text-align: center; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .register::before { font-size: 200px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="home">
+  <div class="hero-bg-text">2001</div>
+  <div class="hero-grid-lines"></div>
+
+  <nav class="nav">
+    <span class="nav-logo">Renaissance High School &mdash; Detroit, MI</span>
+    <ul class="nav-links">
+      <li><a href="#events">Events</a></li>
+      <li><a href="#tickets">Tickets</a></li>
+      <li><a href="#gallery">Yearbook</a></li>
+      <li><a href="#throwbacks">Throwbacks</a></li>
+      <li><a href="#directory">Class Directory</a></li>
+      <li><a href="#register">Register</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero-content">
+    <span class="hero-eyebrow">Renaissance High School &middot; Class of 2001 &middot; 25th Reunion</span>
+    <h1 class="hero-title">The<br>Blueprint</h1>
+    <p class="hero-subtitle">Reunited &nbsp;&middot;&nbsp; Reimagined &nbsp;&middot;&nbsp; Redefined</p>
+
+    <div class="hero-tagline">
+      <span>Detroit's Finest</span>
+      <span class="dot">&bull;</span>
+      <span>C/O 01</span>
+      <span class="dot">&bull;</span>
+      <span>Heart of the City</span>
+    </div>
+
+    <div class="hero-date-badge">
+      <span class="date-main">July 31 &ndash; August 2, 2026</span>
+      <span class="date-sub">A Weekend for the Books</span>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#register" class="btn-primary">Register Now</a>
+      <a href="#events" class="btn-outline">View Events</a>
+    </div>
+  </div>
+
+  <div class="hero-footer">
+    <p>#DPS &nbsp;&middot;&nbsp; #25Years &nbsp;&middot;&nbsp; #ClassOf2001 &nbsp;&middot;&nbsp; #RenaissanceHighSchool</p>
+    <span class="deadline-pill">Registration Deadline: June 8, 2026</span>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section class="about" id="about">
+  <div class="about-text">
+    <p class="section-label">Our Story</p>
+    <h2 class="section-title">We ARE<br>The Blueprint</h2>
+    <p>Jay-Z dropped the album on September 11, 2001 — our senior year. The world changed that day. So did we. But the Class of 2001 had already been writing our own blueprint long before the charts.</p>
+    <p>Not only did we graduate in one of the most memorable years in history — <strong>our class literally designed the architectural blueprints for the new Renaissance High School</strong>, which opened its doors in 2005. We built the foundation that generations after us would walk on.</p>
+    <p>25 years later, Detroit's finest are coming home. <strong>Reunited. Reimagined. Redefined.</strong></p>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-item">
+      <span class="stat-num">25</span>
+      <span class="stat-label">Years Later</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">01</span>
+      <span class="stat-label">Class of</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">3</span>
+      <span class="stat-label">Epic Nights</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">&#8734;</span>
+      <span class="stat-label">Memories Made</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EVENTS ─── -->
+<section class="events" id="events">
+  <p class="section-label">The Weekend</p>
+  <h2 class="section-title">Three<br>Nights Only</h2>
+  <p class="events-intro">Three events. Three days. One weekend that will remind you why the Class of 2001 was built different.</p>
+
+  <div class="events-grid">
+    <!-- Friday -->
+    <div class="event-card">
+      <span class="event-day">Friday &middot; July 31, 2026</span>
+      <h3 class="event-name">Friday<br>Welcome<br>Mixer</h3>
+      <p class="event-subtitle">The Takeover Begins</p>
+      <div class="event-detail">
+        <span class="event-detail-icon">&#9679;</span>
+        <span class="event-detail-text">The Shadow Gallery<br>Detroit, MI</span>
+      </div>
+      <div class="event-detail">
+        <span class="event-detail-icon">&#9679;</span>
+        <span class="event-detail-text">Cocktail attire welcome<br>Good vibes required</span>
+      </div>
+      <div class="event-price">
+        <span class="event-price-amount">$25</span>
+        <span class="event-price-note">Guests only<br>C/O '01 included in VIP</span>
+      </div>
+    </div>
+
+    <!-- Saturday -->
+    <div class="event-card">
+      <span class="event-day">Saturday &middot; August 1, 2026</span>
+      <h3 class="event-name">A Phoenix<br>Is Forever<br>Gala</h3>
+      <p class="event-subtitle">Semi-Formal &mdash; Epiphany Detroit</p>
+      <div class="event-detail">
+        <span class="event-detail-icon">&#9679;</span>
+        <span class="event-detail-text">Epiphany Detroit<br>Detroit, MI</span>
+      </div>
+      <div class="event-detail">
+        <span class="event-detail-icon">&#9679;</span>
+        <span class="event-detail-text">Semi-formal attire<br>The main event of the weekend</span>
+      </div>
+      <div class="event-price">
+        <span class="event-price-amount">$125</span>
+        <span class="event-price-note">Guests only<br>C/O '01 included in VIP</span>
+      </div>
+    </div>
+
+    <!-- Sunday -->
+    <div class="event-card">
+      <span class="event-day">Sunday &middot; August 2, 2026</span>
+      <h3 class="event-name">Family<br>BBQ<br>Send-Off</h3>
+      <p class="event-subtitle">All are Welcome</p>
+      <div class="event-detail">
+        <span class="event-detail-icon">&#9679;</span>
+        <span class="event-detail-text">Riverside Park<br>Detroit, MI</span>
+      </div>
+      <div class="event-detail">
+        <span class="event-detail-icon">&#9679;</span>
+        <span class="event-detail-text">Casual attire<br>Bring the whole family</span>
+      </div>
+      <div class="event-price">
+        <span class="event-price-amount">$15</span>
+        <span class="event-price-note">Guests only<br>C/O '01 included in VIP</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TICKETS ─── -->
+<section class="tickets" id="tickets">
+  <p class="section-label">Ticketing</p>
+  <h2 class="section-title">Get<br>Your Spot</h2>
+
+  <div class="tickets-layout">
+    <!-- VIP -->
+    <div class="vip-card">
+      <span class="vip-badge">Class of 2001 Only</span>
+      <h3 class="vip-title">VIP Weekend<br>Package</h3>
+      <span class="vip-exclusive">All three events &bull; Exclusive to classmates</span>
+      <ul class="vip-includes">
+        <li>Admission to all three weekend events</li>
+        <li>Exclusive reunion gifts & memorabilia</li>
+        <li>Donation to Renaissance High School</li>
+        <li>Materials needed for execution</li>
+        <li>Priority access &amp; check-in</li>
+      </ul>
+      <div class="vip-price-row">
+        <span class="vip-price">$250</span>
+        <span class="vip-price-detail">Per classmate<br>Transfers permitted<br>No refunds</span>
+      </div>
+    </div>
+
+    <!-- Guest tickets -->
+    <div class="guest-tickets">
+      <h3>Individual<br>Event Tickets</h3>
+      <p class="guest-sub">Available to guests accompanying RHS '01 alumni</p>
+
+      <div class="ticket-row">
+        <div class="ticket-row-info">
+          <p class="ticket-row-name">Friday Welcome Mixer</p>
+          <p class="ticket-row-venue">The Shadow Gallery &middot; Jul 31</p>
+        </div>
+        <span class="ticket-row-price">$25</span>
+      </div>
+
+      <div class="ticket-row">
+        <div class="ticket-row-info">
+          <p class="ticket-row-name">A Phoenix Is Forever Gala</p>
+          <p class="ticket-row-venue">Epiphany Detroit &middot; Aug 1</p>
+        </div>
+        <span class="ticket-row-price">$125</span>
+      </div>
+
+      <div class="ticket-row">
+        <div class="ticket-row-info">
+          <p class="ticket-row-name">Sunday Family BBQ</p>
+          <p class="ticket-row-venue">Riverside Park &middot; Aug 2</p>
+        </div>
+        <span class="ticket-row-price">$15</span>
+      </div>
+
+      <div class="payment-info">
+        <h4>Payment via Zelle</h4>
+        <p>All payments are processed through <strong>Zelle via Huntington Bank</strong>. After submitting your registration, you'll receive payment instructions with the Zelle details. Space is limited &mdash; your spot is confirmed upon receipt of payment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GALLERY ─── -->
+<section class="gallery" id="gallery">
+  <p class="section-label">Then &amp; Now</p>
+  <h2 class="section-title">The<br>Archives</h2>
+  <p class="gallery-intro">From the hallways of Renaissance to wherever life took us. These are the pages that started it all.</p>
+
+  <div class="gallery-grid" id="galleryGrid">
+    <div class="gallery-item" onclick="openLightbox(0)" style="grid-column:1/3;grid-row:1/2;">
+      <img src="images/photo_01.jpg" alt="Seniors A – B" loading="eager" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Seniors A – B &middot; Adell → Bowman</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(1)" >
+      <img src="images/photo_02.jpg" alt="Seniors B – C" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Seniors B – C &middot; Brown → Cook</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(2)" >
+      <img src="images/photo_03.jpg" alt="Seniors C – F" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Seniors C – F &middot; Cowles → Fordham</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(3)" >
+      <img src="images/photo_04.jpg" alt="Seniors F – J" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Seniors F – J &middot; Fort → Jennings</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(4)" >
+      <img src="images/photo_05.jpg" alt="Seniors J – M" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Seniors J – M &middot; Jernigan → McKeown</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(5)" >
+      <img src="images/photo_06.jpg" alt="Seniors M – O" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Seniors M – O &middot; McMiller → Osaigboyo</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(6)" >
+      <img src="images/photo_07.jpg" alt="Seniors P – T" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Seniors P – T &middot; Pearson → Turnbough</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(7)" >
+      <img src="images/photo_08.jpg" alt="Seniors T – Z" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Seniors T – Z &middot; Turner-Collins → Zimmerman</span></div>
+    </div>
+    </div>
+
+  <div class="gallery-marquee">
+    <div class="gallery-marquee-inner">
+      RENAISSANCE HIGH SCHOOL <span>&bull;</span> CLASS OF 2001 <span>&bull;</span> DETROIT MI <span>&bull;</span> THE BLUEPRINT <span>&bull;</span> REUNITED REIMAGINED REDEFINED <span>&bull;</span> 25 YEARS <span>&bull;</span> HEART OF THE CITY <span>&bull;</span> C/O 01 <span>&bull;</span>
+      RENAISSANCE HIGH SCHOOL <span>&bull;</span> CLASS OF 2001 <span>&bull;</span> DETROIT MI <span>&bull;</span> THE BLUEPRINT <span>&bull;</span> REUNITED REIMAGINED REDEFINED <span>&bull;</span> 25 YEARS <span>&bull;</span> HEART OF THE CITY <span>&bull;</span> C/O 01 <span>&bull;</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LIGHTBOX ─── -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">&#8592;</button>
+  <img id="lightboxImg" src="" alt="Yearbook photo" />
+  <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">&#8594;</button>
+  <span class="lightbox-counter" id="lightboxCounter"></span>
+</div>
+
+
+<!-- ─── THROWBACK PHOTOS ─── -->
+<section class="gallery" id="throwbacks" style="padding-top:2rem;">
+  <p class="section-label">Then &amp; Now</p>
+  <h2 class="section-title">Throwback<br>Photos</h2>
+  <p class="gallery-intro">Prom nights, squad goals, team photos and everything in between. This is what C/O '01 looked like.</p>
+
+  <div class="gallery-grid" id="throwbackGrid" style="grid-template-columns:repeat(4,1fr);grid-template-rows:auto;">
+    <div class="gallery-item" onclick="openThrowback(0)">
+      <img src="images/photo_09.jpg" alt="Photo Collage" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Photo Collage</span></div>
+    </div>
+    <div class="gallery-item" onclick="openThrowback(1)">
+      <img src="images/photo_10.jpg" alt="Dinner Out" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Dinner Out</span></div>
+    </div>
+    <div class="gallery-item" onclick="openThrowback(2)">
+      <img src="images/photo_11.jpg" alt="Squad Goals" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Squad Goals</span></div>
+    </div>
+    <div class="gallery-item" onclick="openThrowback(3)">
+      <img src="images/photo_12.jpg" alt="Prom Night" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Prom Night</span></div>
+    </div>
+    <div class="gallery-item" onclick="openThrowback(4)">
+      <img src="images/photo_13.jpg" alt="Senior Portraits" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Senior Portraits</span></div>
+    </div>
+    <div class="gallery-item" onclick="openThrowback(5)">
+      <img src="images/photo_14.jpg" alt="Prom Couple" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Prom Couple</span></div>
+    </div>
+    <div class="gallery-item" onclick="openThrowback(6)">
+      <img src="images/photo_15.jpg" alt="Crew Night Out" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Crew Night Out</span></div>
+    </div>
+    <div class="gallery-item" onclick="openThrowback(7)">
+      <img src="images/photo_16.jpg" alt="Dance Night" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Dance Night</span></div>
+    </div>
+    <div class="gallery-item" onclick="openThrowback(8)">
+      <img src="images/photo_17.jpg" alt="In Pink" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">In Pink</span></div>
+    </div>
+    <div class="gallery-item" onclick="openThrowback(9)">
+      <img src="images/photo_18.jpg" alt="Prom Duo" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Prom Duo</span></div>
+    </div>
+    <div class="gallery-item" onclick="openThrowback(10)">
+      <img src="images/photo_19.jpg" alt="Lady Phoenixes" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Lady Phoenixes</span></div>
+    </div>
+    <div class="gallery-item" onclick="openThrowback(11)">
+      <img src="images/photo_20.jpg" alt="Girls' Portrait" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Girls' Portrait</span></div>
+    </div>
+    <div class="gallery-item" onclick="openThrowback(12)">
+      <img src="images/photo_21.jpg" alt="Lobby Vibes" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Lobby Vibes</span></div>
+    </div>
+    <div class="gallery-item" onclick="openThrowback(13)">
+      <img src="images/photo_22.jpg" alt="Friend Group" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Friend Group</span></div>
+    </div>
+    <div class="gallery-item" onclick="openThrowback(14)">
+      <img src="images/photo_23.jpg" alt="Crew Love" loading="lazy" />
+      <div class="gallery-item-overlay"><span class="gallery-item-label">Crew Love</span></div>
+    </div>
+    </div>
+</section>
+
+<!-- ─── THROWBACK LIGHTBOX ─── -->
+<div class="lightbox" id="throwbackLightbox" onclick="closeThrowbackOutside(event)">
+  <button class="lightbox-close" onclick="closeThrowbackLightbox()">&times;</button>
+  <button class="lightbox-nav lightbox-prev" onclick="throwbackNav(-1)">&#8592;</button>
+  <img id="throwbackImg" src="" alt="Throwback photo" />
+  <button class="lightbox-nav lightbox-next" onclick="throwbackNav(1)">&#8594;</button>
+  <span class="lightbox-counter" id="throwbackCounter"></span>
+</div>
+
+<!-- ─── CLASSMATE DIRECTORY ─── -->
+<section class="directory" id="directory">
+  <div class="directory-header">
+    <div>
+      <p class="section-label">Class of 2001</p>
+      <h2 class="section-title">Find Your<br>People</h2>
+    </div>
+    <div class="directory-search-wrap">
+      <input class="directory-search" type="text" placeholder="Search by name..." id="dirSearch" oninput="filterDirectory()" />
+      <button class="dir-filter-btn active" onclick="setFilter('all', this)">All</button>
+      <button class="dir-filter-btn" onclick="setFilter('registered', this)">Registered</button>
+      <button class="dir-filter-btn" onclick="setFilter('not-yet', this)">Not Yet</button>
+      <button class="dir-filter-btn" onclick="setFilter('lost', this)">Lost Contact</button>
+    </div>
+  </div>
+
+  <p class="directory-stats">Showing <strong id="dirCount">0</strong> classmates</p>
+
+  <div class="directory-grid" id="directoryGrid"></div>
+
+  <div class="directory-cta">
+    <p>Is a classmate missing from the directory? <strong>DM @renaissanceco2001 on Instagram</strong> with their name and we'll add them. Help us find our lost Phoenix family — share this page with every C/O '01 you know!</p>
+    <a href="#register" class="btn-primary" style="white-space:nowrap;text-decoration:none">Register Now</a>
+  </div>
+</section>
+
+<!-- ─── REGISTRATION FORM ─── -->
+<section class="register" id="register">
+  <p class="section-label">Registration</p>
+  <h2 class="section-title">Reserve<br>Your Place</h2>
+  <p class="register-intro">Fill out the form below to register. You'll receive Zelle payment instructions by email to complete your reservation. Registration closes June 8, 2026.</p>
+
+  <div class="form-grid" id="regForm">
+    <div class="form-group">
+      <label>First Name</label>
+      <input type="text" id="firstName" placeholder="Your first name" />
+    </div>
+    <div class="form-group">
+      <label>Last Name</label>
+      <input type="text" id="lastName" placeholder="Your last name" />
+    </div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="email" placeholder="your@email.com" />
+    </div>
+    <div class="form-group">
+      <label>Phone Number</label>
+      <input type="tel" id="phone" placeholder="(313) 000-0000" />
+    </div>
+    <div class="form-group full">
+      <label>Are you a member of the RHS Class of 2001?</label>
+      <select id="classStatus">
+        <option value="">Select one</option>
+        <option value="classmate">Yes — RHS Class of 2001</option>
+        <option value="guest">No — I am a guest of a classmate</option>
+      </select>
+    </div>
+
+    <div class="form-group full">
+      <label>Select your ticket(s)</label>
+      <div class="ticket-selector" id="ticketSelector">
+        <div class="ticket-option" id="opt-vip" onclick="toggleTicket('vip', 250)">
+          <input type="checkbox" id="chk-vip">
+          <div class="ticket-check">&#10003;</div>
+          <div class="ticket-option-info">
+            <span class="ticket-option-name">VIP Weekend Package</span>
+            <span class="ticket-option-date">Class of 2001 only &bull; All 3 events</span>
+          </div>
+          <span class="ticket-option-price">$250</span>
+        </div>
+        <div class="ticket-option" id="opt-mixer" onclick="toggleTicket('mixer', 25)">
+          <input type="checkbox" id="chk-mixer">
+          <div class="ticket-check">&#10003;</div>
+          <div class="ticket-option-info">
+            <span class="ticket-option-name">Friday Welcome Mixer</span>
+            <span class="ticket-option-date">Jul 31 &bull; The Shadow Gallery</span>
+          </div>
+          <span class="ticket-option-price">$25</span>
+        </div>
+        <div class="ticket-option" id="opt-gala" onclick="toggleTicket('gala', 125)">
+          <input type="checkbox" id="chk-gala">
+          <div class="ticket-check">&#10003;</div>
+          <div class="ticket-option-info">
+            <span class="ticket-option-name">Phoenix Is Forever Gala</span>
+            <span class="ticket-option-date">Aug 1 &bull; Epiphany Detroit</span>
+          </div>
+          <span class="ticket-option-price">$125</span>
+        </div>
+        <div class="ticket-option" id="opt-bbq" onclick="toggleTicket('bbq', 15)">
+          <input type="checkbox" id="chk-bbq">
+          <div class="ticket-check">&#10003;</div>
+          <div class="ticket-option-info">
+            <span class="ticket-option-name">Sunday Family BBQ</span>
+            <span class="ticket-option-date">Aug 2 &bull; Riverside Park</span>
+          </div>
+          <span class="ticket-option-price">$15</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group full">
+      <label>Guest Name(s) <span style="color:rgba(255,255,255,0.3);font-size:11px;">(optional — if bringing a guest)</span></label>
+      <input type="text" id="guestNames" placeholder="Guest first and last name(s)" />
+    </div>
+
+    <div class="form-group full">
+      <label>Anything you want us to know?</label>
+      <textarea id="notes" rows="3" placeholder="Dietary restrictions, accessibility needs, shout-outs to classmates, etc."></textarea>
+    </div>
+
+    <div class="form-total">
+      <span class="form-total-label">Total Due</span>
+      <span class="form-total-amount" id="totalDisplay">$0</span>
+    </div>
+
+    <button class="form-submit" onclick="submitRegistration()">Complete Registration &rarr;</button>
+
+    <p class="form-note">
+      By registering you acknowledge our refund policy: refunds will not be issued if the event occurs as planned. VIP packages may be transferred to another attendee if you are unable to attend. Event participation is subject to reaching the minimum registration threshold by June 8, 2026.
+    </p>
+  </div>
+</section>
+
+<!-- ─── POLICY ─── -->
+<section class="policy">
+  <div>
+    <p class="section-label" style="color:var(--gold)">Policies</p>
+    <h2 class="section-title" style="color:var(--white);font-size:clamp(36px,5vw,64px)">Good To Know</h2>
+  </div>
+  <div class="policy-grid">
+    <div class="policy-item">
+      <span class="policy-icon">01</span>
+      <p class="policy-title">Refund Policy</p>
+      <p class="policy-text">Refunds will not be issued if the event occurs as planned. If the event is modified due to insufficient registration by June 8, 2026, refunds will be issued accordingly.</p>
+    </div>
+    <div class="policy-item">
+      <span class="policy-icon">02</span>
+      <p class="policy-title">Ticket Transfers</p>
+      <p class="policy-text">VIP Weekend Packages may be transferred to another attendee if you can no longer attend. Contact the committee to arrange a transfer before the event date.</p>
+    </div>
+    <div class="policy-item">
+      <span class="policy-icon">03</span>
+      <p class="policy-title">Registration Minimum</p>
+      <p class="policy-text">Our budget is based on 70 classmates participating. If we do not reach this number by June 8, 2026, events may be modified. Register early to ensure the full weekend happens!</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-left">
+    <span class="footer-school">Renaissance High School</span>
+    <span class="footer-class">Class of 2001 &bull; The Blueprint &bull; Detroit, MI</span>
+  </div>
+  <div class="footer-right">
+    <p>Questions? DM @renaissanceco2001</p>
+    <p style="margin-top:0.35rem">&copy; 2026 RHS Class of 2001 Reunion Committee</p>
+  </div>
+</footer>
+
+<!-- ─── MODAL ─── -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <span class="modal-icon">&#10003;</span>
+    <h2>You're Registered!</h2>
+    <p>Your spot is reserved. To complete your registration, please send payment via <strong style="color:var(--gold)">Zelle</strong> using the details below.</p>
+
+    <div class="modal-summary" id="modalSummary"></div>
+
+    <div class="modal-zelle">
+      <span class="zelle-label">Send Zelle Payment To</span>
+      <span class="zelle-detail">Huntington Bank &mdash; RHS Class of 2001 Reunion</span>
+    </div>
+
+    <p style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:1.5rem">Include your full name in the Zelle memo. A confirmation email will be sent once payment is verified.</p>
+
+    <button class="modal-btn" onclick="closeModal()">Got It &mdash; I'll Send Payment</button>
+  </div>
+</div>
+
+<script>
+  const prices = { vip: 250, mixer: 25, gala: 125, bbq: 15 };
+  const selected = { vip: false, mixer: false, gala: false, bbq: false };
+
+  function toggleTicket(id, price) {
+    if (id === 'vip') {
+      selected.vip = !selected.vip;
+      if (selected.vip) {
+        selected.mixer = false;
+        selected.gala = false;
+        selected.bbq = false;
+        document.getElementById('opt-mixer').classList.remove('selected');
+        document.getElementById('opt-gala').classList.remove('selected');
+        document.getElementById('opt-bbq').classList.remove('selected');
+      }
+    } else {
+      selected[id] = !selected[id];
+      if (selected[id]) {
+        selected.vip = false;
+        document.getElementById('opt-vip').classList.remove('selected');
+      }
+    }
+    document.getElementById('opt-' + id).classList.toggle('selected', selected[id]);
+    updateTotal();
+  }
+
+  function updateTotal() {
+    let total = 0;
+    for (const [k, v] of Object.entries(selected)) {
+      if (v) total += prices[k];
+    }
+    document.getElementById('totalDisplay').textContent = '$' + total;
+  }
+
+  function submitRegistration() {
+    const first = document.getElementById('firstName').value.trim();
+    const last = document.getElementById('lastName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const status = document.getElementById('classStatus').value;
+
+    if (!first || !last || !email || !status) {
+      alert('Please fill in your name, email, and class status before continuing.');
+      return;
+    }
+
+    const hasTicket = Object.values(selected).some(v => v);
+    if (!hasTicket) {
+      alert('Please select at least one ticket option.');
+      return;
+    }
+
+    const names = { vip: 'VIP Weekend Package', mixer: 'Friday Welcome Mixer', gala: 'A Phoenix Is Forever Gala', bbq: 'Sunday Family BBQ' };
+    let total = 0;
+    let rows = '';
+    for (const [k, v] of Object.entries(selected)) {
+      if (v) {
+        rows += `<div class="modal-summary-row"><span>${names[k]}</span><span>$${prices[k]}</span></div>`;
+        total += prices[k];
+      }
+    }
+    rows += `<div class="modal-summary-row total"><span>Total Due</span><span>$${total}</span></div>`;
+
+    document.getElementById('modalSummary').innerHTML =
+      `<div class="modal-summary-row" style="margin-bottom:0.5rem"><span style="color:rgba(255,255,255,0.4);font-size:12px;letter-spacing:0.1em;text-transform:uppercase">Registered for</span></div>` + rows;
+
+    document.getElementById('confirmModal').classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('confirmModal').classList.remove('active');
+  }
+
+  // ─── LIGHTBOX ───
+  const galleryImgs = Array.from(document.querySelectorAll('.gallery-item img')).map(i => i.src);
+  let currentLightbox = 0;
+
+  function openLightbox(idx) {
+    currentLightbox = idx;
+    document.getElementById('lightboxImg').src = galleryImgs[idx];
+    document.getElementById('lightboxCounter').textContent = (idx + 1) + ' / ' + galleryImgs.length;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function closeLightboxOutside(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  function lightboxNav(dir) {
+    currentLightbox = (currentLightbox + dir + galleryImgs.length) % galleryImgs.length;
+    document.getElementById('lightboxImg').src = galleryImgs[currentLightbox];
+    document.getElementById('lightboxCounter').textContent = (currentLightbox + 1) + ' / ' + galleryImgs.length;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('active')) return;
+    if (e.key === 'ArrowLeft') lightboxNav(-1);
+    if (e.key === 'ArrowRight') lightboxNav(1);
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // ─── CLASSMATE DIRECTORY ───
+  const classmates = [
+    { name: 'Alicia Adell', then: 'International Businesswoman', status: 'not-yet' },
+    { name: 'LaTwila Ainsworth', then: 'Mercy/Band Teacher', status: 'registered' },
+    { name: 'Erin Anderson', then: 'Physical Therapist', status: 'registered' },
+    { name: 'Jasmine Arnold', then: 'Communicator', status: 'registered' },
+    { name: 'Tiffany Ayler', then: 'Computer Scientist', status: 'not-yet' },
+    { name: 'Kyle Bailey', then: 'Police Officer', status: 'not-yet' },
+    { name: 'Cecily Barney', then: 'Business', status: 'not-yet' },
+    { name: 'Kristopher Beavers', then: 'Veterinarian', status: 'registered' },
+    { name: 'Marcus Bennett', then: 'NBA', status: 'lost' },
+    { name: 'Christina Black', then: 'Psychologist', status: 'registered' },
+    { name: 'Yolanda Blackwell', then: 'Marine Engineer', status: 'registered' },
+    { name: 'Cora Bledsoe', then: 'Electrical Engineer', status: 'not-yet' },
+    { name: 'Nicole Blocker', then: 'Sports Agent / WNBA', status: 'registered' },
+    { name: 'Rebecca Bowman', then: 'Chemical Engineer', status: 'registered' },
+    { name: 'Benjamin Brown', then: 'Mechanical Engineer', status: 'not-yet' },
+    { name: 'Kimberly Brown', then: 'Entertainment Lawyer', status: 'not-yet' },
+    { name: 'Sheree Brown', then: 'Criminal Lawyer', status: 'registered' },
+    { name: 'Caleb Bulter', then: 'Computer Engineer', status: 'not-yet' },
+    { name: 'Ryan Burnett', then: 'Senator/Politician', status: 'lost' },
+    { name: 'Toya Burr', then: 'Pediatrician', status: 'not-yet' },
+    { name: 'Erica Burton', then: 'Market Researcher', status: 'registered' },
+    { name: 'Michelle Burton', then: 'International Marketer', status: 'registered' },
+    { name: 'Chase Cantrell', then: 'Social Changer', status: 'not-yet' },
+    { name: 'Niyah Carmichael', then: 'Community Relations Expert', status: 'not-yet' },
+    { name: 'Ashley Carr', then: 'Mechanical Engineer', status: 'lost' },
+    { name: 'Jacqueline Carr', then: 'Business Manager', status: 'registered' },
+    { name: 'Jessica Carroll', then: 'Physical Therapist', status: 'not-yet' },
+    { name: 'Cedric Carter', then: 'Sports Agent', status: 'lost' },
+    { name: 'Jennifer Carter', then: 'Dentist', status: 'registered' },
+    { name: 'Lashonda Carter', then: 'Obstetrician', status: 'registered' },
+    { name: 'Darnella Cash', then: 'President of the World', status: 'not-yet' },
+    { name: 'Kai Cassells', then: 'President of the World', status: 'not-yet' },
+    { name: 'Demond Childers', then: 'Engineer at NASA', status: 'not-yet' },
+    { name: 'Aaranisa Clay', then: 'Psychiatrist', status: 'not-yet' },
+    { name: 'Christopher Coleman', then: 'Engineer', status: 'not-yet' },
+    { name: 'Marquis Coleman', then: 'Computer Animator', status: 'not-yet' },
+    { name: 'Michelle Collins', then: 'Orthodontist', status: 'lost' },
+    { name: 'Bryan Conyers', then: 'Astrophysicist', status: 'not-yet' },
+    { name: 'Cristyn Cook', then: 'Business Owner', status: 'not-yet' },
+    { name: 'Carlos Craig', then: 'Computer Animator', status: 'not-yet' },
+    { name: 'Jesse Cranford', then: 'Undecided', status: 'lost' },
+    { name: 'Tamala Crittenden', then: 'Music Educator', status: 'not-yet' },
+    { name: 'Deanna Cunmingham', then: 'Computer Engineer', status: 'not-yet' },
+    { name: 'Janae Currington', then: 'Anesthesiologist', status: 'not-yet' },
+    { name: 'Brandi Daniel', then: 'Teacher', status: 'registered' },
+    { name: 'Joclyn Davis', then: 'Chemistry Professor', status: 'registered' },
+    { name: 'Shannon Davis', then: 'Sports Therapist', status: 'registered' },
+    { name: 'Keli Duerson', then: 'Pediatrician', status: 'registered' },
+    { name: 'Rian English', then: 'Public Relations Advisor', status: 'registered' },
+    { name: 'Justin Ferguson', then: 'Investment Banker', status: 'registered' },
+    { name: 'Sherene Flemings', then: 'International Lawyer', status: 'registered' },
+    { name: 'Alicia Fletcher', then: 'Computer Engineer', status: 'not-yet' },
+    { name: 'William Floyd', then: 'Businessman', status: 'lost' },
+    { name: 'Antoine Ford', then: 'Computer Engineer', status: 'lost' },
+    { name: 'LesLeigh Ford', then: 'Corporate Attorney', status: 'registered' },
+    { name: 'Christin Fordham', then: 'Financial Planner', status: 'registered' },
+    { name: 'Donovan Fort', then: 'Entertainer', status: 'not-yet' },
+    { name: 'Amber Fox', then: 'Math Professor', status: 'not-yet' },
+    { name: 'Melissa Fralin', then: 'Computer Specialist', status: 'not-yet' },
+    { name: 'Erayna Gamble', then: 'Chemical Engineer', status: 'registered' },
+    { name: 'Nicole Gibbons', then: 'Sports Medicine Nurse', status: 'not-yet' },
+    { name: 'Andre C. Gilbert', then: 'Musician', status: 'registered' },
+    { name: 'John Gilmore', then: 'Mechanical Engineer', status: 'lost' },
+    { name: 'Latoya Goree', then: 'Television Broadcaster', status: 'not-yet' },
+    { name: 'Christina Grant', then: 'Automotive Designer', status: 'not-yet' },
+    { name: 'Jamila Grant', then: 'Biomedical Engineer', status: 'not-yet' },
+    { name: 'Raymond Gregory', then: 'Entrepreneur in Spain', status: 'not-yet' },
+    { name: 'Jennifer Griffee', then: 'Business Manager', status: 'not-yet' },
+    { name: 'Quinn Hamilton', then: 'Biomedical Engineer', status: 'registered' },
+    { name: 'Jennifer Hamlett', then: 'Marketer', status: 'not-yet' },
+    { name: 'David Harris', then: 'Electrical Engineer', status: 'registered' },
+    { name: 'Mone\'t Harris', then: 'Doctor', status: 'registered' },
+    { name: 'Rachel Harris', then: 'Mayor of Detroit', status: 'registered' },
+    { name: 'Darryl Hazziez', then: 'Corporate Lawyer', status: 'lost' },
+    { name: 'Nicole Helm', then: 'Physical Therapist', status: 'registered' },
+    { name: 'Amani Henry', then: 'Automotive Engineer', status: 'registered' },
+    { name: 'Lana Henry', then: 'Mechanical Engineer', status: 'registered' },
+    { name: 'Elisa Hodge', then: 'Psychologist', status: 'not-yet' },
+    { name: 'Jennifer Hollins', then: 'Nurse', status: 'not-yet' },
+    { name: 'Umeme Hoye', then: 'Undecided', status: 'lost' },
+    { name: 'Conrad Hunt', then: 'Engineer', status: 'lost' },
+    { name: 'Ricky King II', then: 'Doctor', status: 'not-yet' },
+    { name: 'Victor Marsh II', then: 'International Diplomat', status: 'lost' },
+    { name: 'Lloyd Cowles III', then: 'Mechanical Engineer', status: 'not-yet' },
+    { name: 'Gaston Nash III', then: 'Business Entrepreneur', status: 'not-yet' },
+    { name: 'Harold Shelton III', then: 'Sports Broadcaster', status: 'registered' },
+    { name: 'Breon Jackson', then: 'Actor', status: 'registered' },
+    { name: 'Kiesha Jackson', then: 'Electrical Engineer', status: 'not-yet' },
+    { name: 'Tenecia Jennings', then: 'Electrical Engineer', status: 'registered' },
+    { name: 'Ricardo Jernigan', then: 'Computer Specialist', status: 'not-yet' },
+    { name: 'Alyce Johnson', then: 'Cardiologist', status: 'not-yet' },
+    { name: 'Arnee\' Johnson', then: 'Broadcaster', status: 'lost' },
+    { name: 'Cassie Johnson', then: 'Undecided', status: 'lost' },
+    { name: 'Cherice Johnson', then: 'Lawyer', status: 'registered' },
+    { name: 'Joi Johnson', then: 'Neonatal Registered Nurse', status: 'not-yet' },
+    { name: 'Kelli Johnson', then: 'Broadway Actor/Singer', status: 'not-yet' },
+    { name: 'Dennis Thompson Jr.', then: 'Astrophysicist', status: 'registered' },
+    { name: 'Kenyatta Juniel', then: 'Biomedical Engineer', status: 'registered' },
+    { name: 'Dana Keene', then: 'Doctor', status: 'registered' },
+    { name: 'Alex Knowles', then: 'Computer Engineer', status: 'registered' },
+    { name: 'Dominic Laird', then: 'Businessman', status: 'not-yet' },
+    { name: 'Jennifer Lawson', then: 'Child Psychologist', status: 'not-yet' },
+    { name: 'Donald Lewis', then: 'Computer Engineer', status: 'lost' },
+    { name: 'John Lewis', then: 'English Teacher', status: 'lost' },
+    { name: 'Shannel Ligon', then: 'English Teacher', status: 'registered' },
+    { name: 'Falen Lockett', then: 'Organic Chemist', status: 'lost' },
+    { name: 'Tony Logan', then: 'Mechanical Engineer', status: 'not-yet' },
+    { name: 'Charles Lynem', then: 'Electrical Engineer', status: 'not-yet' },
+    { name: 'Florentino Maldonado', then: 'International Diplomat', status: 'not-yet' },
+    { name: 'Elyzabeth Marshall', then: 'Pediatrician', status: 'not-yet' },
+    { name: 'Emily Mathews', then: 'Entrepreneur', status: 'registered' },
+    { name: 'Chequita McAdoo', then: 'Child Psychiatrist', status: 'not-yet' },
+    { name: 'Rochelle McCain', then: 'Microbiologist', status: 'not-yet' },
+    { name: 'Akia McCord', then: 'Computer Scientist', status: 'not-yet' },
+    { name: 'Katherine McGee', then: 'Electrical Engineer', status: 'registered' },
+    { name: 'Ja\'lisa McKeown', then: 'Business Administrator', status: 'not-yet' },
+    { name: 'LaShonda McMiller', then: 'Dentist', status: 'registered' },
+    { name: 'April Miller', then: 'Automotive Engineer', status: 'lost' },
+    { name: 'Demica Miller', then: 'Neonatal Nurse', status: 'not-yet' },
+    { name: 'Joe Mills-Logan', then: 'Educator', status: 'not-yet' },
+    { name: 'Lutrice Mitchell', then: 'Music Promoter', status: 'not-yet' },
+    { name: 'Jaye Montgomery', then: 'Musician', status: 'registered' },
+    { name: 'Martin Moore', then: 'Electrical Engineer', status: 'not-yet' },
+    { name: 'Asha Morris', then: 'Fashion Designer', status: 'registered' },
+    { name: 'John Norfleet', then: 'Music Teacher', status: 'not-yet' },
+    { name: 'Erica Obioha', then: 'Doctor', status: 'not-yet' },
+    { name: 'Glenda Olivache\'', then: 'Fashion Designer', status: 'registered' },
+    { name: 'Olubusayo Olojo', then: 'Pediatrician', status: 'not-yet' },
+    { name: 'Esohe Osaigboyo', then: 'Athletic Trainer', status: 'not-yet' },
+    { name: 'Shaundraya Pearson', then: 'Gospel Music Producer', status: 'registered' },
+    { name: 'Angelica Ramirez', then: 'Secondary Educator', status: 'not-yet' },
+    { name: 'Joie Richardson', then: 'Computer Engineer', status: 'not-yet' },
+    { name: 'Larone Richardson', then: 'Undecided', status: 'lost' },
+    { name: 'Tiffany Riley', then: 'Chemical Engineer', status: 'not-yet' },
+    { name: 'Edward Robinson', then: 'Undecided', status: 'lost' },
+    { name: 'Rhea Rodgers', then: 'Neurosurgeon', status: 'not-yet' },
+    { name: 'Allynn Samuel', then: 'Obstetrician', status: 'registered' },
+    { name: 'Martinez Scott', then: 'Sports Agent', status: 'registered' },
+    { name: 'Marcel Sheffey', then: 'Undecided', status: 'lost' },
+    { name: 'Amyre Shelton', then: 'Registered Nurse', status: 'lost' },
+    { name: 'Bryan Smiley', then: 'Feature Filmmaker', status: 'registered' },
+    { name: 'Curtis Smith', then: 'Computer Engineer', status: 'registered' },
+    { name: 'Ericka Smith', then: 'Chemical Engineer', status: 'not-yet' },
+    { name: 'Laurecia Smith', then: 'Mechanical Engineer', status: 'not-yet' },
+    { name: 'Mychal Smith', then: 'Engineer', status: 'not-yet' },
+    { name: 'Demetrius Smoak', then: 'Undecided', status: 'lost' },
+    { name: 'Lyndsey Sykes', then: 'Mechanical Engineer', status: 'lost' },
+    { name: 'Robert Tate', then: 'Architect', status: 'registered' },
+    { name: 'Jonathan Taylor', then: 'Mechanical Engineer', status: 'not-yet' },
+    { name: 'Nii-Ablade Tetteh', then: 'Mechanical Engineer', status: 'not-yet' },
+    { name: 'Elizabeth Thomas', then: 'Chemist', status: 'registered' },
+    { name: 'Nathaniel Tobi', then: 'Chief Executive Officer', status: 'not-yet' },
+    { name: 'Lateef Townsel', then: 'Web Page Designer', status: 'registered' },
+    { name: 'Nerissa Trapp', then: 'Business Administrator', status: 'not-yet' },
+    { name: 'Gini Turnbough', then: 'Artist and Designer', status: 'not-yet' },
+    { name: 'Jason Turner-Collins', then: 'Architectural/Drafting Engineer', status: 'registered' },
+    { name: 'Brandon Vinyard', then: 'Landscape Designer', status: 'not-yet' },
+    { name: 'Kelly Vinyard', then: 'Child Psychologist', status: 'not-yet' },
+    { name: 'Chelsea Walton', then: 'Mathematician', status: 'registered' },
+    { name: 'Lakiah Washington', then: 'Undecided', status: 'lost' },
+    { name: 'Tatyana Washington', then: 'Child Psychologist', status: 'not-yet' },
+    { name: 'Bennie White', then: 'Mechanical Engineer', status: 'lost' },
+    { name: 'Brandon White', then: 'International Businessman', status: 'registered' },
+    { name: 'Shayla White', then: 'Neonatal Nurse', status: 'not-yet' },
+    { name: 'Candice Williams', then: 'Child Psychologist', status: 'not-yet' },
+    { name: 'Henderson Williams', then: 'Analytical Biochemist', status: 'registered' },
+    { name: 'Nikita Williams', then: 'Corporate Lawyer', status: 'lost' },
+    { name: 'Rolanda Williams', then: 'Child Psychologist', status: 'not-yet' },
+    { name: 'Dorran Willis', then: 'Business Administrator', status: 'not-yet' },
+    { name: 'Debrah Winans', then: 'Stage Actress', status: 'lost' },
+    { name: 'Krystle Woods', then: 'Physician', status: 'not-yet' },
+    { name: 'LaNar Wright', then: 'Federal Attorney', status: 'registered' },
+    { name: 'Cale Young', then: 'Professional Entertainer', status: 'registered' },
+    { name: 'Heidi Zimmerman', then: 'Electrical Engineer', status: 'lost' },
+  ];
+
+  const statusLabel = { registered: 'Registered ✓', 'not-yet': 'Not Registered', lost: 'Lost Contact' };
+  let activeFilter = 'all';
+
+  function getInitials(name) {
+    return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+  }
+
+  function renderDirectory(list) {
+    const grid = document.getElementById('directoryGrid');
+    grid.innerHTML = '';
+    list.forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'classmate-card';
+      card.innerHTML = `
+        <div class="classmate-avatar">${getInitials(c.name)}</div>
+        <p class="classmate-name">${c.name}</p>
+        <p class="classmate-now" style="font-size:11px;letter-spacing:0.05em;color:var(--text-light)">'01 Dream: ${c.then}</p>
+        <span class="classmate-status ${c.status}">${statusLabel[c.status]}</span>
+      `;
+      grid.appendChild(card);
+    });
+    document.getElementById('dirCount').textContent = list.length;
+  }
+
+  function filterDirectory() {
+    const q = document.getElementById('dirSearch').value.toLowerCase();
+    const filtered = classmates.filter(c => {
+      const matchName = c.name.toLowerCase().includes(q) || c.then.toLowerCase().includes(q);
+      const matchFilter = activeFilter === 'all' || c.status === activeFilter;
+      return matchName && matchFilter;
+    });
+    renderDirectory(filtered);
+  }
+
+  function setFilter(f, btn) {
+    activeFilter = f;
+    document.querySelectorAll('.dir-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterDirectory();
+  }
+
+  renderDirectory(classmates);
+
+
+  // ─── THROWBACK LIGHTBOX ───
+  const throwbackImgs = ["images/photo_09.jpg", "images/photo_10.jpg", "images/photo_11.jpg", "images/photo_12.jpg", "images/photo_13.jpg", "images/photo_14.jpg", "images/photo_15.jpg", "images/photo_16.jpg", "images/photo_17.jpg", "images/photo_18.jpg", "images/photo_19.jpg", "images/photo_20.jpg", "images/photo_21.jpg", "images/photo_22.jpg", "images/photo_23.jpg"]
+  const throwbackCaptions = ["Photo Collage", "Dinner Out", "Squad Goals", "Prom Night", "Senior Portraits", "Prom Couple", "Crew Night Out", "Dance Night", "In Pink", "Prom Duo", "Lady Phoenixes", "Girls' Portrait", "Lobby Vibes", "Friend Group", "Crew Love"];
+  let currentThrowback = 0;
+
+  function openThrowback(idx) {
+    currentThrowback = idx;
+    document.getElementById('throwbackImg').src = throwbackImgs[idx];
+    document.getElementById('throwbackCounter').textContent = throwbackCaptions[idx] + ' · ' + (idx+1) + ' / ' + throwbackImgs.length;
+    document.getElementById('throwbackLightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeThrowbackLightbox() {
+    document.getElementById('throwbackLightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function closeThrowbackOutside(e) {
+    if (e.target === document.getElementById('throwbackLightbox')) closeThrowbackLightbox();
+  }
+
+  function throwbackNav(dir) {
+    currentThrowback = (currentThrowback + dir + throwbackImgs.length) % throwbackImgs.length;
+    document.getElementById('throwbackImg').src = throwbackImgs[currentThrowback];
+    document.getElementById('throwbackCounter').textContent = throwbackCaptions[currentThrowback] + ' · ' + (currentThrowback+1) + ' / ' + throwbackImgs.length;
+  }
+
+  document.addEventListener('keydown', e => {
+    const lb = document.getElementById('throwbackLightbox');
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'ArrowLeft') throwbackNav(-1);
+    if (e.key === 'ArrowRight') throwbackNav(1);
+    if (e.key === 'Escape') closeThrowbackLightbox();
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
