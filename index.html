@@ -1194,6 +1194,50 @@
     color: var(--white);
   }
 
+  .guest-event-block {
+    background: rgba(255,255,255,0.04);
+    border-left: 2px solid var(--gold);
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .guest-event-block-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    display: block;
+    font-weight: 500;
+  }
+
+  .guest-event-block input {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--white);
+    padding: 0.7rem 1rem;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    -webkit-appearance: none;
+    border-radius: 0;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    box-sizing: border-box;
+  }
+
+  .guest-event-block input:focus {
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.12);
+  }
+
+  .guest-event-block input::placeholder {
+    color: rgba(255,255,255,0.25);
+  }
+
+  .guest-event-block input:last-child { margin-bottom: 0; }
+
   .form-total {
     grid-column: 1 / -1;
     display: flex;
@@ -1448,7 +1492,7 @@
   }
   .zelle-qr {
   display: block;
-  width: 180px;     /* adjust to taste */
+  width: 200px;     /* adjust to taste */
   height: auto;     /* keeps aspect ratio */
   margin: 1rem auto 0;
   }
@@ -2009,6 +2053,12 @@
       </div>
     </div>
 
+    <div class="form-group full" id="guestNamesGroup" style="display:none">
+      <label>Guest Names</label>
+      <p class="ticket-helper">For each event where you're bringing additional people, please list their names so we can check them in. Your own name (entered above) counts as one ticket per event.</p>
+      <div id="guestNamesContainer"></div>
+    </div>
+
     <div class="form-group full">
       <label>Guest Name(s) <span style="color:rgba(255,255,255,0.3);font-size:11px;">(optional — if bringing a guest)</span></label>
       <input type="text" id="guestNames" placeholder="Guest first and last name(s)" />
@@ -2095,12 +2145,15 @@
   const prices = { vip: 250, mixer: 25, workout: 25, gala: 125, bbq: 15 };
   const names = { vip: 'VIP Weekend Package', mixer: 'Welcome Mixer', workout: 'Workout Session', gala: 'A Phoenix Is Forever', bbq: 'Family Farewell BBQ' };
   const qty = { vip: 0, mixer: 0, workout: 0, gala: 0, bbq: 0 };
+  // Only the 4 individual events collect guest names (VIP is per-classmate)
+  const eventOrder = ['mixer', 'workout', 'gala', 'bbq'];
 
   function changeQty(id, delta) {
     qty[id] = Math.max(0, qty[id] + delta);
     document.getElementById('qty-' + id).textContent = qty[id];
     document.getElementById('opt-' + id).classList.toggle('selected', qty[id] > 0);
     updateTotal();
+    renderGuestNames();
   }
 
   function updateTotal() {
@@ -2109,6 +2162,42 @@
       total += prices[k] * n;
     }
     document.getElementById('totalDisplay').textContent = '$' + total;
+  }
+
+  // Dynamically build (qty - 1) guest-name inputs per event. Preserves typed values across re-renders.
+  function renderGuestNames() {
+    // 1. Snapshot current input values so they survive re-render.
+    const preserved = {};
+    eventOrder.forEach(ev => {
+      preserved[ev] = [];
+      const guestCount = Math.max(0, qty[ev] - 1);
+      for (let i = 0; i < guestCount; i++) {
+        const el = document.getElementById(`guest-${ev}-${i}`);
+        preserved[ev].push(el ? el.value : '');
+      }
+    });
+
+    // 2. Rebuild the DOM.
+    const container = document.getElementById('guestNamesContainer');
+    const group = document.getElementById('guestNamesGroup');
+    const escape = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    let html = '';
+    let anyShown = false;
+    eventOrder.forEach(ev => {
+      const guestCount = Math.max(0, qty[ev] - 1);
+      if (guestCount > 0) {
+        anyShown = true;
+        html += `<div class="guest-event-block"><span class="guest-event-block-label">${names[ev]} &middot; ${guestCount} guest${guestCount === 1 ? '' : 's'}</span>`;
+        for (let i = 0; i < guestCount; i++) {
+          const val = preserved[ev][i] || '';
+          html += `<input type="text" id="guest-${ev}-${i}" placeholder="Guest ${i + 1} full name" value="${escape(val)}" />`;
+        }
+        html += `</div>`;
+      }
+    });
+    container.innerHTML = html;
+    group.style.display = anyShown ? '' : 'none';
   }
 
   // ─────────────────────────────────────────────────────────────
@@ -2141,6 +2230,30 @@
       return;
     }
 
+    // Collect guest names per event and validate that none are blank.
+    const guestsByEvent = {};
+    const missingGuests = [];
+    eventOrder.forEach(ev => {
+      const guestCount = Math.max(0, qty[ev] - 1);
+      if (guestCount > 0) {
+        const guests = [];
+        let hasBlank = false;
+        for (let i = 0; i < guestCount; i++) {
+          const el = document.getElementById(`guest-${ev}-${i}`);
+          const v = el ? el.value.trim() : '';
+          if (!v) hasBlank = true;
+          guests.push(v);
+        }
+        if (hasBlank) missingGuests.push(names[ev]);
+        guestsByEvent[ev] = guests;
+      }
+    });
+    if (missingGuests.length > 0) {
+      alert(`Please enter a name for every guest. Missing names for: ${missingGuests.join(', ')}.`);
+      return;
+    }
+
+    // Build ticket lines + modal rows.
     let total = 0;
     let rows = '';
     let ticketLines = [];
@@ -2153,25 +2266,47 @@
         total += lineTotal;
       }
     }
+
+    // Add guest-name rows to the modal so the user can verify what was captured.
+    let guestRows = '';
+    eventOrder.forEach(ev => {
+      if (guestsByEvent[ev] && guestsByEvent[ev].length > 0) {
+        guestRows += `<div class="modal-summary-row" style="color:rgba(255,255,255,0.45);font-size:12px"><span>${names[ev]} guests</span><span style="text-align:right;color:rgba(255,255,255,0.7)">${guestsByEvent[ev].join(', ')}</span></div>`;
+      }
+    });
+
+    rows += guestRows;
     rows += `<div class="modal-summary-row total"><span>Total Due</span><span>$${total}</span></div>`;
 
     document.getElementById('modalSummary').innerHTML =
       `<div class="modal-summary-row" style="margin-bottom:0.5rem"><span style="color:rgba(255,255,255,0.4);font-size:12px;letter-spacing:0.1em;text-transform:uppercase">Registered for</span></div>` + rows;
 
-    // Send the registration to your email via Web3Forms
+    // Send the registration to your email via Web3Forms — full dataset.
     if (WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== "YOUR_ACCESS_KEY_HERE") {
       const statusLabel = status === 'classmate' ? 'RHS Class of 2001' : 'Guest of a classmate';
       const payload = {
         access_key: WEB3FORMS_ACCESS_KEY,
         subject: `Reunion Registration — ${first} ${last}`,
         from_name: "RHS 2001 Reunion Site",
-        "Name": `${first} ${last}`,
+        "First Name": first,
+        "Last Name": last,
         "Email": email,
         "Phone": phone || "(not provided)",
         "Class Status": statusLabel,
-        "Tickets": ticketLines.join("\n"),
+        "VIP Packages": qty.vip,
+        "Welcome Mixer Tickets": qty.mixer,
+        "Workout Session Tickets": qty.workout,
+        "A Phoenix Is Forever Tickets": qty.gala,
+        "Family Farewell BBQ Tickets": qty.bbq,
+        "Tickets Summary": ticketLines.join("\n"),
         "Total Due": `$${total}`
       };
+      // Per-event guest names (only included when there are any).
+      eventOrder.forEach(ev => {
+        if (guestsByEvent[ev] && guestsByEvent[ev].length > 0) {
+          payload[`${names[ev]} Guests`] = guestsByEvent[ev].join(", ");
+        }
+      });
       try {
         await fetch("https://api.web3forms.com/submit", {
           method: "POST",
@@ -2242,7 +2377,7 @@
     { name: 'Nicole Blocker', then: 'Sports Agent / WNBA', status: 'registered' },
     { name: 'Rebecca Bowman', then: 'Chemical Engineer', status: 'registered' },
     { name: 'Benjamin Brown', then: 'Mechanical Engineer', status: 'not-yet' },
-    { name: 'Kimberly Brown', then: 'Entertainment Lawyer', status: 'registered' },
+    { name: 'Kimberly Brown', then: 'Entertainment Lawyer', status: 'not-yet' },
     { name: 'Sheree Brown', then: 'Criminal Lawyer', status: 'registered' },
     { name: 'Caleb Bulter', then: 'Computer Engineer', status: 'not-yet' },
     { name: 'Ryan Burnett', then: 'Senator/Politician', status: 'lost' },
@@ -2284,7 +2419,7 @@
     { name: 'LesLeigh Ford', then: 'Corporate Attorney', status: 'registered' },
     { name: 'Christin Fordham', then: 'Financial Planner', status: 'registered' },
     { name: 'Donovan Fort', then: 'Entertainer', status: 'not-yet' },
-    { name: 'Amber Fox', then: 'Math Professor', status: 'registered' },
+    { name: 'Amber Fox', then: 'Math Professor', status: 'not-yet' },
     { name: 'Melissa Fralin', then: 'Computer Specialist', status: 'not-yet' },
     { name: 'Erayna Gamble', then: 'Chemical Engineer', status: 'registered' },
     { name: 'Nicole Gibbons', then: 'Sports Medicine Nurse', status: 'not-yet' },
