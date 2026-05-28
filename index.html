@@ -1211,7 +1211,7 @@
     font-weight: 500;
   }
 
-  .guest-event-block input {
+  .guest-event-block input[type="text"] {
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.2);
     color: var(--white);
@@ -1223,20 +1223,48 @@
     -webkit-appearance: none;
     border-radius: 0;
     width: 100%;
-    margin-bottom: 0.5rem;
     box-sizing: border-box;
   }
 
-  .guest-event-block input:focus {
+  .guest-event-block input[type="text"]:focus {
     border-color: var(--gold);
     background: rgba(255,255,255,0.12);
   }
 
-  .guest-event-block input::placeholder {
+  .guest-event-block input[type="text"]::placeholder {
     color: rgba(255,255,255,0.25);
   }
 
-  .guest-event-block input:last-child { margin-bottom: 0; }
+  .guest-row {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .guest-row:last-child { margin-bottom: 0; }
+
+  .guest-row > input[type="text"] { flex: 1; }
+
+  .guest-under2 {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    white-space: nowrap;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+
+  .guest-under2 input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--gold);
+    margin: 0;
+  }
 
   .form-total {
     grid-column: 1 / -1;
@@ -1539,6 +1567,8 @@
     .modal-zelle { padding: 1rem; margin: 1rem 0; }
     .modal-summary { margin: 1rem 0; padding-top: 1rem; }
     .modal-btn { padding: 0.85rem 1.5rem; font-size: 10px; width: 100%; }
+    .guest-row { flex-direction: column; align-items: stretch; gap: 0.5rem; }
+    .guest-under2 { padding-left: 0.25rem; }
   }
 
   @media (min-width: 901px) and (max-width: 1200px) {
@@ -2165,23 +2195,36 @@
   }
 
   function updateTotal() {
-    let total = 0;
-    for (const [k, n] of Object.entries(qty)) {
-      total += prices[k] * n;
-    }
+    let total = prices.vip * qty.vip;
+    eventOrder.forEach(ev => {
+      if (qty[ev] > 0) {
+        let under2 = 0;
+        const guestCount = guestCountFor(ev);
+        for (let i = 0; i < guestCount; i++) {
+          const el = document.getElementById(`under2-${ev}-${i}`);
+          if (el && el.checked) under2++;
+        }
+        const paying = Math.max(0, qty[ev] - under2);
+        total += prices[ev] * paying;
+      }
+    });
     document.getElementById('totalDisplay').textContent = '$' + total;
   }
 
-  // Dynamically build (qty - 1) guest-name inputs per event. Preserves typed values across re-renders.
+  // Dynamically build guest inputs (and "under 2" checkboxes) per event. Preserves typed values and checkbox state across re-renders.
   function renderGuestNames() {
-    // 1. Snapshot current input values so they survive re-render.
+    // 1. Snapshot current values + checkbox states.
     const preserved = {};
     eventOrder.forEach(ev => {
       preserved[ev] = [];
       const guestCount = guestCountFor(ev);
       for (let i = 0; i < guestCount; i++) {
-        const el = document.getElementById(`guest-${ev}-${i}`);
-        preserved[ev].push(el ? el.value : '');
+        const nameEl = document.getElementById(`guest-${ev}-${i}`);
+        const under2El = document.getElementById(`under2-${ev}-${i}`);
+        preserved[ev].push({
+          name: nameEl ? nameEl.value : '',
+          under2: under2El ? under2El.checked : false
+        });
       }
     });
 
@@ -2198,14 +2241,18 @@
         anyShown = true;
         html += `<div class="guest-event-block"><span class="guest-event-block-label">${names[ev]} &middot; ${guestCount} guest${guestCount === 1 ? '' : 's'}</span>`;
         for (let i = 0; i < guestCount; i++) {
-          const val = preserved[ev][i] || '';
-          html += `<input type="text" id="guest-${ev}-${i}" placeholder="Guest ${i + 1} full name" value="${escape(val)}" />`;
+          const g = preserved[ev][i] || { name: '', under2: false };
+          html += `<div class="guest-row">`
+            + `<input type="text" id="guest-${ev}-${i}" placeholder="Guest ${i + 1} full name" value="${escape(g.name)}" />`
+            + `<label class="guest-under2"><input type="checkbox" id="under2-${ev}-${i}" onchange="updateTotal()"${g.under2 ? ' checked' : ''} /><span>Under 2 (free)</span></label>`
+            + `</div>`;
         }
         html += `</div>`;
       }
     });
     container.innerHTML = html;
     group.style.display = anyShown ? '' : 'none';
+    updateTotal(); // under-2 state may have changed; recompute
   }
 
   // ─────────────────────────────────────────────────────────────
@@ -2238,8 +2285,8 @@
       return;
     }
 
-    // Collect guest names per event and validate that none are blank.
-    const guestsByEvent = {};
+    // Collect guest names + under-2 state per event. Validate that names aren't blank.
+    const guestsByEvent = {};  // {ev: [{name, under2}, ...]}
     const missingGuests = [];
     eventOrder.forEach(ev => {
       const guestCount = guestCountFor(ev);
@@ -2247,10 +2294,11 @@
         const guests = [];
         let hasBlank = false;
         for (let i = 0; i < guestCount; i++) {
-          const el = document.getElementById(`guest-${ev}-${i}`);
-          const v = el ? el.value.trim() : '';
+          const nameEl = document.getElementById(`guest-${ev}-${i}`);
+          const under2El = document.getElementById(`under2-${ev}-${i}`);
+          const v = nameEl ? nameEl.value.trim() : '';
           if (!v) hasBlank = true;
-          guests.push(v);
+          guests.push({ name: v, under2: under2El ? under2El.checked : false });
         }
         if (hasBlank) missingGuests.push(names[ev]);
         guestsByEvent[ev] = guests;
@@ -2261,25 +2309,38 @@
       return;
     }
 
-    // Build ticket lines + modal rows.
+    // Build ticket lines + modal rows, applying under-2 discount.
     let total = 0;
     let rows = '';
     let ticketLines = [];
     for (const [k, n] of Object.entries(qty)) {
       if (n > 0) {
-        const lineTotal = prices[k] * n;
-        const label = n > 1 ? `${names[k]} <span style="color:rgba(255,255,255,0.4)">&times;${n}</span>` : names[k];
+        let under2Count = 0;
+        if (eventOrder.includes(k) && guestsByEvent[k]) {
+          under2Count = guestsByEvent[k].filter(g => g.under2).length;
+        }
+        const paying = Math.max(0, n - under2Count);
+        const lineTotal = prices[k] * paying;
+        let label = n > 1 ? `${names[k]} <span style="color:rgba(255,255,255,0.4)">&times;${n}</span>` : names[k];
+        if (under2Count > 0) {
+          label += ` <span style="color:rgba(201,168,76,0.75);font-size:11px">&middot; ${under2Count} under 2 (free)</span>`;
+        }
         rows += `<div class="modal-summary-row"><span>${label}</span><span>$${lineTotal}</span></div>`;
-        ticketLines.push(`${names[k]} x${n} = $${lineTotal}`);
+        ticketLines.push(under2Count > 0
+          ? `${names[k]} x${n} (${under2Count} under 2, free) = $${lineTotal}`
+          : `${names[k]} x${n} = $${lineTotal}`);
         total += lineTotal;
       }
     }
 
-    // Add guest-name rows to the modal so the user can verify what was captured.
+    // Add guest-name rows to the modal so the registrant can verify what was captured.
     let guestRows = '';
     eventOrder.forEach(ev => {
       if (guestsByEvent[ev] && guestsByEvent[ev].length > 0) {
-        guestRows += `<div class="modal-summary-row" style="color:rgba(255,255,255,0.45);font-size:12px"><span>${names[ev]} guests</span><span style="text-align:right;color:rgba(255,255,255,0.7)">${guestsByEvent[ev].join(', ')}</span></div>`;
+        const display = guestsByEvent[ev]
+          .map(g => g.under2 ? `${g.name} (under 2)` : g.name)
+          .join(', ');
+        guestRows += `<div class="modal-summary-row" style="color:rgba(255,255,255,0.45);font-size:12px"><span>${names[ev]} guests</span><span style="text-align:right;color:rgba(255,255,255,0.7)">${display}</span></div>`;
       }
     });
 
@@ -2289,9 +2350,21 @@
     document.getElementById('modalSummary').innerHTML =
       `<div class="modal-summary-row" style="margin-bottom:0.5rem"><span style="color:rgba(255,255,255,0.4);font-size:12px;letter-spacing:0.1em;text-transform:uppercase">Registered for</span></div>` + rows;
 
-    // Send the registration to your email via Web3Forms — full dataset.
+    // Send the full registration to your email via Web3Forms.
     if (WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== "YOUR_ACCESS_KEY_HERE") {
       const statusLabel = status === 'classmate' ? 'RHS Class of 2001' : 'Guest of a classmate';
+
+      // Per-event under-2 counts (for at-a-glance email reading + spreadsheet imports).
+      let totalUnder2 = 0;
+      const under2Counts = { mixer: 0, workout: 0, gala: 0, bbq: 0 };
+      eventOrder.forEach(ev => {
+        if (guestsByEvent[ev]) {
+          const c = guestsByEvent[ev].filter(g => g.under2).length;
+          under2Counts[ev] = c;
+          totalUnder2 += c;
+        }
+      });
+
       const payload = {
         access_key: WEB3FORMS_ACCESS_KEY,
         subject: `Reunion Registration — ${first} ${last}`,
@@ -2307,12 +2380,15 @@
         "A Phoenix Is Forever Tickets": qty.gala,
         "Family Farewell BBQ Tickets": qty.bbq,
         "Tickets Summary": ticketLines.join("\n"),
+        "Under 2 Guests Total": totalUnder2,
         "Total Due": `$${total}`
       };
-      // Per-event guest names (only included when there are any).
+      // Per-event guest names with under-2 marker.
       eventOrder.forEach(ev => {
         if (guestsByEvent[ev] && guestsByEvent[ev].length > 0) {
-          payload[`${names[ev]} Guests`] = guestsByEvent[ev].join(", ");
+          payload[`${names[ev]} Guests`] = guestsByEvent[ev]
+            .map(g => g.under2 ? `${g.name} (under 2 — free)` : g.name)
+            .join(", ");
         }
       });
       try {
