@@ -1329,15 +1329,19 @@
     z-index: 1000;
     align-items: center;
     justify-content: center;
+    padding: 1.5rem;
+    overflow-y: auto;
   }
 
   .modal-overlay.active { display: flex; }
 
   .modal {
     background: var(--maroon-dark);
-    padding: 3.5rem;
+    padding: 2.5rem;
     max-width: 540px;
-    width: 90%;
+    width: 100%;
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
     border: 1px solid rgba(201,168,76,0.3);
     text-align: center;
     position: relative;
@@ -1345,45 +1349,48 @@
 
   .modal-close {
     position: absolute;
-    top: 1.25rem;
-    right: 1.5rem;
+    top: 0.75rem;
+    right: 1rem;
     background: none;
     border: none;
     color: rgba(255,255,255,0.4);
-    font-size: 20px;
+    font-size: 24px;
     cursor: pointer;
     font-family: 'DM Sans', sans-serif;
+    z-index: 2;
+    line-height: 1;
   }
 
   .modal-icon {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 64px;
+    font-size: 52px;
     color: var(--gold);
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     letter-spacing: 0.05em;
   }
 
   .modal h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 42px;
+    font-size: 34px;
     color: var(--white);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     letter-spacing: 0.03em;
+    line-height: 1.1;
   }
 
   .modal p {
-    font-size: 15px;
+    font-size: 14px;
     color: rgba(255,255,255,0.6);
-    line-height: 1.8;
+    line-height: 1.7;
     margin-bottom: 1rem;
   }
 
   .modal-zelle {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(201,168,76,0.3);
-    padding: 1.5rem;
-    margin: 1.5rem 0;
+    padding: 1.25rem;
+    margin: 1.25rem 0;
     text-align: left;
   }
 
@@ -1397,7 +1404,7 @@
   }
 
   .modal-zelle .zelle-detail {
-    font-size: 15px;
+    font-size: 14px;
     color: var(--white);
     font-weight: 500;
   }
@@ -1406,7 +1413,7 @@
     background: var(--gold);
     color: var(--maroon-deep);
     border: none;
-    padding: 1rem 2.5rem;
+    padding: 0.9rem 2rem;
     font-size: 11px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -1418,16 +1425,17 @@
 
   .modal-summary {
     text-align: left;
-    margin: 1.5rem 0;
+    margin: 1.25rem 0;
     border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 1.5rem;
+    padding-top: 1.25rem;
   }
 
   .modal-summary-row {
     display: flex;
     justify-content: space-between;
-    padding: 0.4rem 0;
-    font-size: 14px;
+    gap: 1rem;
+    padding: 0.35rem 0;
+    font-size: 13px;
     color: rgba(255,255,255,0.6);
   }
 
@@ -1440,7 +1448,7 @@
   }
   .zelle-qr {
   display: block;
-  width: 90px;     /* adjust to taste */
+  width: 180px;     /* adjust to taste */
   height: auto;     /* keeps aspect ratio */
   margin: 1rem auto 0;
   }
@@ -1479,6 +1487,14 @@
     .register::before { font-size: 200px; }
     .host-hotel { flex-direction: column; align-items: flex-start; gap: 1.25rem; padding: 2rem; }
     .host-hotel-label { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.25); padding-right: 0; padding-bottom: 1rem; }
+    .modal-overlay { padding: 1rem; }
+    .modal { padding: 1.75rem 1.5rem; max-height: calc(100vh - 2rem); }
+    .modal-icon { font-size: 44px; margin-bottom: 0.5rem; }
+    .modal h2 { font-size: 28px; }
+    .modal p { font-size: 13px; }
+    .modal-zelle { padding: 1rem; margin: 1rem 0; }
+    .modal-summary { margin: 1rem 0; padding-top: 1rem; }
+    .modal-btn { padding: 0.85rem 1.5rem; font-size: 10px; width: 100%; }
   }
 
   @media (min-width: 901px) and (max-width: 1200px) {
