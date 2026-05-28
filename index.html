@@ -100,6 +100,32 @@
 
   .nav-links a:hover { color: var(--gold); }
 
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 30px;
+    height: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 12;
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: rgba(255,255,255,0.7);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
   /* ─── GALLERY ─── */
   .gallery {
     background: #120407;
@@ -668,7 +694,7 @@
 
   .events-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1px;
     background: rgba(255,255,255,0.1);
     margin-top: 3rem;
@@ -939,6 +965,50 @@
 
   .payment-info strong { color: var(--maroon); font-weight: 500; }
 
+  .host-hotel {
+    margin-top: 3rem;
+    background: var(--maroon);
+    color: var(--white);
+    border-radius: 6px;
+    padding: 2.5rem 3rem;
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .host-hotel-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-right: 1px solid rgba(255,255,255,0.25);
+    padding-right: 2.5rem;
+  }
+
+  .host-hotel-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .host-hotel-addr {
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 0.75rem;
+  }
+
+  .host-hotel-note {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
   /* ─── REGISTRATION FORM ─── */
   .register {
     background: var(--maroon);
@@ -1079,21 +1149,50 @@
     color: var(--gold);
   }
 
-  .ticket-check {
-    display: none;
-    width: 18px;
-    height: 18px;
-    background: var(--gold);
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    color: var(--maroon-deep);
+  .ticket-helper {
+    grid-column: 1 / -1;
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+    margin: 0.25rem 0 0.25rem;
   }
 
-  .ticket-option.selected .ticket-check { display: flex; }
+  .ticket-option { cursor: default; }
+
+  .ticket-option .ticket-option-price { margin-left: auto; padding-right: 1rem; }
+
+  .qty-stepper {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+  }
+
+  .qty-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: transparent;
+    color: var(--white);
+    font-size: 18px;
+    line-height: 1;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, color 0.2s;
+  }
+
+  .qty-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .qty-value {
+    min-width: 22px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--white);
+  }
 
   .form-total {
     grid-column: 1 / -1;
@@ -1342,8 +1441,26 @@
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
-    .nav { padding: 1.5rem 2rem; }
-    .nav-links { display: none; }
+    .nav {
+      padding: 1.5rem 2rem;
+      flex-wrap: wrap;
+    }
+    .nav-toggle { display: flex; }
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      width: 100%;
+      margin-top: 1.5rem;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; }
+    .nav-links a {
+      display: block;
+      padding: 0.85rem 0;
+      font-size: 13px;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
     section { padding: 4rem 2rem; }
     .about { grid-template-columns: 1fr; gap: 3rem; }
     .events-grid { grid-template-columns: 1fr; }
@@ -1354,6 +1471,12 @@
     .hero-footer { flex-direction: column; gap: 1rem; text-align: center; }
     footer { flex-direction: column; gap: 1.5rem; text-align: center; }
     .register::before { font-size: 200px; }
+    .host-hotel { flex-direction: column; align-items: flex-start; gap: 1.25rem; padding: 2rem; }
+    .host-hotel-label { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.25); padding-right: 0; padding-bottom: 1rem; }
+  }
+
+  @media (min-width: 901px) and (max-width: 1200px) {
+    .events-grid { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
@@ -1366,7 +1489,10 @@
 
   <nav class="nav">
     <span class="nav-logo">Renaissance High School &mdash; Detroit, MI</span>
-    <ul class="nav-links">
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#events">Events</a></li>
       <li><a href="#tickets">Tickets</a></li>
       <li><a href="#gallery">Yearbook</a></li>
@@ -1438,18 +1564,18 @@
 <!-- ─── EVENTS ─── -->
 <section class="events" id="events">
   <p class="section-label">The Weekend</p>
-  <h2 class="section-title">Three<br>Nights Only</h2>
-  <p class="events-intro">Three events. Three days. One weekend that will remind you why the Class of 2001 was built different.</p>
+  <h2 class="section-title">One<br>Big Weekend</h2>
+  <p class="events-intro">Four events. Three days. One weekend that will remind you why the Class of 2001 was built different.</p>
 
   <div class="events-grid">
     <!-- Friday -->
     <div class="event-card">
       <span class="event-day">Friday &middot; July 31, 2026</span>
-      <h3 class="event-name">Friday<br>Welcome<br>Mixer</h3>
-      <p class="event-subtitle">The Takeover Begins</p>
+      <h3 class="event-name">Welcome<br>Mixer</h3>
+      <p class="event-subtitle">The Takeover Begins &middot; 7:00 PM</p>
       <div class="event-detail">
         <span class="event-detail-icon">&#9679;</span>
-        <span class="event-detail-text">The Shadow Gallery<br>Detroit, MI</span>
+        <span class="event-detail-text">The Shadow Gallery<br>1533 Winder St, Detroit, MI 48201</span>
       </div>
       <div class="event-detail">
         <span class="event-detail-icon">&#9679;</span>
@@ -1461,18 +1587,37 @@
       </div>
     </div>
 
-    <!-- Saturday -->
+    <!-- Saturday morning -->
     <div class="event-card">
       <span class="event-day">Saturday &middot; August 1, 2026</span>
-      <h3 class="event-name">A Phoenix<br>Is Forever<br>Gala</h3>
-      <p class="event-subtitle">Semi-Formal &mdash; Epiphany Detroit</p>
+      <h3 class="event-name">Workout<br>Session</h3>
+      <p class="event-subtitle">Rise &amp; Grind &middot; 10:30 AM</p>
       <div class="event-detail">
         <span class="event-detail-icon">&#9679;</span>
-        <span class="event-detail-text">Epiphany Detroit<br>Detroit, MI</span>
+        <span class="event-detail-text">Jabs Gym<br>2501 Russell St, Detroit, MI 48207</span>
       </div>
       <div class="event-detail">
         <span class="event-detail-icon">&#9679;</span>
-        <span class="event-detail-text">Semi-formal attire<br>The main event of the weekend</span>
+        <span class="event-detail-text">Athletic wear<br>Open to all attendees</span>
+      </div>
+      <div class="event-price">
+        <span class="event-price-amount">$25</span>
+        <span class="event-price-note">For all<br>C/O '01 included in VIP</span>
+      </div>
+    </div>
+
+    <!-- Saturday evening -->
+    <div class="event-card">
+      <span class="event-day">Saturday &middot; August 1, 2026</span>
+      <h3 class="event-name">A Phoenix<br>Is Forever</h3>
+      <p class="event-subtitle">All-White Semi-Formal Affair &middot; 7:00 PM</p>
+      <div class="event-detail">
+        <span class="event-detail-icon">&#9679;</span>
+        <span class="event-detail-text">Epiphany Detroit<br>10103 Kercheval Ave, Detroit, MI 48214</span>
+      </div>
+      <div class="event-detail">
+        <span class="event-detail-icon">&#9679;</span>
+        <span class="event-detail-text">All-white semi-formal attire<br>The main event of the weekend</span>
       </div>
       <div class="event-price">
         <span class="event-price-amount">$125</span>
@@ -1483,11 +1628,11 @@
     <!-- Sunday -->
     <div class="event-card">
       <span class="event-day">Sunday &middot; August 2, 2026</span>
-      <h3 class="event-name">Family<br>BBQ<br>Send-Off</h3>
-      <p class="event-subtitle">All are Welcome</p>
+      <h3 class="event-name">Family<br>Farewell BBQ</h3>
+      <p class="event-subtitle">Wellness at Riverside Park &middot; 10:00 AM</p>
       <div class="event-detail">
         <span class="event-detail-icon">&#9679;</span>
-        <span class="event-detail-text">Riverside Park<br>Detroit, MI</span>
+        <span class="event-detail-text">Riverside Park<br>3085 W Jefferson Ave, Detroit, MI 48216</span>
       </div>
       <div class="event-detail">
         <span class="event-detail-icon">&#9679;</span>
@@ -1511,11 +1656,11 @@
     <div class="vip-card">
       <span class="vip-badge">Class of 2001 Only</span>
       <h3 class="vip-title">VIP Weekend<br>Package</h3>
-      <span class="vip-exclusive">All three events &bull; Exclusive to classmates</span>
+      <span class="vip-exclusive">All four events &bull; Exclusive to classmates</span>
       <ul class="vip-includes">
-        <li>Admission to all three weekend events</li>
-        <li>Exclusive reunion gifts & memorabilia</li>
-        <li>Donation to Renaissance High School</li>
+        <li>Admission to all four weekend events</li>
+        <li>25th reunion swag &amp; memorabilia</li>
+        <li>A gift to Renaissance High School</li>
         <li>Materials needed for execution</li>
         <li>Priority access &amp; check-in</li>
       </ul>
@@ -1532,24 +1677,32 @@
 
       <div class="ticket-row">
         <div class="ticket-row-info">
-          <p class="ticket-row-name">Friday Welcome Mixer</p>
-          <p class="ticket-row-venue">The Shadow Gallery &middot; Jul 31</p>
+          <p class="ticket-row-name">Welcome Mixer</p>
+          <p class="ticket-row-venue">The Shadow Gallery &middot; Jul 31, 7:00 PM</p>
         </div>
         <span class="ticket-row-price">$25</span>
       </div>
 
       <div class="ticket-row">
         <div class="ticket-row-info">
-          <p class="ticket-row-name">A Phoenix Is Forever Gala</p>
-          <p class="ticket-row-venue">Epiphany Detroit &middot; Aug 1</p>
+          <p class="ticket-row-name">Workout Session</p>
+          <p class="ticket-row-venue">Jabs Gym &middot; Aug 1, 10:30 AM</p>
+        </div>
+        <span class="ticket-row-price">$25</span>
+      </div>
+
+      <div class="ticket-row">
+        <div class="ticket-row-info">
+          <p class="ticket-row-name">A Phoenix Is Forever</p>
+          <p class="ticket-row-venue">Epiphany Detroit &middot; Aug 1, 7:00 PM</p>
         </div>
         <span class="ticket-row-price">$125</span>
       </div>
 
       <div class="ticket-row">
         <div class="ticket-row-info">
-          <p class="ticket-row-name">Sunday Family BBQ</p>
-          <p class="ticket-row-venue">Riverside Park &middot; Aug 2</p>
+          <p class="ticket-row-name">Family Farewell BBQ</p>
+          <p class="ticket-row-venue">Riverside Park &middot; Aug 2, 10:00 AM</p>
         </div>
         <span class="ticket-row-price">$15</span>
       </div>
@@ -1558,6 +1711,15 @@
         <h4>Payment via Zelle</h4>
         <p>All payments are processed through <strong>Zelle via Huntington Bank</strong>. After submitting your registration, you'll receive payment instructions with the Zelle details. Space is limited &mdash; your spot is confirmed upon receipt of payment.</p>
       </div>
+    </div>
+  </div>
+
+  <div class="host-hotel">
+    <div class="host-hotel-label">Host Hotel</div>
+    <div class="host-hotel-body">
+      <h3 class="host-hotel-name">Cambria Hotel Detroit Downtown</h3>
+      <p class="host-hotel-addr">600 W Lafayette Blvd &middot; Detroit, MI 48226</p>
+      <p class="host-hotel-note">Our home base for the weekend. Book early to stay close to the action and your classmates.</p>
     </div>
   </div>
 </section>
@@ -1760,42 +1922,67 @@
 
     <div class="form-group full">
       <label>Select your ticket(s)</label>
+      <p class="ticket-helper">Bringing a partner, spouse, or guest? Use the &minus; / + buttons to set how many of each ticket you need. The total updates automatically.</p>
       <div class="ticket-selector" id="ticketSelector">
-        <div class="ticket-option" id="opt-vip" onclick="toggleTicket('vip', 250)">
-          <input type="checkbox" id="chk-vip">
-          <div class="ticket-check">&#10003;</div>
+        <div class="ticket-option" id="opt-vip">
           <div class="ticket-option-info">
             <span class="ticket-option-name">VIP Weekend Package</span>
-            <span class="ticket-option-date">Class of 2001 only &bull; All 3 events</span>
+            <span class="ticket-option-date">Class of 2001 only &bull; All 4 events</span>
           </div>
           <span class="ticket-option-price">$250</span>
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn" onclick="changeQty('vip', -1)" aria-label="Decrease VIP packages">&minus;</button>
+            <span class="qty-value" id="qty-vip">0</span>
+            <button type="button" class="qty-btn" onclick="changeQty('vip', 1)" aria-label="Increase VIP packages">+</button>
+          </div>
         </div>
-        <div class="ticket-option" id="opt-mixer" onclick="toggleTicket('mixer', 25)">
-          <input type="checkbox" id="chk-mixer">
-          <div class="ticket-check">&#10003;</div>
+        <div class="ticket-option" id="opt-mixer">
           <div class="ticket-option-info">
-            <span class="ticket-option-name">Friday Welcome Mixer</span>
+            <span class="ticket-option-name">Welcome Mixer</span>
             <span class="ticket-option-date">Jul 31 &bull; The Shadow Gallery</span>
           </div>
           <span class="ticket-option-price">$25</span>
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn" onclick="changeQty('mixer', -1)" aria-label="Decrease Welcome Mixer tickets">&minus;</button>
+            <span class="qty-value" id="qty-mixer">0</span>
+            <button type="button" class="qty-btn" onclick="changeQty('mixer', 1)" aria-label="Increase Welcome Mixer tickets">+</button>
+          </div>
         </div>
-        <div class="ticket-option" id="opt-gala" onclick="toggleTicket('gala', 125)">
-          <input type="checkbox" id="chk-gala">
-          <div class="ticket-check">&#10003;</div>
+        <div class="ticket-option" id="opt-workout">
           <div class="ticket-option-info">
-            <span class="ticket-option-name">Phoenix Is Forever Gala</span>
+            <span class="ticket-option-name">Workout Session</span>
+            <span class="ticket-option-date">Aug 1 &bull; Jabs Gym</span>
+          </div>
+          <span class="ticket-option-price">$25</span>
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn" onclick="changeQty('workout', -1)" aria-label="Decrease Workout Session tickets">&minus;</button>
+            <span class="qty-value" id="qty-workout">0</span>
+            <button type="button" class="qty-btn" onclick="changeQty('workout', 1)" aria-label="Increase Workout Session tickets">+</button>
+          </div>
+        </div>
+        <div class="ticket-option" id="opt-gala">
+          <div class="ticket-option-info">
+            <span class="ticket-option-name">A Phoenix Is Forever</span>
             <span class="ticket-option-date">Aug 1 &bull; Epiphany Detroit</span>
           </div>
           <span class="ticket-option-price">$125</span>
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn" onclick="changeQty('gala', -1)" aria-label="Decrease gala tickets">&minus;</button>
+            <span class="qty-value" id="qty-gala">0</span>
+            <button type="button" class="qty-btn" onclick="changeQty('gala', 1)" aria-label="Increase gala tickets">+</button>
+          </div>
         </div>
-        <div class="ticket-option" id="opt-bbq" onclick="toggleTicket('bbq', 15)">
-          <input type="checkbox" id="chk-bbq">
-          <div class="ticket-check">&#10003;</div>
+        <div class="ticket-option" id="opt-bbq">
           <div class="ticket-option-info">
-            <span class="ticket-option-name">Sunday Family BBQ</span>
+            <span class="ticket-option-name">Family Farewell BBQ</span>
             <span class="ticket-option-date">Aug 2 &bull; Riverside Park</span>
           </div>
           <span class="ticket-option-price">$15</span>
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn" onclick="changeQty('bbq', -1)" aria-label="Decrease BBQ tickets">&minus;</button>
+            <span class="qty-value" id="qty-bbq">0</span>
+            <button type="button" class="qty-btn" onclick="changeQty('bbq', 1)" aria-label="Increase BBQ tickets">+</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1882,35 +2069,21 @@
 </div>
 
 <script>
-  const prices = { vip: 250, mixer: 25, gala: 125, bbq: 15 };
-  const selected = { vip: false, mixer: false, gala: false, bbq: false };
+  const prices = { vip: 250, mixer: 25, workout: 25, gala: 125, bbq: 15 };
+  const names = { vip: 'VIP Weekend Package', mixer: 'Welcome Mixer', workout: 'Workout Session', gala: 'A Phoenix Is Forever', bbq: 'Family Farewell BBQ' };
+  const qty = { vip: 0, mixer: 0, workout: 0, gala: 0, bbq: 0 };
 
-  function toggleTicket(id, price) {
-    if (id === 'vip') {
-      selected.vip = !selected.vip;
-      if (selected.vip) {
-        selected.mixer = false;
-        selected.gala = false;
-        selected.bbq = false;
-        document.getElementById('opt-mixer').classList.remove('selected');
-        document.getElementById('opt-gala').classList.remove('selected');
-        document.getElementById('opt-bbq').classList.remove('selected');
-      }
-    } else {
-      selected[id] = !selected[id];
-      if (selected[id]) {
-        selected.vip = false;
-        document.getElementById('opt-vip').classList.remove('selected');
-      }
-    }
-    document.getElementById('opt-' + id).classList.toggle('selected', selected[id]);
+  function changeQty(id, delta) {
+    qty[id] = Math.max(0, qty[id] + delta);
+    document.getElementById('qty-' + id).textContent = qty[id];
+    document.getElementById('opt-' + id).classList.toggle('selected', qty[id] > 0);
     updateTotal();
   }
 
   function updateTotal() {
     let total = 0;
-    for (const [k, v] of Object.entries(selected)) {
-      if (v) total += prices[k];
+    for (const [k, n] of Object.entries(qty)) {
+      total += prices[k] * n;
     }
     document.getElementById('totalDisplay').textContent = '$' + total;
   }
@@ -1926,19 +2099,20 @@
       return;
     }
 
-    const hasTicket = Object.values(selected).some(v => v);
+    const hasTicket = Object.values(qty).some(n => n > 0);
     if (!hasTicket) {
-      alert('Please select at least one ticket option.');
+      alert('Please select at least one ticket. Use the + buttons to set how many you need.');
       return;
     }
 
-    const names = { vip: 'VIP Weekend Package', mixer: 'Friday Welcome Mixer', gala: 'A Phoenix Is Forever Gala', bbq: 'Sunday Family BBQ' };
     let total = 0;
     let rows = '';
-    for (const [k, v] of Object.entries(selected)) {
-      if (v) {
-        rows += `<div class="modal-summary-row"><span>${names[k]}</span><span>$${prices[k]}</span></div>`;
-        total += prices[k];
+    for (const [k, n] of Object.entries(qty)) {
+      if (n > 0) {
+        const lineTotal = prices[k] * n;
+        const label = n > 1 ? `${names[k]} <span style="color:rgba(255,255,255,0.4)">&times;${n}</span>` : names[k];
+        rows += `<div class="modal-summary-row"><span>${label}</span><span>$${lineTotal}</span></div>`;
+        total += lineTotal;
       }
     }
     rows += `<div class="modal-summary-row total"><span>Total Due</span><span>$${total}</span></div>`;
@@ -2245,11 +2419,30 @@
     if (e.key === 'Escape') closeThrowbackLightbox();
   });
 
+  function toggleNav() {
+    const links = document.getElementById('navLinks');
+    const toggle = document.getElementById('navToggle');
+    const isOpen = links.classList.toggle('open');
+    toggle.classList.toggle('open', isOpen);
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    toggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+  }
+
+  function closeNav() {
+    const links = document.getElementById('navLinks');
+    const toggle = document.getElementById('navToggle');
+    links.classList.remove('open');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open menu');
+  }
+
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       e.preventDefault();
       const target = document.querySelector(a.getAttribute('href'));
       if (target) target.scrollIntoView({ behavior: 'smooth' });
+      closeNav();
     });
   });
 </script>
