@@ -1259,11 +1259,45 @@
   }
 
   .guest-under2 input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: transparent;
     cursor: pointer;
-    accent-color: var(--gold);
     margin: 0;
+    position: relative;
+    flex-shrink: 0;
+    transition: border-color 0.15s;
+  }
+
+  .guest-under2 input[type="checkbox"]:hover {
+    border-color: rgba(255,255,255,0.7);
+  }
+
+  .guest-under2 input[type="checkbox"]:checked {
+    border-color: var(--gold);
+  }
+
+  .guest-under2 input[type="checkbox"]:checked::before,
+  .guest-under2 input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 2px;
+    background: var(--gold);
+    transform-origin: center;
+  }
+
+  .guest-under2 input[type="checkbox"]:checked::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .guest-under2 input[type="checkbox"]:checked::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
   }
 
   .form-total {
@@ -2047,7 +2081,7 @@
         <div class="ticket-option" id="opt-workout">
           <div class="ticket-option-info">
             <span class="ticket-option-name">Workout Session</span>
-            <span class="ticket-option-date">Aug 1 &bull; Jabs Gym</span>
+            <span class="ticket-option-date">Aug 1 &bull; Jabs Gym &bull; <span style="color:var(--gold)">Classmates only &mdash; no guests</span></span>
           </div>
           <span class="ticket-option-price">$25</span>
           <div class="qty-stepper">
@@ -2181,13 +2215,21 @@
   // How many guest names to collect for a given event.
   // VIP covers the registrant for all 4 events, so any individual ticket bought
   // while VIP is selected is for a guest. Without VIP, the registrant counts as ticket 1.
+  // EXCEPTION: the Workout Session is classmates-only — no guests permitted.
   function guestCountFor(ev) {
     if (qty[ev] <= 0) return 0;
+    if (ev === 'workout') return 0;
     return qty.vip > 0 ? qty[ev] : qty[ev] - 1;
   }
 
+  // Per-ticket maximum quantities. Unspecified = unlimited.
+  // Workout is classmates-only: 1 ticket per registration (no guests).
+  const maxQty = { workout: 1 };
+
   function changeQty(id, delta) {
-    qty[id] = Math.max(0, qty[id] + delta);
+    let next = Math.max(0, qty[id] + delta);
+    if (maxQty[id] !== undefined) next = Math.min(maxQty[id], next);
+    qty[id] = next;
     document.getElementById('qty-' + id).textContent = qty[id];
     document.getElementById('opt-' + id).classList.toggle('selected', qty[id] > 0);
     updateTotal();
