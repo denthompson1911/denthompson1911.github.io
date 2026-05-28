@@ -2060,7 +2060,6 @@
     <div class="modal-zelle">
       <span class="zelle-label">Send Zelle Payment To</span>
       <span class="zelle-detail">Huntington Bank &mdash; RHS Class of 2001 Reunion</span>
-      <img src="zelle-qr.txt" alt="Zelle QR code" class="zelle-qr" />
     </div>
 
     <p style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:1.5rem">Include your full name in the Zelle memo. A confirmation email will be sent once payment is verified.</p>
@@ -2089,10 +2088,23 @@
     document.getElementById('totalDisplay').textContent = '$' + total;
   }
 
-  function submitRegistration() {
+  // ─────────────────────────────────────────────────────────────
+  //  EMAIL DELIVERY SETUP (Web3Forms)
+  //  1. Go to https://web3forms.com and enter the email address where
+  //     you want registrations delivered. You'll get an Access Key.
+  //  2. Paste that key between the quotes below, replacing
+  //     YOUR_ACCESS_KEY_HERE. That's it — registrations will then be
+  //     emailed to you automatically.
+  //  Until a real key is added, the form still works for the user
+  //  (they see the Zelle instructions) but nothing is emailed.
+  // ─────────────────────────────────────────────────────────────
+  const WEB3FORMS_ACCESS_KEY = "42dfbf91-56ff-42eb-94dd-cdf335ddf5cc";
+
+  async function submitRegistration() {
     const first = document.getElementById('firstName').value.trim();
     const last = document.getElementById('lastName').value.trim();
     const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
     const status = document.getElementById('classStatus').value;
 
     if (!first || !last || !email || !status) {
@@ -2108,11 +2120,13 @@
 
     let total = 0;
     let rows = '';
+    let ticketLines = [];
     for (const [k, n] of Object.entries(qty)) {
       if (n > 0) {
         const lineTotal = prices[k] * n;
         const label = n > 1 ? `${names[k]} <span style="color:rgba(255,255,255,0.4)">&times;${n}</span>` : names[k];
         rows += `<div class="modal-summary-row"><span>${label}</span><span>$${lineTotal}</span></div>`;
+        ticketLines.push(`${names[k]} x${n} = $${lineTotal}`);
         total += lineTotal;
       }
     }
@@ -2120,6 +2134,32 @@
 
     document.getElementById('modalSummary').innerHTML =
       `<div class="modal-summary-row" style="margin-bottom:0.5rem"><span style="color:rgba(255,255,255,0.4);font-size:12px;letter-spacing:0.1em;text-transform:uppercase">Registered for</span></div>` + rows;
+
+    // Send the registration to your email via Web3Forms
+    if (WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== "YOUR_ACCESS_KEY_HERE") {
+      const statusLabel = status === 'classmate' ? 'RHS Class of 2001' : 'Guest of a classmate';
+      const payload = {
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: `Reunion Registration — ${first} ${last}`,
+        from_name: "RHS 2001 Reunion Site",
+        "Name": `${first} ${last}`,
+        "Email": email,
+        "Phone": phone || "(not provided)",
+        "Class Status": statusLabel,
+        "Tickets": ticketLines.join("\n"),
+        "Total Due": `$${total}`
+      };
+      try {
+        await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        console.error("Registration email failed to send:", err);
+        // The user still sees their confirmation/Zelle details below.
+      }
+    }
 
     document.getElementById('confirmModal').classList.add('active');
   }
