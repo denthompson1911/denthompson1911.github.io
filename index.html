@@ -392,6 +392,14 @@
     color: var(--maroon);
     border: 2px solid rgba(107,20,41,0.12);
     flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .classmate-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .classmate-name {
@@ -2487,6 +2495,188 @@
   });
 
   // ─── CLASSMATE DIRECTORY ───
+  // Folder where headshot JPEGs live, relative to this HTML file.
+  // The avatars/ folder produced earlier should sit next to this file.
+  const AVATAR_PATH = 'avatars/';
+
+  // Map of name → headshot filename. Entries omitted here (Ryan Burnett,
+  // Marquis Coleman) intentionally fall back to monogram initials since
+  // their yearbook slots were 'Picture Not Available'.
+  const avatarFiles = {
+    'Alicia Adell': 'Alicia_Adell.jpg',
+    'LaTwila Ainsworth': 'LaTwila_Ainsworth.jpg',
+    'Erin Anderson': 'Erin_Anderson.jpg',
+    'Jasmine Arnold': 'Jasmine_Arnold.jpg',
+    'Tiffany Ayler': 'Tiffany_Ayler.jpg',
+    'Kyle Bailey': 'Kyle_Bailey.jpg',
+    'Cecily Barney': 'Cecily_Barney.jpg',
+    'Kristopher Beavers': 'Kristopher_Beavers.jpg',
+    'Marcus Bennett': 'Marcus_Bennett.jpg',
+    'Christina Black': 'Christina_Black.jpg',
+    'Yolanda Blackwell': 'Yolanda_Blackwell.jpg',
+    'Cora Bledsoe': 'Cora_Bledsoe.jpg',
+    'Nicole Blocker': 'Nicole_Blocker.jpg',
+    'Rebecca Bowman': 'Rebecca_Bowman.jpg',
+    'Benjamin Brown': 'Benjamin_Brown.jpg',
+    'Kimberly Brown': 'Kimberly_Brown.jpg',
+    'Sheree Brown': 'Sheree_Brown.jpg',
+    'Caleb Bulter': 'Caleb_Bulter.jpg',
+    'Toya Burr': 'Toya_Burr.jpg',
+    'Erica Burton': 'Erica_Burton.jpg',
+    'Michelle Burton': 'Michelle_Burton.jpg',
+    'Chase Cantrell': 'Chase_Cantrell.jpg',
+    'Niyah Carmichael': 'Niyah_Carmichael.jpg',
+    'Ashley Carr': 'Ashley_Carr.jpg',
+    'Jacqueline Carr': 'Jacqueline_Carr.jpg',
+    'Jessica Carroll': 'Jessica_Carroll.jpg',
+    'Cedric Carter': 'Cedric_Carter.jpg',
+    'Jennifer Carter': 'Jennifer_Carter.jpg',
+    'Lashonda Carter': 'Lashonda_Carter.jpg',
+    'Darnella Cash': 'Darnella_Cash.jpg',
+    'Kai Cassells': 'Kai_Cassells.jpg',
+    'Demond Childers': 'Demond_Childers.jpg',
+    'Aaranisa Clay': 'Aaranisa_Clay.jpg',
+    'Christopher Coleman': 'Christopher_Coleman.jpg',
+    'Michelle Collins': 'Michelle_Collins.jpg',
+    'Bryan Conyers': 'Bryan_Conyers.jpg',
+    'Cristyn Cook': 'Cristyn_Cook.jpg',
+    'Carlos Craig': 'Carlos_Craig.jpg',
+    'Jesse Cranford': 'Jesse_Cranford.jpg',
+    'Tamala Crittenden': 'Tamala_Crittenden.jpg',
+    'Deanna Cunmingham': 'Deanna_Cunmingham.jpg',
+    'Janae Currington': 'Janae_Currington.jpg',
+    'Brandi Daniel': 'Brandi_Daniel.jpg',
+    'Joclyn Davis': 'Joclyn_Davis.jpg',
+    'Shannon Davis': 'Shannon_Davis.jpg',
+    'Keli Duerson': 'Keli_Duerson.jpg',
+    'Rian English': 'Rian_English.jpg',
+    'Justin Ferguson': 'Justin_Ferguson.jpg',
+    'Sherene Flemings': 'Sherene_Flemings.jpg',
+    'Alicia Fletcher': 'Alicia_Fletcher.jpg',
+    'William Floyd': 'William_Floyd.jpg',
+    'Antoine Ford': 'Antoine_Ford.jpg',
+    'LesLeigh Ford': 'LesLeigh_Ford.jpg',
+    'Christin Fordham': 'Christin_Fordham.jpg',
+    'Donovan Fort': 'Donovan_Fort.jpg',
+    'Amber Fox': 'Amber_Fox.jpg',
+    'Melissa Fralin': 'Melissa_Fralin.jpg',
+    'Erayna Gamble': 'Erayna_Gamble.jpg',
+    'Nicole Gibbons': 'Nicole_Gibbons.jpg',
+    'Andre C. Gilbert': 'Andre_C_Gilbert.jpg',
+    'John Gilmore': 'John_Gilmore.jpg',
+    'Latoya Goree': 'Latoya_Goree.jpg',
+    'Christina Grant': 'Christina_Grant.jpg',
+    'Jamila Grant': 'Jamila_Grant.jpg',
+    'Raymond Gregory': 'Raymond_Gregory.jpg',
+    'Jennifer Griffee': 'Jennifer_Griffee.jpg',
+    'Quinn Hamilton': 'Quinn_Hamilton.jpg',
+    'Jennifer Hamlett': 'Jennifer_Hamlett.jpg',
+    'David Harris': 'David_Harris.jpg',
+    'Mone\'t Harris': 'Monet_Harris.jpg',
+    'Rachel Harris': 'Rachel_Harris.jpg',
+    'Darryl Hazziez': 'Darryl_Hazziez.jpg',
+    'Nicole Helm': 'Nicole_Helm.jpg',
+    'Amani Henry': 'Amani_Henry.jpg',
+    'Lana Henry': 'Lana_Henry.jpg',
+    'Elisa Hodge': 'Elisa_Hodge.jpg',
+    'Jennifer Hollins': 'Jennifer_Hollins.jpg',
+    'Umeme Hoye': 'Umeme_Hoye.jpg',
+    'Conrad Hunt': 'Conrad_Hunt.jpg',
+    'Ricky King II': 'Ricky_King_II.jpg',
+    'Victor Marsh II': 'Victor_Marsh_II.jpg',
+    'Lloyd Cowles III': 'Lloyd_Cowles_III.jpg',
+    'Gaston Nash III': 'Gaston_Nash_III.jpg',
+    'Harold Shelton III': 'Harold_Shelton_III.jpg',
+    'Breon Jackson': 'Breon_Jackson.jpg',
+    'Kiesha Jackson': 'Kiesha_Jackson.jpg',
+    'Tenecia Jennings': 'Tenecia_Jennings.jpg',
+    'Ricardo Jernigan': 'Ricardo_Jernigan.jpg',
+    'Alyce Johnson': 'Alyce_Johnson.jpg',
+    'Arnee\' Johnson': 'Arnee_Johnson.jpg',
+    'Cassie Johnson': 'Cassie_Johnson.jpg',
+    'Cherice Johnson': 'Cherice_Johnson.jpg',
+    'Joi Johnson': 'Joi_Johnson.jpg',
+    'Kelli Johnson': 'Kelli_Johnson.jpg',
+    'Dennis Thompson Jr.': 'Dennis_Thompson_Jr.jpg',
+    'Kenyatta Juniel': 'Kenyatta_Juniel.jpg',
+    'Dana Keene': 'Dana_Keene.jpg',
+    'Alex Knowles': 'Alex_Knowles.jpg',
+    'Dominic Laird': 'Dominic_Laird.jpg',
+    'Jennifer Lawson': 'Jennifer_Lawson.jpg',
+    'Donald Lewis': 'Donald_Lewis.jpg',
+    'John Lewis': 'John_Lewis.jpg',
+    'Shannel Ligon': 'Shannel_Ligon.jpg',
+    'Falen Lockett': 'Falen_Lockett.jpg',
+    'Tony Logan': 'Tony_Logan.jpg',
+    'Charles Lynem': 'Charles_Lynem.jpg',
+    'Florentino Maldonado': 'Florentino_Maldonado.jpg',
+    'Elyzabeth Marshall': 'Elyzabeth_Marshall.jpg',
+    'Emily Mathews': 'Emily_Mathews.jpg',
+    'Chequita McAdoo': 'Chequita_McAdoo.jpg',
+    'Rochelle McCain': 'Rochelle_McCain.jpg',
+    'Akia McCord': 'Akia_McCord.jpg',
+    'Katherine McGee': 'Katherine_McGee.jpg',
+    'Ja\'lisa McKeown': 'Jalisa_McKeown.jpg',
+    'LaShonda McMiller': 'LaShonda_McMiller.jpg',
+    'April Miller': 'Aprili_Miller.jpg',
+    'Demica Miller': 'Demica_Miller.jpg',
+    'Joe Mills-Logan': 'Joe_Mills-Logan.jpg',
+    'Lutrice Mitchell': 'Lutrice_Mitchell.jpg',
+    'Jaye Montgomery': 'Jaye_Montgomery.jpg',
+    'Martin Moore': 'Martin_Moore.jpg',
+    'Asha Morris': 'Asha_Morris.jpg',
+    'John Norfleet': 'John_Norfleet.jpg',
+    'Erica Obioha': 'Erica_Obioha.jpg',
+    'Glenda Olivache\'': 'Glenda_Olivache.jpg',
+    'Olubusayo Olojo': 'Olubusayo_Olojo.jpg',
+    'Esohe Osaigboyo': 'Esohe_Osaigbovo.jpg',
+    'Shaundraya Pearson': 'Shaundraya_Pearson.jpg',
+    'Angelica Ramirez': 'Angelica_Ramirez.jpg',
+    'Joie Richardson': 'Joie_Richardson.jpg',
+    'Larone Richardson': 'Larone_Richardson.jpg',
+    'Tiffany Riley': 'Tiffany_Riley.jpg',
+    'Edward Robinson': 'Edward_Robinson.jpg',
+    'Rhea Rodgers': 'Rhea_Rodgers.jpg',
+    'Allynn Samuel': 'Allynn_Samuel.jpg',
+    'Martinez Scott': 'Martinez_Scott.jpg',
+    'Marcel Sheffey': 'Marcel_Sheffey.jpg',
+    'Amyre Shelton': 'Amyre_Shelton.jpg',
+    'Bryan Smiley': 'Bryan_Smiley.jpg',
+    'Curtis Smith': 'Curtis_Smith.jpg',
+    'Ericka Smith': 'Ericka_Smith.jpg',
+    'Laurecia Smith': 'Laurecia_Smith.jpg',
+    'Mychal Smith': 'Mychal_Smith.jpg',
+    'Demetrius Smoak': 'Demetrius_Smoak.jpg',
+    'Lyndsey Sykes': 'Lyndsey_Sykes.jpg',
+    'Robert Tate': 'Robert_Tate.jpg',
+    'Jonathan Taylor': 'Jonathan_Taylor.jpg',
+    'Nii-Ablade Tetteh': 'Nii-Ablade_Tetteh.jpg',
+    'Elizabeth Thomas': 'Elizabeth_Thomas.jpg',
+    'Nathaniel Tobi': 'Nathaniel_Tobi.jpg',
+    'Lateef Townsel': 'Lateef_Townsel.jpg',
+    'Nerissa Trapp': 'Nerissa_Trapp.jpg',
+    'Gini Turnbough': 'Gini_Turnbough.jpg',
+    'Jason Turner-Collins': 'Jason_Turner-Collins.jpg',
+    'Brandon Vinyard': 'Brandon_Vinyard.jpg',
+    'Kelly Vinyard': 'Kelly_Vinyard.jpg',
+    'Chelsea Walton': 'Chelsea_Walton.jpg',
+    'Lakiah Washington': 'Lakiah_Washington.jpg',
+    'Tatyana Washington': 'Tatyana_Washington.jpg',
+    'Bennie White': 'Bennie_White.jpg',
+    'Brandon White': 'Brandon_White.jpg',
+    'Shayla White': 'Shayla_White.jpg',
+    'Candice Williams': 'Candice_Williams.jpg',
+    'Henderson Williams': 'Henderson_Williams.jpg',
+    'Nikita Williams': 'Nikita_Williams.jpg',
+    'Rolanda Williams': 'Rolanda_Williams.jpg',
+    'Dorran Willis': 'Dorian_Willis.jpg',
+    'Debrah Winans': 'Deborah_Winans.jpg',
+    'Krystle Woods': 'Krystle_Woods.jpg',
+    'LaNar Wright': 'LaNar_Wright.jpg',
+    'Cale Young': 'Cale_Young.jpg',
+    'Heidi Zimmerman': 'Heidi_Zimmerman.jpg',
+  };
+
   const classmates = [
     { name: 'Alicia Adell', then: 'International Businesswoman', status: 'not-yet' },
     { name: 'LaTwila Ainsworth', then: 'Mercy/Band Teacher', status: 'registered' },
@@ -2671,14 +2861,23 @@
     return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
   }
 
+  function escAttr(s) {
+    return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+            .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
   function renderDirectory(list) {
     const grid = document.getElementById('directoryGrid');
     grid.innerHTML = '';
     list.forEach(c => {
       const card = document.createElement('div');
       card.className = 'classmate-card';
+      const file = avatarFiles[c.name];
+      const avatarInner = file
+        ? `<img src="${AVATAR_PATH}${file}" alt="${escAttr(c.name)}" loading="lazy">`
+        : getInitials(c.name);
       card.innerHTML = `
-        <div class="classmate-avatar">${getInitials(c.name)}</div>
+        <div class="classmate-avatar">${avatarInner}</div>
         <p class="classmate-name">${c.name}</p>
         <p class="classmate-now" style="font-size:11px;letter-spacing:0.05em;color:var(--text-light)">'01 Dream: ${c.then}</p>
         <span class="classmate-status ${c.status}">${statusLabel[c.status]}</span>
