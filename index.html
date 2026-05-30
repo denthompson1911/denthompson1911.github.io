@@ -2000,6 +2000,16 @@
   <span class="lightbox-counter" id="throwbackCounter"></span>
 </div>
 
+<!-- ─── SPOTIFY PLAYER ─── -->
+<section style="background:#0a0a0a;padding:4rem 4rem 4.5rem;">
+  <p class="section-label" style="color:var(--gold)">The Soundtrack</p>
+  <h2 class="section-title" style="color:#fff;margin-bottom:0.5rem">Class of '01<br>Playlist</h2>
+  <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:rgba(255,255,255,0.45);margin-bottom:2rem;max-width:420px;line-height:1.6;">The songs that defined us. Turn it up.</p>
+  <div style="max-width:760px;">
+    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/7tLH2TXozaCclRf7wL5Kod?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  </div>
+</section>
+
 <!-- ─── CLASSMATE DIRECTORY ─── -->
 <section class="directory" id="directory">
   <div class="directory-header">
@@ -2854,7 +2864,18 @@
     { name: 'Heidi Zimmerman', then: 'Electrical Engineer', status: 'lost' },
   ];
 
+  // ─── GOOGLE SHEETS SYNC CONFIG ───
+  // 1. Share your Google Sheet publicly (Viewer access) or via API key
+  // 2. Publish the sheet: File → Share → Publish to web → CSV
+  // 3. Paste the published CSV URL below
+  // Sheet columns expected: Name | Status   (header row on row 1)
+  // Valid Status values: registered | not-yet | lost
+  const SHEET_CSV_URL = 'YOUR_PUBLISHED_SHEET_CSV_URL_HERE';
+  // Example:
+  // const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/SHEET_ID/pub?gid=0&single=true&output=csv';
+
   const statusLabel = { registered: 'Registered ✓', 'not-yet': 'Not Registered', lost: 'Lost Contact' };
+  const validStatuses = new Set(['registered', 'not-yet', 'lost']);
   let activeFilter = 'all';
 
   function getInitials(name) {
@@ -2904,7 +2925,60 @@
     filterDirectory();
   }
 
-  renderDirectory(classmates);
+  // ─── PARSE CSV (handles quoted fields) ───
+  function parseCSV(text) {
+    const lines = text.trim().split('\n');
+    if (lines.length < 2) return {};
+    // Skip header row, build name→status map
+    const statusMap = {};
+    for (let i = 1; i < lines.length; i++) {
+      const cols = lines[i].split(',').map(c => c.trim().replace(/^"|"$/g, ''));
+      const name   = cols[0] || '';
+      const status = (cols[1] || '').toLowerCase();
+      if (name && validStatuses.has(status)) {
+        statusMap[name] = status;
+      }
+    }
+    return statusMap;
+  }
+
+  // ─── SYNC STATUS FROM GOOGLE SHEET ───
+  async function syncFromSheet() {
+    if (!SHEET_CSV_URL || SHEET_CSV_URL === 'YOUR_PUBLISHED_SHEET_CSV_URL_HERE') {
+      // No sheet configured — render with hardcoded data
+      renderDirectory(classmates);
+      return;
+    }
+
+    // Show a subtle loading indicator on the directory count
+    const countEl = document.getElementById('dirCount');
+    if (countEl) countEl.textContent = '…';
+
+    try {
+      const res = await fetch(SHEET_CSV_URL, { cache: 'no-cache' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const csv = await res.text();
+      const statusMap = parseCSV(csv);
+
+      // Merge sheet statuses into classmates array
+      let updated = 0;
+      classmates.forEach(c => {
+        if (statusMap.hasOwnProperty(c.name)) {
+          c.status = statusMap[c.name];
+          updated++;
+        }
+      });
+
+      console.log(`[Sheet Sync] Updated ${updated} of ${classmates.length} statuses from Google Sheet.`);
+    } catch (err) {
+      console.warn('[Sheet Sync] Could not load Google Sheet — using hardcoded statuses.', err.message);
+    }
+
+    renderDirectory(classmates);
+  }
+
+  // Run sync on page load
+  syncFromSheet();
 
 
   // ─── THROWBACK LIGHTBOX ───
