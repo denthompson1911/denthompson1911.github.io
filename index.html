@@ -429,12 +429,12 @@
     color: #15803d;
   }
 
-  .classmate-status.registered {
+  .classmate-status.not-paid {
     background: rgba(136,135,128,0.1);
     color: #888;
   }
 
-  .classmate-status.need updates {
+  .classmate-status.lost {
     background: rgba(239,159,39,0.12);
     color: #7a5010;
   }
@@ -2021,8 +2021,8 @@
       <input class="directory-search" type="text" placeholder="Search by name..." id="dirSearch" oninput="filterDirectory()" />
       <button class="dir-filter-btn active" onclick="setFilter('all', this)">All</button>
       <button class="dir-filter-btn" onclick="setFilter('paid', this)">Paid</button>
-      <button class="dir-filter-btn" onclick="setFilter('registered', this)">Not Paid</button>
-      <button class="dir-filter-btn" onclick="setFilter('need updates', this)">need updates</button>
+      <button class="dir-filter-btn" onclick="setFilter('not-paid', this)">Registered</button>
+      <button class="dir-filter-btn" onclick="setFilter('lost', this)">Need Updates</button>
     </div>
   </div>
 
@@ -2031,7 +2031,7 @@
   <div class="directory-grid" id="directoryGrid"></div>
 
   <div class="directory-cta">
-    <p>Is a classmate missing from the directory? <strong>DM @renaissanceco2001 on Instagram</strong> with their name and we'll add them. Help us find our need updates Phoenix family — share this page with every C/O '01 you know!</p>
+    <p>Is a classmate missing from the directory? <strong>DM @renaissanceco2001 on Instagram</strong> with their name and we'll add them. Help us find our lost Phoenix family — share this page with every C/O '01 you know!</p>
     <a href="#register" class="btn-primary" style="white-space:nowrap;text-decoration:none">Register Now</a>
   </div>
 </section>
@@ -2688,180 +2688,180 @@
   };
 
   const classmates = [
-    { name: 'Alicia Adell', then: 'International Businesswoman', status: 'registered' },
-    { name: 'LaTwila Ainsworth', then: 'Mercy/Band Teacher', status: 'registered' },
-    { name: 'Erin Anderson', then: 'Physical Therapist', status: 'registered' },
-    { name: 'Jasmine Arnold', then: 'Communicator', status: 'registered' },
-    { name: 'Tiffany Ayler', then: 'Computer Scientist', status: 'registered' },
-    { name: 'Kyle Bailey', then: 'Police Officer', status: 'registered' },
-    { name: 'Cecily Barney', then: 'Business', status: 'registered' },
-    { name: 'Kristopher Beavers', then: 'Veterinarian', status: 'registered' },
-    { name: 'Marcus Bennett', then: 'NBA', status: 'need updates' },
-    { name: 'Christina Black', then: 'Psychologist', status: 'registered' },
-    { name: 'Yolanda Blackwell', then: 'Marine Engineer', status: 'registered' },
-    { name: 'Cora Bledsoe', then: 'Electrical Engineer', status: 'registered' },
-    { name: 'Nicole Blocker', then: 'Sports Agent / WNBA', status: 'registered' },
-    { name: 'Rebecca Bowman', then: 'Chemical Engineer', status: 'registered' },
-    { name: 'Benjamin Brown', then: 'Mechanical Engineer', status: 'registered' },
-    { name: 'Kimberly Brown', then: 'Entertainment Lawyer', status: 'registered' },
-    { name: 'Sheree Brown', then: 'Criminal Lawyer', status: 'registered' },
-    { name: 'Caleb Bulter', then: 'Computer Engineer', status: 'registered' },
-    { name: 'Ryan Burnett', then: 'Senator/Politician', status: 'need updates' },
-    { name: 'Toya Burr', then: 'Pediatrician', status: 'registered' },
-    { name: 'Erica Burton', then: 'Market Researcher', status: 'registered' },
-    { name: 'Michelle Burton', then: 'International Marketer', status: 'registered' },
-    { name: 'Chase Cantrell', then: 'Social Changer', status: 'registered' },
-    { name: 'Niyah Carmichael', then: 'Community Relations Expert', status: 'registered' },
-    { name: 'Ashley Carr', then: 'Mechanical Engineer', status: 'need updates' },
-    { name: 'Jacqueline Carr', then: 'Business Manager', status: 'registered' },
-    { name: 'Jessica Carroll', then: 'Physical Therapist', status: 'registered' },
-    { name: 'Cedric Carter', then: 'Sports Agent', status: 'need updates' },
-    { name: 'Jennifer Carter', then: 'Dentist', status: 'registered' },
-    { name: 'Lashonda Carter', then: 'Obstetrician', status: 'registered' },
-    { name: 'Darnella Cash', then: 'President of the World', status: 'registered' },
-    { name: 'Kai Cassells', then: 'President of the World', status: 'registered' },
-    { name: 'Demond Childers', then: 'Engineer at NASA', status: 'registered' },
-    { name: 'Aaranisa Clay', then: 'Psychiatrist', status: 'registered' },
-    { name: 'Christopher Coleman', then: 'Engineer', status: 'registered' },
-    { name: 'Marquis Coleman', then: 'Computer Animator', status: 'registered' },
-    { name: 'Michelle Collins', then: 'Orthodontist', status: 'need updates' },
-    { name: 'Bryan Conyers', then: 'Astrophysicist', status: 'registered' },
-    { name: 'Cristyn Cook', then: 'Business Owner', status: 'registered' },
-    { name: 'Carlos Craig', then: 'Computer Animator', status: 'registered' },
-    { name: 'Jesse Cranford', then: 'Undecided', status: 'need updates' },
-    { name: 'Tamala Crittenden', then: 'Music Educator', status: 'registered' },
-    { name: 'Deanna Cunmingham', then: 'Computer Engineer', status: 'registered' },
-    { name: 'Janae Currington', then: 'Anesthesiologist', status: 'registered' },
-    { name: 'Brandi Daniel', then: 'Teacher', status: 'registered' },
-    { name: 'Joclyn Davis', then: 'Chemistry Professor', status: 'registered' },
-    { name: 'Shannon Davis', then: 'Sports Therapist', status: 'registered' },
-    { name: 'Keli Duerson', then: 'Pediatrician', status: 'registered' },
-    { name: 'Rian English', then: 'Public Relations Advisor', status: 'registered' },
-    { name: 'Justin Ferguson', then: 'Investment Banker', status: 'registered' },
-    { name: 'Sherene Flemings', then: 'International Lawyer', status: 'registered' },
-    { name: 'Alicia Fletcher', then: 'Computer Engineer', status: 'registered' },
-    { name: 'William Floyd', then: 'Businessman', status: 'need updates' },
-    { name: 'Antoine Ford', then: 'Computer Engineer', status: 'need updates' },
-    { name: 'LesLeigh Ford', then: 'Corporate Attorney', status: 'registered' },
-    { name: 'Christin Fordham', then: 'Financial Planner', status: 'registered' },
-    { name: 'Donovan Fort', then: 'Entertainer', status: 'registered' },
-    { name: 'Amber Fox', then: 'Math Professor', status: 'registered' },
-    { name: 'Melissa Fralin', then: 'Computer Specialist', status: 'registered' },
-    { name: 'Erayna Gamble', then: 'Chemical Engineer', status: 'registered' },
-    { name: 'Nicole Gibbons', then: 'Sports Medicine Nurse', status: 'registered' },
-    { name: 'Andre C. Gilbert', then: 'Musician', status: 'registered' },
-    { name: 'John Gilmore', then: 'Mechanical Engineer', status: 'need updates' },
-    { name: 'Latoya Goree', then: 'Television Broadcaster', status: 'registered' },
-    { name: 'Christina Grant', then: 'Automotive Designer', status: 'registered' },
-    { name: 'Jamila Grant', then: 'Biomedical Engineer', status: 'registered' },
-    { name: 'Raymond Gregory', then: 'Entrepreneur in Spain', status: 'registered' },
-    { name: 'Jennifer Griffee', then: 'Business Manager', status: 'registered' },
-    { name: 'Quinn Hamilton', then: 'Biomedical Engineer', status: 'registered' },
-    { name: 'Jennifer Hamlett', then: 'Marketer', status: 'registered' },
-    { name: 'David Harris', then: 'Electrical Engineer', status: 'registered' },
-    { name: 'Mone\'t Harris', then: 'Doctor', status: 'registered' },
-    { name: 'Rachel Harris', then: 'Mayor of Detroit', status: 'registered' },
-    { name: 'Darryl Hazziez', then: 'Corporate Lawyer', status: 'need updates' },
-    { name: 'Nicole Helm', then: 'Physical Therapist', status: 'registered' },
-    { name: 'Amani Henry', then: 'Automotive Engineer', status: 'registered' },
-    { name: 'Lana Henry', then: 'Mechanical Engineer', status: 'registered' },
-    { name: 'Elisa Hodge', then: 'Psychologist', status: 'registered' },
-    { name: 'Jennifer Hollins', then: 'Nurse', status: 'registered' },
-    { name: 'Umeme Hoye', then: 'Undecided', status: 'need updates' },
-    { name: 'Conrad Hunt', then: 'Engineer', status: 'need updates' },
-    { name: 'Ricky King II', then: 'Doctor', status: 'registered' },
-    { name: 'Victor Marsh II', then: 'International Diplomat', status: 'need updates' },
-    { name: 'Lloyd Cowles III', then: 'Mechanical Engineer', status: 'registered' },
-    { name: 'Gaston Nash III', then: 'Business Entrepreneur', status: 'registered' },
-    { name: 'Harold Shelton III', then: 'Sports Broadcaster', status: 'registered' },
-    { name: 'Breon Jackson', then: 'Actor', status: 'registered' },
-    { name: 'Kiesha Jackson', then: 'Electrical Engineer', status: 'registered' },
-    { name: 'Tenecia Jennings', then: 'Electrical Engineer', status: 'registered' },
-    { name: 'Ricardo Jernigan', then: 'Computer Specialist', status: 'registered' },
-    { name: 'Alyce Johnson', then: 'Cardiologist', status: 'registered' },
-    { name: 'Arnee\' Johnson', then: 'Broadcaster', status: 'need updates' },
-    { name: 'Cassie Johnson', then: 'Undecided', status: 'need updates' },
-    { name: 'Cherice Johnson', then: 'Lawyer', status: 'registered' },
-    { name: 'Joi Johnson', then: 'Neonatal Registered Nurse', status: 'registered' },
-    { name: 'Kelli Johnson', then: 'Broadway Actor/Singer', status: 'registered' },
-    { name: 'Dennis Thompson Jr.', then: 'Astrophysicist', status: 'registered' },
-    { name: 'Kenyatta Juniel', then: 'Biomedical Engineer', status: 'registered' },
-    { name: 'Dana Keene', then: 'Doctor', status: 'registered' },
-    { name: 'Alex Knowles', then: 'Computer Engineer', status: 'registered' },
-    { name: 'Dominic Laird', then: 'Businessman', status: 'registered' },
-    { name: 'Jennifer Lawson', then: 'Child Psychologist', status: 'registered' },
-    { name: 'Donald Lewis', then: 'Computer Engineer', status: 'need updates' },
-    { name: 'John Lewis', then: 'English Teacher', status: 'need updates' },
-    { name: 'Shannel Ligon', then: 'English Teacher', status: 'registered' },
-    { name: 'Falen Lockett', then: 'Organic Chemist', status: 'need updates' },
-    { name: 'Tony Logan', then: 'Mechanical Engineer', status: 'registered' },
-    { name: 'Charles Lynem', then: 'Electrical Engineer', status: 'registered' },
-    { name: 'Florentino Maldonado', then: 'International Diplomat', status: 'registered' },
-    { name: 'Elyzabeth Marshall', then: 'Pediatrician', status: 'registered' },
-    { name: 'Emily Mathews', then: 'Entrepreneur', status: 'registered' },
-    { name: 'Chequita McAdoo', then: 'Child Psychiatrist', status: 'registered' },
-    { name: 'Rochelle McCain', then: 'Microbiologist', status: 'registered' },
-    { name: 'Akia McCord', then: 'Computer Scientist', status: 'registered' },
-    { name: 'Katherine McGee', then: 'Electrical Engineer', status: 'registered' },
-    { name: 'Ja\'lisa McKeown', then: 'Business Administrator', status: 'registered' },
-    { name: 'LaShonda McMiller', then: 'Dentist', status: 'registered' },
-    { name: 'April Miller', then: 'Automotive Engineer', status: 'need updates' },
-    { name: 'Demica Miller', then: 'Neonatal Nurse', status: 'registered' },
-    { name: 'Joe Mills-Logan', then: 'Educator', status: 'registered' },
-    { name: 'Lutrice Mitchell', then: 'Music Promoter', status: 'registered' },
-    { name: 'Jaye Montgomery', then: 'Musician', status: 'registered' },
-    { name: 'Martin Moore', then: 'Electrical Engineer', status: 'registered' },
-    { name: 'Asha Morris', then: 'Fashion Designer', status: 'registered' },
-    { name: 'John Norfleet', then: 'Music Teacher', status: 'registered' },
-    { name: 'Erica Obioha', then: 'Doctor', status: 'registered' },
-    { name: 'Glenda Olivache\'', then: 'Fashion Designer', status: 'registered' },
-    { name: 'Olubusayo Olojo', then: 'Pediatrician', status: 'registered' },
-    { name: 'Esohe Osaigboyo', then: 'Athletic Trainer', status: 'registered' },
-    { name: 'Shaundraya Pearson', then: 'Gospel Music Producer', status: 'registered' },
-    { name: 'Angelica Ramirez', then: 'Secondary Educator', status: 'registered' },
-    { name: 'Joie Richardson', then: 'Computer Engineer', status: 'registered' },
-    { name: 'Larone Richardson', then: 'Undecided', status: 'need updates' },
-    { name: 'Tiffany Riley', then: 'Chemical Engineer', status: 'registered' },
-    { name: 'Edward Robinson', then: 'Undecided', status: 'need updates' },
-    { name: 'Rhea Rodgers', then: 'Neurosurgeon', status: 'registered' },
-    { name: 'Allynn Samuel', then: 'Obstetrician', status: 'registered' },
-    { name: 'Martinez Scott', then: 'Sports Agent', status: 'registered' },
-    { name: 'Marcel Sheffey', then: 'Undecided', status: 'need updates' },
-    { name: 'Amyre Shelton', then: 'Registered Nurse', status: 'need updates' },
-    { name: 'Bryan Smiley', then: 'Feature Filmmaker', status: 'registered' },
-    { name: 'Curtis Smith', then: 'Computer Engineer', status: 'registered' },
-    { name: 'Ericka Smith', then: 'Chemical Engineer', status: 'registered' },
-    { name: 'Laurecia Smith', then: 'Mechanical Engineer', status: 'registered' },
-    { name: 'Mychal Smith', then: 'Engineer', status: 'registered' },
-    { name: 'Demetrius Smoak', then: 'Undecided', status: 'need updates' },
-    { name: 'Lyndsey Sykes', then: 'Mechanical Engineer', status: 'need updates' },
-    { name: 'Robert Tate', then: 'Architect', status: 'registered' },
-    { name: 'Jonathan Taylor', then: 'Mechanical Engineer', status: 'registered' },
-    { name: 'Nii-Ablade Tetteh', then: 'Mechanical Engineer', status: 'registered' },
-    { name: 'Elizabeth Thomas', then: 'Chemist', status: 'registered' },
-    { name: 'Nathaniel Tobi', then: 'Chief Executive Officer', status: 'registered' },
-    { name: 'Lateef Townsel', then: 'Web Page Designer', status: 'registered' },
-    { name: 'Nerissa Trapp', then: 'Business Administrator', status: 'registered' },
-    { name: 'Gini Turnbough', then: 'Artist and Designer', status: 'registered' },
-    { name: 'Jason Turner-Collins', then: 'Architectural/Drafting Engineer', status: 'registered' },
-    { name: 'Brandon Vinyard', then: 'Landscape Designer', status: 'registered' },
-    { name: 'Kelly Vinyard', then: 'Child Psychologist', status: 'registered' },
-    { name: 'Chelsea Walton', then: 'Mathematician', status: 'registered' },
-    { name: 'Lakiah Washington', then: 'Undecided', status: 'need updates' },
-    { name: 'Tatyana Washington', then: 'Child Psychologist', status: 'registered' },
-    { name: 'Bennie White', then: 'Mechanical Engineer', status: 'need updates' },
-    { name: 'Brandon White', then: 'International Businessman', status: 'registered' },
-    { name: 'Shayla White', then: 'Neonatal Nurse', status: 'registered' },
-    { name: 'Candice Williams', then: 'Child Psychologist', status: 'registered' },
-    { name: 'Henderson Williams', then: 'Analytical Biochemist', status: 'registered' },
-    { name: 'Nikita Williams', then: 'Corporate Lawyer', status: 'need updates' },
-    { name: 'Rolanda Williams', then: 'Child Psychologist', status: 'registered' },
-    { name: 'Dorran Willis', then: 'Business Administrator', status: 'registered' },
-    { name: 'Debrah Winans', then: 'Stage Actress', status: 'need updates' },
-    { name: 'Krystle Woods', then: 'Physician', status: 'registered' },
-    { name: 'LaNar Wright', then: 'Federal Attorney', status: 'registered' },
-    { name: 'Cale Young', then: 'Professional Entertainer', status: 'registered' },
-    { name: 'Heidi Zimmerman', then: 'Electrical Engineer', status: 'need updates' },
+    { name: 'Alicia Adell', then: 'International Businesswoman', status: 'not-paid' },
+    { name: 'LaTwila Ainsworth', then: 'Mercy/Band Teacher', status: 'not-paid' },
+    { name: 'Erin Anderson', then: 'Physical Therapist', status: 'not-paid' },
+    { name: 'Jasmine Arnold', then: 'Communicator', status: 'not-paid' },
+    { name: 'Tiffany Ayler', then: 'Computer Scientist', status: 'not-paid' },
+    { name: 'Kyle Bailey', then: 'Police Officer', status: 'not-paid' },
+    { name: 'Cecily Barney', then: 'Business', status: 'not-paid' },
+    { name: 'Kristopher Beavers', then: 'Veterinarian', status: 'not-paid' },
+    { name: 'Marcus Bennett', then: 'NBA', status: 'lost' },
+    { name: 'Christina Black', then: 'Psychologist', status: 'not-paid' },
+    { name: 'Yolanda Blackwell', then: 'Marine Engineer', status: 'not-paid' },
+    { name: 'Cora Bledsoe', then: 'Electrical Engineer', status: 'not-paid' },
+    { name: 'Nicole Blocker', then: 'Sports Agent / WNBA', status: 'not-paid' },
+    { name: 'Rebecca Bowman', then: 'Chemical Engineer', status: 'not-paid' },
+    { name: 'Benjamin Brown', then: 'Mechanical Engineer', status: 'not-paid' },
+    { name: 'Kimberly Brown', then: 'Entertainment Lawyer', status: 'not-paid' },
+    { name: 'Sheree Brown', then: 'Criminal Lawyer', status: 'not-paid' },
+    { name: 'Caleb Bulter', then: 'Computer Engineer', status: 'not-paid' },
+    { name: 'Ryan Burnett', then: 'Senator/Politician', status: 'lost' },
+    { name: 'Toya Burr', then: 'Pediatrician', status: 'not-paid' },
+    { name: 'Erica Burton', then: 'Market Researcher', status: 'not-paid' },
+    { name: 'Michelle Burton', then: 'International Marketer', status: 'not-paid' },
+    { name: 'Chase Cantrell', then: 'Social Changer', status: 'not-paid' },
+    { name: 'Niyah Carmichael', then: 'Community Relations Expert', status: 'not-paid' },
+    { name: 'Ashley Carr', then: 'Mechanical Engineer', status: 'lost' },
+    { name: 'Jacqueline Carr', then: 'Business Manager', status: 'not-paid' },
+    { name: 'Jessica Carroll', then: 'Physical Therapist', status: 'not-paid' },
+    { name: 'Cedric Carter', then: 'Sports Agent', status: 'lost' },
+    { name: 'Jennifer Carter', then: 'Dentist', status: 'not-paid' },
+    { name: 'Lashonda Carter', then: 'Obstetrician', status: 'not-paid' },
+    { name: 'Darnella Cash', then: 'President of the World', status: 'not-paid' },
+    { name: 'Kai Cassells', then: 'President of the World', status: 'not-paid' },
+    { name: 'Demond Childers', then: 'Engineer at NASA', status: 'not-paid' },
+    { name: 'Aaranisa Clay', then: 'Psychiatrist', status: 'not-paid' },
+    { name: 'Christopher Coleman', then: 'Engineer', status: 'not-paid' },
+    { name: 'Marquis Coleman', then: 'Computer Animator', status: 'not-paid' },
+    { name: 'Michelle Collins', then: 'Orthodontist', status: 'lost' },
+    { name: 'Bryan Conyers', then: 'Astrophysicist', status: 'not-paid' },
+    { name: 'Cristyn Cook', then: 'Business Owner', status: 'not-paid' },
+    { name: 'Carlos Craig', then: 'Computer Animator', status: 'not-paid' },
+    { name: 'Jesse Cranford', then: 'Undecided', status: 'lost' },
+    { name: 'Tamala Crittenden', then: 'Music Educator', status: 'not-paid' },
+    { name: 'Deanna Cunmingham', then: 'Computer Engineer', status: 'not-paid' },
+    { name: 'Janae Currington', then: 'Anesthesiologist', status: 'not-paid' },
+    { name: 'Brandi Daniel', then: 'Teacher', status: 'not-paid' },
+    { name: 'Joclyn Davis', then: 'Chemistry Professor', status: 'not-paid' },
+    { name: 'Shannon Davis', then: 'Sports Therapist', status: 'not-paid' },
+    { name: 'Keli Duerson', then: 'Pediatrician', status: 'not-paid' },
+    { name: 'Rian English', then: 'Public Relations Advisor', status: 'not-paid' },
+    { name: 'Justin Ferguson', then: 'Investment Banker', status: 'not-paid' },
+    { name: 'Sherene Flemings', then: 'International Lawyer', status: 'not-paid' },
+    { name: 'Alicia Fletcher', then: 'Computer Engineer', status: 'not-paid' },
+    { name: 'William Floyd', then: 'Businessman', status: 'lost' },
+    { name: 'Antoine Ford', then: 'Computer Engineer', status: 'lost' },
+    { name: 'LesLeigh Ford', then: 'Corporate Attorney', status: 'not-paid' },
+    { name: 'Christin Fordham', then: 'Financial Planner', status: 'not-paid' },
+    { name: 'Donovan Fort', then: 'Entertainer', status: 'not-paid' },
+    { name: 'Amber Fox', then: 'Math Professor', status: 'not-paid' },
+    { name: 'Melissa Fralin', then: 'Computer Specialist', status: 'not-paid' },
+    { name: 'Erayna Gamble', then: 'Chemical Engineer', status: 'not-paid' },
+    { name: 'Nicole Gibbons', then: 'Sports Medicine Nurse', status: 'not-paid' },
+    { name: 'Andre C. Gilbert', then: 'Musician', status: 'not-paid' },
+    { name: 'John Gilmore', then: 'Mechanical Engineer', status: 'lost' },
+    { name: 'Latoya Goree', then: 'Television Broadcaster', status: 'not-paid' },
+    { name: 'Christina Grant', then: 'Automotive Designer', status: 'not-paid' },
+    { name: 'Jamila Grant', then: 'Biomedical Engineer', status: 'not-paid' },
+    { name: 'Raymond Gregory', then: 'Entrepreneur in Spain', status: 'not-paid' },
+    { name: 'Jennifer Griffee', then: 'Business Manager', status: 'not-paid' },
+    { name: 'Quinn Hamilton', then: 'Biomedical Engineer', status: 'not-paid' },
+    { name: 'Jennifer Hamlett', then: 'Marketer', status: 'not-paid' },
+    { name: 'David Harris', then: 'Electrical Engineer', status: 'not-paid' },
+    { name: 'Mone\'t Harris', then: 'Doctor', status: 'not-paid' },
+    { name: 'Rachel Harris', then: 'Mayor of Detroit', status: 'not-paid' },
+    { name: 'Darryl Hazziez', then: 'Corporate Lawyer', status: 'lost' },
+    { name: 'Nicole Helm', then: 'Physical Therapist', status: 'not-paid' },
+    { name: 'Amani Henry', then: 'Automotive Engineer', status: 'not-paid' },
+    { name: 'Lana Henry', then: 'Mechanical Engineer', status: 'not-paid' },
+    { name: 'Elisa Hodge', then: 'Psychologist', status: 'not-paid' },
+    { name: 'Jennifer Hollins', then: 'Nurse', status: 'not-paid' },
+    { name: 'Umeme Hoye', then: 'Undecided', status: 'lost' },
+    { name: 'Conrad Hunt', then: 'Engineer', status: 'lost' },
+    { name: 'Ricky King II', then: 'Doctor', status: 'not-paid' },
+    { name: 'Victor Marsh II', then: 'International Diplomat', status: 'lost' },
+    { name: 'Lloyd Cowles III', then: 'Mechanical Engineer', status: 'not-paid' },
+    { name: 'Gaston Nash III', then: 'Business Entrepreneur', status: 'not-paid' },
+    { name: 'Harold Shelton III', then: 'Sports Broadcaster', status: 'not-paid' },
+    { name: 'Breon Jackson', then: 'Actor', status: 'not-paid' },
+    { name: 'Kiesha Jackson', then: 'Electrical Engineer', status: 'not-paid' },
+    { name: 'Tenecia Jennings', then: 'Electrical Engineer', status: 'not-paid' },
+    { name: 'Ricardo Jernigan', then: 'Computer Specialist', status: 'not-paid' },
+    { name: 'Alyce Johnson', then: 'Cardiologist', status: 'not-paid' },
+    { name: 'Arnee\' Johnson', then: 'Broadcaster', status: 'lost' },
+    { name: 'Cassie Johnson', then: 'Undecided', status: 'lost' },
+    { name: 'Cherice Johnson', then: 'Lawyer', status: 'not-paid' },
+    { name: 'Joi Johnson', then: 'Neonatal Registered Nurse', status: 'not-paid' },
+    { name: 'Kelli Johnson', then: 'Broadway Actor/Singer', status: 'not-paid' },
+    { name: 'Dennis Thompson Jr.', then: 'Astrophysicist', status: 'not-paid' },
+    { name: 'Kenyatta Juniel', then: 'Biomedical Engineer', status: 'not-paid' },
+    { name: 'Dana Keene', then: 'Doctor', status: 'not-paid' },
+    { name: 'Alex Knowles', then: 'Computer Engineer', status: 'not-paid' },
+    { name: 'Dominic Laird', then: 'Businessman', status: 'not-paid' },
+    { name: 'Jennifer Lawson', then: 'Child Psychologist', status: 'not-paid' },
+    { name: 'Donald Lewis', then: 'Computer Engineer', status: 'lost' },
+    { name: 'John Lewis', then: 'English Teacher', status: 'lost' },
+    { name: 'Shannel Ligon', then: 'English Teacher', status: 'not-paid' },
+    { name: 'Falen Lockett', then: 'Organic Chemist', status: 'lost' },
+    { name: 'Tony Logan', then: 'Mechanical Engineer', status: 'not-paid' },
+    { name: 'Charles Lynem', then: 'Electrical Engineer', status: 'not-paid' },
+    { name: 'Florentino Maldonado', then: 'International Diplomat', status: 'not-paid' },
+    { name: 'Elyzabeth Marshall', then: 'Pediatrician', status: 'not-paid' },
+    { name: 'Emily Mathews', then: 'Entrepreneur', status: 'not-paid' },
+    { name: 'Chequita McAdoo', then: 'Child Psychiatrist', status: 'not-paid' },
+    { name: 'Rochelle McCain', then: 'Microbiologist', status: 'not-paid' },
+    { name: 'Akia McCord', then: 'Computer Scientist', status: 'not-paid' },
+    { name: 'Katherine McGee', then: 'Electrical Engineer', status: 'not-paid' },
+    { name: 'Ja\'lisa McKeown', then: 'Business Administrator', status: 'not-paid' },
+    { name: 'LaShonda McMiller', then: 'Dentist', status: 'not-paid' },
+    { name: 'April Miller', then: 'Automotive Engineer', status: 'lost' },
+    { name: 'Demica Miller', then: 'Neonatal Nurse', status: 'not-paid' },
+    { name: 'Joe Mills-Logan', then: 'Educator', status: 'not-paid' },
+    { name: 'Lutrice Mitchell', then: 'Music Promoter', status: 'not-paid' },
+    { name: 'Jaye Montgomery', then: 'Musician', status: 'not-paid' },
+    { name: 'Martin Moore', then: 'Electrical Engineer', status: 'not-paid' },
+    { name: 'Asha Morris', then: 'Fashion Designer', status: 'not-paid' },
+    { name: 'John Norfleet', then: 'Music Teacher', status: 'not-paid' },
+    { name: 'Erica Obioha', then: 'Doctor', status: 'not-paid' },
+    { name: 'Glenda Olivache\'', then: 'Fashion Designer', status: 'not-paid' },
+    { name: 'Olubusayo Olojo', then: 'Pediatrician', status: 'not-paid' },
+    { name: 'Esohe Osaigboyo', then: 'Athletic Trainer', status: 'not-paid' },
+    { name: 'Shaundraya Pearson', then: 'Gospel Music Producer', status: 'not-paid' },
+    { name: 'Angelica Ramirez', then: 'Secondary Educator', status: 'not-paid' },
+    { name: 'Joie Richardson', then: 'Computer Engineer', status: 'not-paid' },
+    { name: 'Larone Richardson', then: 'Undecided', status: 'lost' },
+    { name: 'Tiffany Riley', then: 'Chemical Engineer', status: 'not-paid' },
+    { name: 'Edward Robinson', then: 'Undecided', status: 'lost' },
+    { name: 'Rhea Rodgers', then: 'Neurosurgeon', status: 'not-paid' },
+    { name: 'Allynn Samuel', then: 'Obstetrician', status: 'not-paid' },
+    { name: 'Martinez Scott', then: 'Sports Agent', status: 'not-paid' },
+    { name: 'Marcel Sheffey', then: 'Undecided', status: 'lost' },
+    { name: 'Amyre Shelton', then: 'Registered Nurse', status: 'lost' },
+    { name: 'Bryan Smiley', then: 'Feature Filmmaker', status: 'not-paid' },
+    { name: 'Curtis Smith', then: 'Computer Engineer', status: 'not-paid' },
+    { name: 'Ericka Smith', then: 'Chemical Engineer', status: 'not-paid' },
+    { name: 'Laurecia Smith', then: 'Mechanical Engineer', status: 'not-paid' },
+    { name: 'Mychal Smith', then: 'Engineer', status: 'not-paid' },
+    { name: 'Demetrius Smoak', then: 'Undecided', status: 'lost' },
+    { name: 'Lyndsey Sykes', then: 'Mechanical Engineer', status: 'lost' },
+    { name: 'Robert Tate', then: 'Architect', status: 'not-paid' },
+    { name: 'Jonathan Taylor', then: 'Mechanical Engineer', status: 'not-paid' },
+    { name: 'Nii-Ablade Tetteh', then: 'Mechanical Engineer', status: 'not-paid' },
+    { name: 'Elizabeth Thomas', then: 'Chemist', status: 'not-paid' },
+    { name: 'Nathaniel Tobi', then: 'Chief Executive Officer', status: 'not-paid' },
+    { name: 'Lateef Townsel', then: 'Web Page Designer', status: 'not-paid' },
+    { name: 'Nerissa Trapp', then: 'Business Administrator', status: 'not-paid' },
+    { name: 'Gini Turnbough', then: 'Artist and Designer', status: 'not-paid' },
+    { name: 'Jason Turner-Collins', then: 'Architectural/Drafting Engineer', status: 'not-paid' },
+    { name: 'Brandon Vinyard', then: 'Landscape Designer', status: 'not-paid' },
+    { name: 'Kelly Vinyard', then: 'Child Psychologist', status: 'not-paid' },
+    { name: 'Chelsea Walton', then: 'Mathematician', status: 'not-paid' },
+    { name: 'Lakiah Washington', then: 'Undecided', status: 'lost' },
+    { name: 'Tatyana Washington', then: 'Child Psychologist', status: 'not-paid' },
+    { name: 'Bennie White', then: 'Mechanical Engineer', status: 'lost' },
+    { name: 'Brandon White', then: 'International Businessman', status: 'not-paid' },
+    { name: 'Shayla White', then: 'Neonatal Nurse', status: 'not-paid' },
+    { name: 'Candice Williams', then: 'Child Psychologist', status: 'not-paid' },
+    { name: 'Henderson Williams', then: 'Analytical Biochemist', status: 'not-paid' },
+    { name: 'Nikita Williams', then: 'Corporate Lawyer', status: 'lost' },
+    { name: 'Rolanda Williams', then: 'Child Psychologist', status: 'not-paid' },
+    { name: 'Dorran Willis', then: 'Business Administrator', status: 'not-paid' },
+    { name: 'Debrah Winans', then: 'Stage Actress', status: 'lost' },
+    { name: 'Krystle Woods', then: 'Physician', status: 'not-paid' },
+    { name: 'LaNar Wright', then: 'Federal Attorney', status: 'not-paid' },
+    { name: 'Cale Young', then: 'Professional Entertainer', status: 'not-paid' },
+    { name: 'Heidi Zimmerman', then: 'Electrical Engineer', status: 'lost' },
   ];
 
   // ─── GOOGLE SHEETS SYNC CONFIG ───
@@ -2872,7 +2872,7 @@
   const SHEET_NAME = 'Master Database';
 
   // Status labels shown on each card
-  const statusLabel = { paid: 'Paid ✓', 'registered': 'Not Paid', need updates: 'need updates' };
+  const statusLabel = { paid: 'Paid ✓', 'not-paid': 'Registered', lost: 'Need Updates' };
   let activeFilter = 'all';
 
   function getInitials(name) {
@@ -2923,17 +2923,17 @@
   }
 
   // ─── KPI FUNNEL → STATUS LOGIC ───
-  // Found=No                          → need updates
-  // Found=Yes, Engaged=Yes, Committed=No  → registered
+  // Found=No                          → lost
+  // Found=Yes, Engaged=Yes, Committed=No  → not-paid
   // Found=Yes, Engaged=Yes, Committed=Yes → paid
   function kpiToStatus(found, engaged, committed) {
     const f = (found    || '').trim().toLowerCase();
     const e = (engaged  || '').trim().toLowerCase();
     const k = (committed|| '').trim().toLowerCase();
-    if (f === 'no')                        return 'need updates';
+    if (f === 'no')                        return 'lost';
     if (e === 'yes' && k === 'yes')        return 'paid';
-    if (e === 'yes' && k !== 'yes')        return 'registered';
-    return 'need updates'; // default for Found=Yes but Engaged=No
+    if (e === 'yes' && k !== 'yes')        return 'not-paid';
+    return 'lost'; // default for Found=Yes but Engaged=No
   }
 
   // ─── SYNC FROM GOOGLE SHEETS JSON API ───
@@ -2951,39 +2951,49 @@
       const raw  = await res.text();
       const json = JSON.parse(raw.replace(/^[^(]+\(/, '').replace(/\);?$/, ''));
 
-      const cols  = json.table.cols.map(c => (c.label || '').trim().toLowerCase());
+      const cols  = json.table.cols.map(c => (c.label || '').trim());
       const rows  = json.table.rows || [];
 
-      // Locate columns by header name (case-insensitive)
-      // Expected headers: "Name", "KPI Found", "KPI Engaged", "KPI Committed"
-      const iName      = cols.findIndex(c => c === 'name');
-      const iFound     = cols.findIndex(c => c.includes('found'));
-      const iEngaged   = cols.findIndex(c => c.includes('engaged'));
-      const iCommitted = cols.findIndex(c => c.includes('committed') || c.includes('commit'));
+      // ── DEBUG: log all column headers so we can verify names ──
+      console.log('[Sheet Sync] Column headers found:', cols);
+      console.log('[Sheet Sync] First data row (raw):', rows[0]);
+
+      // Locate columns by header name (flexible matching)
+      const iName      = cols.findIndex(c => c.toLowerCase() === 'name');
+      const iFound     = cols.findIndex(c => c.toLowerCase().includes('found'));
+      const iEngaged   = cols.findIndex(c => c.toLowerCase().includes('engaged'));
+      const iCommitted = cols.findIndex(c => c.toLowerCase().includes('committed') || c.toLowerCase().includes('commit'));
+
+      console.log(`[Sheet Sync] Column indices → Name:${iName} Found:${iFound} Engaged:${iEngaged} Committed:${iCommitted}`);
 
       if (iName === -1) throw new Error('Could not find "Name" column in sheet');
 
       // Build name→status map from sheet rows
       const statusMap = {};
-      rows.forEach(row => {
+      rows.forEach((row, ri) => {
         const cells = row.c || [];
-        const name  = cells[iName]      && cells[iName].v      ? String(cells[iName].v).trim()      : '';
-        const found = cells[iFound]     && cells[iFound].v     ? String(cells[iFound].v).trim()     : '';
-        const eng   = cells[iEngaged]   && cells[iEngaged].v   ? String(cells[iEngaged].v).trim()   : '';
-        const com   = cells[iCommitted] && cells[iCommitted].v ? String(cells[iCommitted].v).trim() : '';
-        if (name) statusMap[name] = kpiToStatus(found, eng, com);
+        const name  = cells[iName]      && cells[iName].v      != null ? String(cells[iName].v).trim()      : '';
+        const found = cells[iFound]     && cells[iFound].v     != null ? String(cells[iFound].v).trim()     : '';
+        const eng   = cells[iEngaged]   && cells[iEngaged].v   != null ? String(cells[iEngaged].v).trim()   : '';
+        const com   = cells[iCommitted] && cells[iCommitted].v != null ? String(cells[iCommitted].v).trim() : '';
+        const computed = kpiToStatus(found, eng, com);
+        // Log first 5 rows so we can verify values
+        if (ri < 5) console.log(`[Sheet Sync] Row ${ri+1}: name="${name}" found="${found}" engaged="${eng}" committed="${com}" → ${computed}`);
+        if (name) statusMap[name] = computed;
       });
 
-      // Merge into classmates array
+      // Merge into classmates array — also try trimmed case-insensitive match
       let updated = 0;
       classmates.forEach(c => {
-        if (statusMap.hasOwnProperty(c.name)) {
-          c.status = statusMap[c.name];
+        const key = Object.keys(statusMap).find(k => k.toLowerCase() === c.name.toLowerCase());
+        if (key) {
+          c.status = statusMap[key];
           updated++;
         }
       });
 
       console.log(`[Sheet Sync] Synced ${updated} of ${classmates.length} statuses from Google Sheet.`);
+      if (updated === 0) console.warn('[Sheet Sync] 0 names matched — names in sheet may differ from names in classmates array. Check console rows above.');
     } catch (err) {
       console.warn('[Sheet Sync] Could not load Google Sheet — using hardcoded statuses.', err.message);
     }
