@@ -1698,7 +1698,32 @@
     </div>
   </div>
 </section>
-
+  
+<!-- Blueprint Reunion Countdown -->
+<div id="bp-countdown" style="background:#2E0810;font-family:sans-serif;text-align:center;padding:2rem 1rem;border-radius:10px;">
+  <p style="margin:0 0 4px;font-size:12px;letter-spacing:.1em;color:rgba(255,255,255,.4);font-style:italic">counting down to</p>
+  <p style="margin:0 0 16px;font-size:22px;letter-spacing:.15em;color:#C9A84C;font-weight:700;text-transform:uppercase">June 12, 2026</p>
+  <div id="bp-tiles" style="display:flex;justify-content:center;gap:8px;align-items:flex-start"></div>
+  <p id="bp-msg" style="margin:12px 0 0;font-size:12px;font-style:italic;color:rgba(255,255,255,.3)"></p>
+</div>
+<script>
+(function(){
+  var t=new Date('2026-06-12T00:00:00');
+  function p(n){return String(n).padStart(2,'0');}
+  function run(){
+    var now=new Date(),diff=t-now,el=document.getElementById('bp-tiles');
+    if(diff<=0){el.innerHTML='<b style="font-size:24px;color:#C9A84C;letter-spacing:.1em">THE NIGHT IS HERE</b>';return;}
+    var d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    el.innerHTML=['Days','Hours','Mins','Secs'].map(function(l,i){
+      var v=[d,h,m,s][i];
+      return '<div style="background:#4A0D1C;border:1px solid rgba(201,168,76,.3);border-radius:6px;padding:10px 12px;min-width:60px"><div style="font-size:32px;font-weight:700;color:#F9F3EE;line-height:1">'+p(v)+'</div><div style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#C9A84C;margin-top:5px">'+l+'</div></div>';
+    }).join('<span style="font-size:32px;color:rgba(201,168,76,.35);padding:0 2px;padding-top:10px">:</span>');
+    document.getElementById('bp-msg').textContent=d===0?'Tonight is the night.':d+' day'+(d!==1?'s':'')+' to go.';
+  }
+  run();setInterval(run,1000);
+})();
+</script>
+  
 <!-- ─── EVENTS ─── -->
 <section class="events" id="events">
   <p class="section-label">The Weekend</p>
