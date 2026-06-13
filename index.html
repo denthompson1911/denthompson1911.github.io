@@ -800,6 +800,24 @@
     max-width: 100px;
   }
 
+  .event-register-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.7rem 1.4rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .event-register-link:hover {
+    background: var(--gold);
+    color: var(--maroon-deep);
+  }
+
   /* ─── TICKETS ─── */
   .tickets {
     background: var(--cream);
@@ -948,6 +966,21 @@
     color: var(--maroon);
     letter-spacing: 0.05em;
   }
+
+  .ticket-row-link {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--maroon);
+    text-decoration: none;
+    text-align: right;
+    border-bottom: 1px solid var(--maroon);
+    padding-bottom: 2px;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+
+  .ticket-row-link:hover { opacity: 0.6; }
 
   .payment-info {
     margin-top: 3rem;
@@ -1199,6 +1232,83 @@
     text-align: center;
     font-size: 16px;
     font-weight: 500;
+    color: var(--white);
+  }
+
+  /* ─── DROPDOWN TICKET BLOCKS ─── */
+  .ticket-block {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 1.25rem 1.5rem;
+    margin-top: 0.85rem;
+  }
+
+  .ticket-block-info { flex: 1 1 200px; }
+
+  .ticket-block-name {
+    font-size: 15px;
+    color: var(--white);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .ticket-block-meta {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+    display: block;
+  }
+
+  .ticket-block-selects {
+    display: flex;
+    gap: 1rem;
+    flex: 0 0 auto;
+  }
+
+  .ticket-select {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 132px;
+  }
+
+  .ticket-select label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .ticket-select.guest-col label { color: rgba(255,255,255,0.5); }
+
+  .ticket-select select {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--white);
+    padding: 0.7rem 0.9rem;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .ticket-select select:focus {
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.12);
+  }
+
+  .ticket-select select option {
+    background: var(--maroon-dark);
     color: var(--white);
   }
 
@@ -1595,6 +1705,9 @@
     .tickets-layout { grid-template-columns: 1fr; gap: 3rem; }
     .form-grid { grid-template-columns: 1fr; }
     .ticket-selector { grid-template-columns: 1fr; }
+    .ticket-block { flex-direction: column; align-items: stretch; gap: 1rem; }
+    .ticket-block-selects { width: 100%; }
+    .ticket-select { flex: 1; min-width: 0; }
     .policy-grid { grid-template-columns: 1fr; }
     .hero-footer { flex-direction: column; gap: 1rem; text-align: center; }
     footer { flex-direction: column; gap: 1.5rem; text-align: center; }
@@ -1768,8 +1881,9 @@
       </div>
       <div class="event-price">
         <span class="event-price-amount">$25</span>
-        <span class="event-price-note">For all<br>C/O '01 included in VIP</span>
+        <span class="event-price-note">Booked separately<br>through Jabs Gym</span>
       </div>
+      <a class="event-register-link" href="https://momence.com/Jabs-Gym-Eastern-Market/Renaissance-HS-c%2Fo-'01---Reunion-workout/136960039?skipPreview=true&amp;fbclid=IwY2xjawSavfNleHRuA2FlbQIxMABicmlkETFkcVRqUEJON2hlMXZDb3Zwc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHnXw8bOqUVGG4KZk9XPk_b9U8273H0V9a7uzQrtXutczt_7LDX76agejN0qp_aem_Tl6ISLMmNZ3bs305gBW4DA&amp;utm_id=97758_v0_s00_e0_tv0" target="_blank" rel="noopener">Register at Jabs Gym &rarr;</a>
     </div>
 
     <!-- Saturday evening -->
@@ -1830,14 +1944,15 @@
     <div class="vip-card">
       <span class="vip-badge">Class of 2001 Only</span>
       <h3 class="vip-title">VIP Weekend<br>Package</h3>
-      <span class="vip-exclusive">All four events &bull; Exclusive to classmates</span>
+      <span class="vip-exclusive">Three signature events &bull; Exclusive to classmates</span>
       <ul class="vip-includes">
-        <li>Admission to all four weekend events</li>
+        <li>Admission to the Welcome Mixer, A Phoenix Is Forever &amp; Family Farewell BBQ</li>
         <li>25th reunion swag &amp; memorabilia</li>
         <li>A gift to Renaissance High School</li>
         <li>Materials needed for execution</li>
         <li>Priority access &amp; check-in</li>
       </ul>
+      <p style="font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:0.05em;line-height:1.5;margin-bottom:0.5rem">The Saturday Workout Session is a separate event &mdash; book it directly through Jabs Gym.</p>
       <div class="vip-price-row">
         <span class="vip-price">$250</span>
         <span class="vip-price-detail">Per classmate<br>Transfers permitted<br>No refunds</span>
@@ -1860,9 +1975,9 @@
       <div class="ticket-row">
         <div class="ticket-row-info">
           <p class="ticket-row-name">Workout Session</p>
-          <p class="ticket-row-venue">Jabs Gym &middot; Aug 1, 10:30 AM</p>
+          <p class="ticket-row-venue">Jabs Gym &middot; Aug 1, 10:30 AM &middot; $25 &middot; booked separately</p>
         </div>
-        <span class="ticket-row-price" style="text-align:right">$25<span style="display:block;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text-light);letter-spacing:0.05em;">Class of '01 only</span></span>
+        <a class="ticket-row-link" href="https://momence.com/Jabs-Gym-Eastern-Market/Renaissance-HS-c%2Fo-'01---Reunion-workout/136960039?skipPreview=true&amp;fbclid=IwY2xjawSavfNleHRuA2FlbQIxMABicmlkETFkcVRqUEJON2hlMXZDb3Zwc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHnXw8bOqUVGG4KZk9XPk_b9U8273H0V9a7uzQrtXutczt_7LDX76agejN0qp_aem_Tl6ISLMmNZ3bs305gBW4DA&amp;utm_id=97758_v0_s00_e0_tv0" target="_blank" rel="noopener">Register at Jabs Gym &rarr;</a>
       </div>
 
       <div class="ticket-row">
@@ -2158,79 +2273,89 @@
         <option value="classmate">Yes — RHS Class of 2001</option>
         <option value="guest">No — I am a guest of a classmate</option>
       </select>
-      <p class="ticket-helper" style="margin-top:0.5rem">Several events have a separate Class of 2001 rate and guest rate. Your selection here sets your rate &mdash; ticket prices below update automatically. Any guests you bring are always charged the guest rate.</p>
+      <p class="ticket-helper" style="margin-top:0.5rem">Choose whether you're a classmate or a guest &mdash; your ticket options appear below. Classmates can buy alumni tickets plus guest tickets for anyone they bring; guests pay the guest rate.</p>
     </div>
 
-    <div class="form-group full">
+    <div class="form-group full" id="ticketArea" style="display:none">
       <label>Select your ticket(s)</label>
-      <p class="ticket-helper">Choose whether you're a classmate or guest above to see pricing. Bringing a partner, spouse, or guest? Use the &minus; / + buttons to set how many of each ticket you need &mdash; the total updates automatically.</p>
+      <p class="ticket-helper">Set how many tickets you need for each event using the dropdowns. The <strong style="color:var(--gold)">Class of 2001</strong> column is the alumni rate; the <strong>Guests</strong> column is the guest rate. Your <strong>Total Due</strong> updates automatically.</p>
       <div class="ticket-selector" id="ticketSelector">
-        <div class="ticket-option" id="opt-vip">
-          <div class="ticket-option-info">
-            <span class="ticket-option-name">VIP Weekend Package</span>
-            <span class="ticket-option-date">Class of 2001 only &bull; All 4 events</span>
+
+        <div class="ticket-block" id="vipBlock">
+          <div class="ticket-block-info">
+            <span class="ticket-block-name">VIP Weekend Package</span>
+            <span class="ticket-block-meta">Class of 2001 only &bull; covers all 3 ticketed events &bull; includes swag &amp; memorabilia</span>
           </div>
-          <span class="ticket-option-price" data-classmate="$250" data-guest="$250"></span>
-          <div class="qty-stepper">
-            <button type="button" class="qty-btn" onclick="changeQty('vip', -1)" aria-label="Decrease VIP packages">&minus;</button>
-            <span class="qty-value" id="qty-vip">0</span>
-            <button type="button" class="qty-btn" onclick="changeQty('vip', 1)" aria-label="Increase VIP packages">+</button>
-          </div>
-        </div>
-        <div class="ticket-option" id="opt-mixer">
-          <div class="ticket-option-info">
-            <span class="ticket-option-name">Welcome Mixer</span>
-            <span class="ticket-option-date">Jul 31 &bull; The Shadow Gallery</span>
-          </div>
-          <span class="ticket-option-price" data-event="mixer" data-classmate="$50" data-guest="$25"></span>
-          <div class="qty-stepper">
-            <button type="button" class="qty-btn" onclick="changeQty('mixer', -1)" aria-label="Decrease Welcome Mixer tickets">&minus;</button>
-            <span class="qty-value" id="qty-mixer">0</span>
-            <button type="button" class="qty-btn" onclick="changeQty('mixer', 1)" aria-label="Increase Welcome Mixer tickets">+</button>
+          <div class="ticket-block-selects">
+            <div class="ticket-select alum-col">
+              <label>Class of 2001</label>
+              <select id="sel-vip-alum" onchange="onTicketChange()" aria-label="VIP Weekend Package quantity"></select>
+            </div>
           </div>
         </div>
-        <div class="ticket-option" id="opt-workout">
-          <div class="ticket-option-info">
-            <span class="ticket-option-name">Workout Session</span>
-            <span class="ticket-option-date">Aug 1 &bull; Jabs Gym &bull; <span style="color:var(--gold)">Classmates only &mdash; no guests</span></span>
+
+        <div class="ticket-block">
+          <div class="ticket-block-info">
+            <span class="ticket-block-name">Welcome Mixer</span>
+            <span class="ticket-block-meta">Jul 31, 7:00 PM &bull; The Shadow Gallery</span>
           </div>
-          <span class="ticket-option-price" data-classmate="$25" data-guest="$25"></span>
-          <div class="qty-stepper">
-            <button type="button" class="qty-btn" onclick="changeQty('workout', -1)" aria-label="Decrease Workout Session tickets">&minus;</button>
-            <span class="qty-value" id="qty-workout">0</span>
-            <button type="button" class="qty-btn" onclick="changeQty('workout', 1)" aria-label="Increase Workout Session tickets">+</button>
-          </div>
-        </div>
-        <div class="ticket-option" id="opt-gala">
-          <div class="ticket-option-info">
-            <span class="ticket-option-name">A Phoenix Is Forever</span>
-            <span class="ticket-option-date">Aug 1 &bull; Epiphany Detroit</span>
-          </div>
-          <span class="ticket-option-price" data-event="gala" data-classmate="$150" data-guest="$125"></span>
-          <div class="qty-stepper">
-            <button type="button" class="qty-btn" onclick="changeQty('gala', -1)" aria-label="Decrease gala tickets">&minus;</button>
-            <span class="qty-value" id="qty-gala">0</span>
-            <button type="button" class="qty-btn" onclick="changeQty('gala', 1)" aria-label="Increase gala tickets">+</button>
+          <div class="ticket-block-selects">
+            <div class="ticket-select alum-col">
+              <label>Class of 2001</label>
+              <select id="sel-mixer-alum" onchange="onTicketChange()" aria-label="Welcome Mixer — Class of 2001 quantity"></select>
+            </div>
+            <div class="ticket-select guest-col">
+              <label>Guests</label>
+              <select id="sel-mixer-guest" onchange="onTicketChange()" aria-label="Welcome Mixer — guest quantity"></select>
+            </div>
           </div>
         </div>
-        <div class="ticket-option" id="opt-bbq">
-          <div class="ticket-option-info">
-            <span class="ticket-option-name">Family Farewell BBQ</span>
-            <span class="ticket-option-date">Aug 2 &bull; Riverside Park</span>
+
+        <div class="ticket-block">
+          <div class="ticket-block-info">
+            <span class="ticket-block-name">A Phoenix Is Forever</span>
+            <span class="ticket-block-meta">Aug 1, 7:00 PM &bull; Epiphany Detroit</span>
           </div>
-          <span class="ticket-option-price" data-event="bbq" data-classmate="$40" data-guest="$15"></span>
-          <div class="qty-stepper">
-            <button type="button" class="qty-btn" onclick="changeQty('bbq', -1)" aria-label="Decrease BBQ tickets">&minus;</button>
-            <span class="qty-value" id="qty-bbq">0</span>
-            <button type="button" class="qty-btn" onclick="changeQty('bbq', 1)" aria-label="Increase BBQ tickets">+</button>
+          <div class="ticket-block-selects">
+            <div class="ticket-select alum-col">
+              <label>Class of 2001</label>
+              <select id="sel-gala-alum" onchange="onTicketChange()" aria-label="A Phoenix Is Forever — Class of 2001 quantity"></select>
+            </div>
+            <div class="ticket-select guest-col">
+              <label>Guests</label>
+              <select id="sel-gala-guest" onchange="onTicketChange()" aria-label="A Phoenix Is Forever — guest quantity"></select>
+            </div>
           </div>
         </div>
+
+        <div class="ticket-block">
+          <div class="ticket-block-info">
+            <span class="ticket-block-name">Family Farewell BBQ</span>
+            <span class="ticket-block-meta">Aug 2, 10:00 AM &bull; Riverside Park</span>
+          </div>
+          <div class="ticket-block-selects">
+            <div class="ticket-select alum-col">
+              <label>Class of 2001</label>
+              <select id="sel-bbq-alum" onchange="onTicketChange()" aria-label="Family Farewell BBQ — Class of 2001 quantity"></select>
+            </div>
+            <div class="ticket-select guest-col">
+              <label>Guests</label>
+              <select id="sel-bbq-guest" onchange="onTicketChange()" aria-label="Family Farewell BBQ — guest quantity"></select>
+            </div>
+          </div>
+        </div>
+
       </div>
+    </div>
+
+    <div class="form-group full" id="ticketPrompt">
+      <label>Select your ticket(s)</label>
+      <p class="ticket-helper">Choose whether you're a classmate or a guest above to see ticket options and pricing.</p>
     </div>
 
     <div class="form-group full" id="guestNamesGroup" style="display:none">
       <label>Guest Names</label>
-      <p class="ticket-helper">List a guest name for each ticket beyond your own. If you have a VIP package, your VIP covers you for all 4 events &mdash; any individual event tickets are for guests.</p>
+      <p class="ticket-helper">List a name for each guest ticket you selected above. Children under 2 attend free &mdash; check the box and they won't be charged.</p>
       <div id="guestNamesContainer"></div>
     </div>
 
@@ -2312,106 +2437,126 @@
 </div>
 
 <script>
-  // Per-event pricing has two tiers: Class of 2001 and guest.
-  const pricesClassmate = { vip: 250, mixer: 50, workout: 25, gala: 150, bbq: 40 };
-  const pricesGuest     = { vip: 250, mixer: 25, workout: 25, gala: 125, bbq: 15 };
-  const prices = pricesGuest; // backward-compat alias
+  // ─── TICKET CONFIG ───
+  // Two price tiers per event: Class of 2001 (alum) and guest.
+  // The Saturday Workout Session is booked separately via Jabs Gym and is not
+  // part of the on-site ticketing or the VIP package.
+  const ticketCfg = {
+    vip:   { name: 'VIP Weekend Package',  alum: 250, guest: null },
+    mixer: { name: 'Welcome Mixer',        alum: 50,  guest: 25  },
+    gala:  { name: 'A Phoenix Is Forever', alum: 150, guest: 125 },
+    bbq:   { name: 'Family Farewell BBQ',  alum: 40,  guest: 15  },
+  };
+  const eventOrder = ['mixer', 'gala', 'bbq'];
+  const MAX_QTY = 12;
 
   function currentStatus() {
     const el = document.getElementById('classStatus');
     return el ? el.value : '';
   }
-  // The registrant's OWN seat is priced by their status; guests always pay the guest rate.
-  function ownPriceFor(id) {
-    return (currentStatus() === 'classmate' ? pricesClassmate : pricesGuest)[id];
+
+  // Read a quantity dropdown's value as an integer.
+  function selVal(id) {
+    const el = document.getElementById(id);
+    return el ? (parseInt(el.value, 10) || 0) : 0;
   }
-  const names = { vip: 'VIP Weekend Package', mixer: 'Welcome Mixer', workout: 'Workout Session', gala: 'A Phoenix Is Forever', bbq: 'Family Farewell BBQ' };
-  const qty = { vip: 0, mixer: 0, workout: 0, gala: 0, bbq: 0 };
-  // Only the 4 individual events collect guest names (VIP is per-classmate)
-  const eventOrder = ['mixer', 'workout', 'gala', 'bbq'];
+  const vipQty     = () => selVal('sel-vip-alum');
+  const alumQty    = ev => selVal('sel-' + ev + '-alum');
+  const guestQtyEl = ev => selVal('sel-' + ev + '-guest');
 
-  // How many guest names to collect for a given event.
-  // VIP covers the registrant for all 4 events, so any individual ticket bought
-  // while VIP is selected is for a guest. Without VIP, the registrant counts as ticket 1.
-  // EXCEPTION: the Workout Session is classmates-only — no guests permitted.
-  function guestCountFor(ev) {
-    if (qty[ev] <= 0) return 0;
-    if (ev === 'workout') return 0;
-    return qty.vip > 0 ? qty[ev] : qty[ev] - 1;
+  // Number of "under 2 (free)" guests currently checked for an event.
+  function under2For(ev) {
+    let n = 0;
+    const g = guestQtyEl(ev);
+    for (let i = 0; i < g; i++) {
+      const el = document.getElementById(`under2-${ev}-${i}`);
+      if (el && el.checked) n++;
+    }
+    return n;
   }
 
-  // Per-ticket maximum quantities. Unspecified = unlimited.
-  // Workout is classmates-only: 1 ticket per registration (no guests).
-  const maxQty = { workout: 1 };
+  // Build the 0..MAX_QTY options for one dropdown, labelled with the running price.
+  function fillSelect(id, price) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    let html = '';
+    for (let n = 0; n <= MAX_QTY; n++) {
+      const label = n === 0 ? '0' : `${n} — $${n * price}`;
+      html += `<option value="${n}">${label}</option>`;
+    }
+    el.innerHTML = html;
+  }
 
-  function changeQty(id, delta) {
-    let next = Math.max(0, qty[id] + delta);
-    if (maxQty[id] !== undefined) next = Math.min(maxQty[id], next);
-    qty[id] = next;
-    document.getElementById('qty-' + id).textContent = qty[id];
-    document.getElementById('opt-' + id).classList.toggle('selected', qty[id] > 0);
+  // Populate every ticket dropdown from the config.
+  function buildTicketSelects() {
+    fillSelect('sel-vip-alum', ticketCfg.vip.alum);
+    eventOrder.forEach(ev => {
+      fillSelect('sel-' + ev + '-alum', ticketCfg[ev].alum);
+      fillSelect('sel-' + ev + '-guest', ticketCfg[ev].guest);
+    });
+  }
+
+  // Called whenever any ticket dropdown changes.
+  function onTicketChange() {
     updateTotal();
     renderGuestNames();
   }
 
   function updateTotal() {
-    let total = pricesClassmate.vip * qty.vip;
+    let total = ticketCfg.vip.alum * vipQty();
     eventOrder.forEach(ev => {
-      if (qty[ev] > 0) {
-        const guestSeats = guestCountFor(ev);
-        const ownSeats = Math.max(0, qty[ev] - guestSeats);
-        let under2 = 0;
-        for (let i = 0; i < guestSeats; i++) {
-          const el = document.getElementById(`under2-${ev}-${i}`);
-          if (el && el.checked) under2++;
-        }
-        const payingGuests = Math.max(0, guestSeats - under2);
-        total += ownSeats * ownPriceFor(ev) + payingGuests * pricesGuest[ev];
-      }
+      total += alumQty(ev) * ticketCfg[ev].alum;
+      const payingGuests = Math.max(0, guestQtyEl(ev) - under2For(ev));
+      total += payingGuests * ticketCfg[ev].guest;
     });
     document.getElementById('totalDisplay').textContent = '$' + total;
   }
 
-  // Reflect the classmate/guest dropdown across the ticket selector:
-  //  • Swap each event's displayed price to the matching tier.
-  //  • Hide the VIP Package and Workout Session for guests (Class of 2001 only).
+  // The class-status dropdown reveals the ticket area and gates alumni-only options.
   function applyStatusToSelector() {
     const status = currentStatus();
+    const area   = document.getElementById('ticketArea');
+    const prompt = document.getElementById('ticketPrompt');
+
+    if (!status) {
+      if (area)   area.style.display = 'none';
+      if (prompt) prompt.style.display = '';
+      updateTotal();
+      return;
+    }
+    if (area)   area.style.display = '';
+    if (prompt) prompt.style.display = 'none';
+
     const isGuest = status === 'guest';
 
-    document.querySelectorAll('.ticket-option-price').forEach(el => {
-      if (!status) { el.textContent = ''; return; }
-      el.textContent = (status === 'classmate' ? el.dataset.classmate : el.dataset.guest) || '';
+    // VIP package + the Class-of-2001 (alum) columns are for alumni only.
+    const vipBlock = document.getElementById('vipBlock');
+    if (vipBlock) vipBlock.style.display = isGuest ? 'none' : '';
+    document.querySelectorAll('.ticket-select.alum-col').forEach(el => {
+      el.style.display = isGuest ? 'none' : '';
     });
 
-    ['vip', 'workout'].forEach(id => {
-      const opt = document.getElementById('opt-' + id);
-      if (!opt) return;
-      if (isGuest) {
-        if (qty[id] > 0) {
-          qty[id] = 0;
-          const q = document.getElementById('qty-' + id);
-          if (q) q.textContent = '0';
-          opt.classList.remove('selected');
-        }
-        opt.style.display = 'none';
-      } else {
-        opt.style.display = '';
-      }
-    });
+    // A guest can't hold alumni tickets — reset those dropdowns to 0.
+    if (isGuest) {
+      ['sel-vip-alum', ...eventOrder.map(ev => 'sel-' + ev + '-alum')].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '0';
+      });
+    }
 
     updateTotal();
     renderGuestNames();
   }
 
-  // Dynamically build guest inputs (and "under 2" checkboxes) per event. Preserves typed values and checkbox state across re-renders.
+  // Build a name input (+ "under 2" checkbox) for each guest ticket selected.
+  // Preserves typed values and checkbox state across re-renders.
   function renderGuestNames() {
     // 1. Snapshot current values + checkbox states.
     const preserved = {};
     eventOrder.forEach(ev => {
       preserved[ev] = [];
-      const guestCount = guestCountFor(ev);
-      for (let i = 0; i < guestCount; i++) {
+      const g = guestQtyEl(ev);
+      for (let i = 0; i < g; i++) {
         const nameEl = document.getElementById(`guest-${ev}-${i}`);
         const under2El = document.getElementById(`under2-${ev}-${i}`);
         preserved[ev].push({
@@ -2429,15 +2574,15 @@
     let html = '';
     let anyShown = false;
     eventOrder.forEach(ev => {
-      const guestCount = guestCountFor(ev);
-      if (guestCount > 0) {
+      const g = guestQtyEl(ev);
+      if (g > 0) {
         anyShown = true;
-        html += `<div class="guest-event-block"><span class="guest-event-block-label">${names[ev]} &middot; ${guestCount} guest${guestCount === 1 ? '' : 's'} &middot; <span style="color:var(--gold)">$${pricesGuest[ev]} each</span></span>`;
-        for (let i = 0; i < guestCount; i++) {
-          const g = preserved[ev][i] || { name: '', under2: false };
+        html += `<div class="guest-event-block"><span class="guest-event-block-label">${ticketCfg[ev].name} &middot; ${g} guest${g === 1 ? '' : 's'} &middot; <span style="color:var(--gold)">$${ticketCfg[ev].guest} each</span></span>`;
+        for (let i = 0; i < g; i++) {
+          const gp = preserved[ev][i] || { name: '', under2: false };
           html += `<div class="guest-row">`
-            + `<input type="text" id="guest-${ev}-${i}" placeholder="Guest ${i + 1} full name" value="${escape(g.name)}" />`
-            + `<label class="guest-under2"><input type="checkbox" id="under2-${ev}-${i}" onchange="updateTotal()"${g.under2 ? ' checked' : ''} /><span>Under 2 (free)</span></label>`
+            + `<input type="text" id="guest-${ev}-${i}" placeholder="Guest ${i + 1} full name" value="${escape(gp.name)}" />`
+            + `<label class="guest-under2"><input type="checkbox" id="under2-${ev}-${i}" onchange="updateTotal()"${gp.under2 ? ' checked' : ''} /><span>Under 2 (free)</span></label>`
             + `</div>`;
         }
         html += `</div>`;
@@ -2472,9 +2617,15 @@
       return;
     }
 
-    const hasTicket = Object.values(qty).some(n => n > 0);
+    // Tally selected quantities from the dropdowns.
+    const counts = { vip: vipQty() };
+    eventOrder.forEach(ev => {
+      counts[ev + '-alum'] = alumQty(ev);
+      counts[ev + '-guest'] = guestQtyEl(ev);
+    });
+    const hasTicket = Object.values(counts).some(n => n > 0);
     if (!hasTicket) {
-      alert('Please select at least one ticket. Use the + buttons to set how many you need.');
+      alert('Please select at least one ticket using the dropdowns.');
       return;
     }
 
@@ -2482,18 +2633,18 @@
     const guestsByEvent = {};  // {ev: [{name, under2}, ...]}
     const missingGuests = [];
     eventOrder.forEach(ev => {
-      const guestCount = guestCountFor(ev);
-      if (guestCount > 0) {
+      const g = guestQtyEl(ev);
+      if (g > 0) {
         const guests = [];
         let hasBlank = false;
-        for (let i = 0; i < guestCount; i++) {
+        for (let i = 0; i < g; i++) {
           const nameEl = document.getElementById(`guest-${ev}-${i}`);
           const under2El = document.getElementById(`under2-${ev}-${i}`);
           const v = nameEl ? nameEl.value.trim() : '';
           if (!v) hasBlank = true;
           guests.push({ name: v, under2: under2El ? under2El.checked : false });
         }
-        if (hasBlank) missingGuests.push(names[ev]);
+        if (hasBlank) missingGuests.push(ticketCfg[ev].name);
         guestsByEvent[ev] = guests;
       }
     });
@@ -2502,49 +2653,44 @@
       return;
     }
 
-    // Build ticket lines + modal rows, applying under-2 discount.
+    // Build modal rows + plain-text lines.
     let total = 0;
     let rows = '';
     let ticketLines = [];
-    for (const [k, n] of Object.entries(qty)) {
-      if (n > 0) {
-        let under2Count = 0;
-        if (eventOrder.includes(k) && guestsByEvent[k]) {
-          under2Count = guestsByEvent[k].filter(g => g.under2).length;
-        }
-        let lineTotal;
-        if (k === 'vip') {
-          lineTotal = pricesClassmate.vip * n;
-        } else {
-          const guestSeats = guestCountFor(k);
-          const ownSeats = Math.max(0, n - guestSeats);
-          const payingGuests = Math.max(0, guestSeats - under2Count);
-          lineTotal = ownSeats * ownPriceFor(k) + payingGuests * pricesGuest[k];
-        }
-        let label = n > 1 ? `${names[k]} <span style="color:rgba(255,255,255,0.4)">&times;${n}</span>` : names[k];
-        if (under2Count > 0) {
-          label += ` <span style="color:rgba(201,168,76,0.75);font-size:11px">&middot; ${under2Count} under 2 (free)</span>`;
-        }
-        rows += `<div class="modal-summary-row"><span>${label}</span><span>$${lineTotal}</span></div>`;
-        ticketLines.push(under2Count > 0
-          ? `${names[k]} x${n} (${under2Count} under 2, free) = $${lineTotal}`
-          : `${names[k]} x${n} = $${lineTotal}`);
-        total += lineTotal;
+    const addRow = (label, qtyN, lineTotal, note) => {
+      let html = qtyN > 1 ? `${label} <span style="color:rgba(255,255,255,0.4)">&times;${qtyN}</span>` : label;
+      if (note) html += ` <span style="color:rgba(201,168,76,0.75);font-size:11px">&middot; ${note}</span>`;
+      rows += `<div class="modal-summary-row"><span>${html}</span><span>$${lineTotal}</span></div>`;
+      ticketLines.push(`${label} x${qtyN} = $${lineTotal}${note ? ' (' + note + ')' : ''}`);
+      total += lineTotal;
+    };
+
+    // VIP (alumni only)
+    if (counts.vip > 0) addRow('VIP Weekend Package', counts.vip, ticketCfg.vip.alum * counts.vip);
+
+    // Per event: alumni line, then guest line (guest line nets out under-2 free).
+    eventOrder.forEach(ev => {
+      const a = alumQty(ev);
+      if (a > 0) addRow(`${ticketCfg[ev].name} — Class of 2001`, a, ticketCfg[ev].alum * a);
+      const g = guestQtyEl(ev);
+      if (g > 0) {
+        const under2 = guestsByEvent[ev] ? guestsByEvent[ev].filter(x => x.under2).length : 0;
+        const paying = Math.max(0, g - under2);
+        addRow(`${ticketCfg[ev].name} — Guests`, g, ticketCfg[ev].guest * paying,
+               under2 > 0 ? `${under2} under 2 (free)` : '');
       }
-    }
+    });
 
     // Add guest-name rows to the modal so the registrant can verify what was captured.
-    let guestRows = '';
     eventOrder.forEach(ev => {
       if (guestsByEvent[ev] && guestsByEvent[ev].length > 0) {
         const display = guestsByEvent[ev]
           .map(g => g.under2 ? `${g.name} (under 2)` : g.name)
           .join(', ');
-        guestRows += `<div class="modal-summary-row" style="color:rgba(255,255,255,0.45);font-size:12px"><span>${names[ev]} guests</span><span style="text-align:right;color:rgba(255,255,255,0.7)">${display}</span></div>`;
+        rows += `<div class="modal-summary-row" style="color:rgba(255,255,255,0.45);font-size:12px"><span>${ticketCfg[ev].name} guests</span><span style="text-align:right;color:rgba(255,255,255,0.7)">${display}</span></div>`;
       }
     });
 
-    rows += guestRows;
     rows += `<div class="modal-summary-row total"><span>Total Due</span><span>$${total}</span></div>`;
 
     document.getElementById('modalSummary').innerHTML =
@@ -2554,15 +2700,9 @@
     if (WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== "YOUR_ACCESS_KEY_HERE") {
       const statusLabel = status === 'classmate' ? 'RHS Class of 2001' : 'Guest of a classmate';
 
-      // Per-event under-2 counts (for at-a-glance email reading + spreadsheet imports).
       let totalUnder2 = 0;
-      const under2Counts = { mixer: 0, workout: 0, gala: 0, bbq: 0 };
       eventOrder.forEach(ev => {
-        if (guestsByEvent[ev]) {
-          const c = guestsByEvent[ev].filter(g => g.under2).length;
-          under2Counts[ev] = c;
-          totalUnder2 += c;
-        }
+        if (guestsByEvent[ev]) totalUnder2 += guestsByEvent[ev].filter(g => g.under2).length;
       });
 
       const payload = {
@@ -2574,11 +2714,13 @@
         "Email": email,
         "Phone": phone || "(not provided)",
         "Class Status": statusLabel,
-        "VIP Packages": qty.vip,
-        "Welcome Mixer Tickets": qty.mixer,
-        "Workout Session Tickets": qty.workout,
-        "A Phoenix Is Forever Tickets": qty.gala,
-        "Family Farewell BBQ Tickets": qty.bbq,
+        "VIP Packages": counts.vip,
+        "Welcome Mixer (Class of 2001)": alumQty('mixer'),
+        "Welcome Mixer (Guests)": guestQtyEl('mixer'),
+        "A Phoenix Is Forever (Class of 2001)": alumQty('gala'),
+        "A Phoenix Is Forever (Guests)": guestQtyEl('gala'),
+        "Family Farewell BBQ (Class of 2001)": alumQty('bbq'),
+        "Family Farewell BBQ (Guests)": guestQtyEl('bbq'),
         "Tickets Summary": ticketLines.join("\n"),
         "Under 2 Guests Total": totalUnder2,
         "Total Due": `$${total}`
@@ -2586,7 +2728,7 @@
       // Per-event guest names with under-2 marker.
       eventOrder.forEach(ev => {
         if (guestsByEvent[ev] && guestsByEvent[ev].length > 0) {
-          payload[`${names[ev]} Guests`] = guestsByEvent[ev]
+          payload[`${ticketCfg[ev].name} Guests`] = guestsByEvent[ev]
             .map(g => g.under2 ? `${g.name} (under 2 — free)` : g.name)
             .join(", ");
         }
@@ -3141,7 +3283,8 @@
     renderDirectory(classmates);
   }
 
-  // Initialize ticket selector to match the (default) class-status selection.
+  // Build ticket dropdowns, then initialize the selector to the current status.
+  buildTicketSelects();
   applyStatusToSelector();
 
   // Run sync on page load
