@@ -1743,9 +1743,13 @@
         <span class="event-detail-icon">&#9679;</span>
         <span class="event-detail-text">Cocktail attire welcome<br>Good vibes required</span>
       </div>
+      <div class="event-detail">
+        <span class="event-detail-icon">&#9679;</span>
+        <span class="event-detail-text">Ticket covers: open bar, light food<br>&amp; Class of '01 memorabilia</span>
+      </div>
       <div class="event-price">
-        <span class="event-price-amount">$25</span>
-        <span class="event-price-note">Guests only<br>C/O '01 included in VIP</span>
+        <span class="event-price-amount">$50</span>
+        <span class="event-price-note">Class of '01<br>Guests $25</span>
       </div>
     </div>
 
@@ -1781,9 +1785,13 @@
         <span class="event-detail-icon">&#9679;</span>
         <span class="event-detail-text">All-white semi-formal attire<br>The main event of the weekend</span>
       </div>
+      <div class="event-detail">
+        <span class="event-detail-icon">&#9679;</span>
+        <span class="event-detail-text">Ticket covers: open bar, meal<br>&amp; Class of '01 memorabilia</span>
+      </div>
       <div class="event-price">
-        <span class="event-price-amount">$125</span>
-        <span class="event-price-note">Guests only<br>C/O '01 included in VIP</span>
+        <span class="event-price-amount">$150</span>
+        <span class="event-price-note">Class of '01<br>Guests $125</span>
       </div>
     </div>
 
@@ -1800,9 +1808,13 @@
         <span class="event-detail-icon">&#9679;</span>
         <span class="event-detail-text">Casual attire<br>Bring the whole family</span>
       </div>
+      <div class="event-detail">
+        <span class="event-detail-icon">&#9679;</span>
+        <span class="event-detail-text">Ticket covers: meal &amp; a contribution<br>toward Sunday activities</span>
+      </div>
       <div class="event-price">
-        <span class="event-price-amount">$15</span>
-        <span class="event-price-note">Guests only<br>C/O '01 included in VIP</span>
+        <span class="event-price-amount">$40</span>
+        <span class="event-price-note">Class of '01<br>Guests $15</span>
       </div>
     </div>
   </div>
@@ -1835,14 +1847,14 @@
     <!-- Guest tickets -->
     <div class="guest-tickets">
       <h3>Individual<br>Event Tickets</h3>
-      <p class="guest-sub">Available to guests accompanying RHS '01 alumni</p>
+      <p class="guest-sub">Class of 2001 rate &middot; guest rate &mdash; pick your status when you register</p>
 
       <div class="ticket-row">
         <div class="ticket-row-info">
           <p class="ticket-row-name">Welcome Mixer</p>
           <p class="ticket-row-venue">The Shadow Gallery &middot; Jul 31, 7:00 PM</p>
         </div>
-        <span class="ticket-row-price">$25</span>
+        <span class="ticket-row-price" style="text-align:right">$50<span style="display:block;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text-light);letter-spacing:0.05em;">Guest $25</span></span>
       </div>
 
       <div class="ticket-row">
@@ -1850,7 +1862,7 @@
           <p class="ticket-row-name">Workout Session</p>
           <p class="ticket-row-venue">Jabs Gym &middot; Aug 1, 10:30 AM</p>
         </div>
-        <span class="ticket-row-price">$25</span>
+        <span class="ticket-row-price" style="text-align:right">$25<span style="display:block;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text-light);letter-spacing:0.05em;">Class of '01 only</span></span>
       </div>
 
       <div class="ticket-row">
@@ -1858,7 +1870,7 @@
           <p class="ticket-row-name">A Phoenix Is Forever</p>
           <p class="ticket-row-venue">Epiphany Detroit &middot; Aug 1, 7:00 PM</p>
         </div>
-        <span class="ticket-row-price">$125</span>
+        <span class="ticket-row-price" style="text-align:right">$150<span style="display:block;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text-light);letter-spacing:0.05em;">Guest $125</span></span>
       </div>
 
       <div class="ticket-row">
@@ -1866,7 +1878,7 @@
           <p class="ticket-row-name">Family Farewell BBQ</p>
           <p class="ticket-row-venue">Riverside Park &middot; Aug 2, 10:00 AM</p>
         </div>
-        <span class="ticket-row-price">$15</span>
+        <span class="ticket-row-price" style="text-align:right">$40<span style="display:block;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text-light);letter-spacing:0.05em;">Guest $15</span></span>
       </div>
 
       <div class="payment-info">
@@ -2141,11 +2153,12 @@
     </div>
     <div class="form-group full">
       <label>Are you a member of the RHS Class of 2001?</label>
-      <select id="classStatus">
+      <select id="classStatus" onchange="applyStatusToSelector()">
         <option value="">Select one</option>
         <option value="classmate">Yes — RHS Class of 2001</option>
         <option value="guest">No — I am a guest of a classmate</option>
       </select>
+      <p class="ticket-helper" style="margin-top:0.5rem">Several events have a separate Class of 2001 rate and guest rate. Your selection here sets your rate &mdash; ticket prices below update automatically. Any guests you bring are always charged the guest rate.</p>
     </div>
 
     <div class="form-group full">
@@ -2169,7 +2182,7 @@
             <span class="ticket-option-name">Welcome Mixer</span>
             <span class="ticket-option-date">Jul 31 &bull; The Shadow Gallery</span>
           </div>
-          <span class="ticket-option-price">$25</span>
+          <span class="ticket-option-price" data-event="mixer" data-classmate="$50" data-guest="$25">$25</span>
           <div class="qty-stepper">
             <button type="button" class="qty-btn" onclick="changeQty('mixer', -1)" aria-label="Decrease Welcome Mixer tickets">&minus;</button>
             <span class="qty-value" id="qty-mixer">0</span>
@@ -2193,7 +2206,7 @@
             <span class="ticket-option-name">A Phoenix Is Forever</span>
             <span class="ticket-option-date">Aug 1 &bull; Epiphany Detroit</span>
           </div>
-          <span class="ticket-option-price">$125</span>
+          <span class="ticket-option-price" data-event="gala" data-classmate="$150" data-guest="$125">$125</span>
           <div class="qty-stepper">
             <button type="button" class="qty-btn" onclick="changeQty('gala', -1)" aria-label="Decrease gala tickets">&minus;</button>
             <span class="qty-value" id="qty-gala">0</span>
@@ -2205,7 +2218,7 @@
             <span class="ticket-option-name">Family Farewell BBQ</span>
             <span class="ticket-option-date">Aug 2 &bull; Riverside Park</span>
           </div>
-          <span class="ticket-option-price">$15</span>
+          <span class="ticket-option-price" data-event="bbq" data-classmate="$40" data-guest="$15">$15</span>
           <div class="qty-stepper">
             <button type="button" class="qty-btn" onclick="changeQty('bbq', -1)" aria-label="Decrease BBQ tickets">&minus;</button>
             <span class="qty-value" id="qty-bbq">0</span>
@@ -2304,7 +2317,19 @@
 </div>
 
 <script>
-  const prices = { vip: 250, mixer: 25, workout: 25, gala: 125, bbq: 15 };
+  // Per-event pricing has two tiers: Class of 2001 and guest.
+  const pricesClassmate = { vip: 250, mixer: 50, workout: 25, gala: 150, bbq: 40 };
+  const pricesGuest     = { vip: 250, mixer: 25, workout: 25, gala: 125, bbq: 15 };
+  const prices = pricesGuest; // backward-compat alias
+
+  function currentStatus() {
+    const el = document.getElementById('classStatus');
+    return el ? el.value : '';
+  }
+  // The registrant's OWN seat is priced by their status; guests always pay the guest rate.
+  function ownPriceFor(id) {
+    return (currentStatus() === 'classmate' ? pricesClassmate : pricesGuest)[id];
+  }
   const names = { vip: 'VIP Weekend Package', mixer: 'Welcome Mixer', workout: 'Workout Session', gala: 'A Phoenix Is Forever', bbq: 'Family Farewell BBQ' };
   const qty = { vip: 0, mixer: 0, workout: 0, gala: 0, bbq: 0 };
   // Only the 4 individual events collect guest names (VIP is per-classmate)
@@ -2335,20 +2360,52 @@
   }
 
   function updateTotal() {
-    let total = prices.vip * qty.vip;
+    let total = pricesClassmate.vip * qty.vip;
     eventOrder.forEach(ev => {
       if (qty[ev] > 0) {
+        const guestSeats = guestCountFor(ev);
+        const ownSeats = Math.max(0, qty[ev] - guestSeats);
         let under2 = 0;
-        const guestCount = guestCountFor(ev);
-        for (let i = 0; i < guestCount; i++) {
+        for (let i = 0; i < guestSeats; i++) {
           const el = document.getElementById(`under2-${ev}-${i}`);
           if (el && el.checked) under2++;
         }
-        const paying = Math.max(0, qty[ev] - under2);
-        total += prices[ev] * paying;
+        const payingGuests = Math.max(0, guestSeats - under2);
+        total += ownSeats * ownPriceFor(ev) + payingGuests * pricesGuest[ev];
       }
     });
     document.getElementById('totalDisplay').textContent = '$' + total;
+  }
+
+  // Reflect the classmate/guest dropdown across the ticket selector:
+  //  • Swap each event's displayed price to the matching tier.
+  //  • Hide the VIP Package and Workout Session for guests (Class of 2001 only).
+  function applyStatusToSelector() {
+    const status = currentStatus();
+    const isGuest = status === 'guest';
+
+    document.querySelectorAll('.ticket-option-price[data-event]').forEach(el => {
+      el.textContent = status === 'classmate' ? el.dataset.classmate : el.dataset.guest;
+    });
+
+    ['vip', 'workout'].forEach(id => {
+      const opt = document.getElementById('opt-' + id);
+      if (!opt) return;
+      if (isGuest) {
+        if (qty[id] > 0) {
+          qty[id] = 0;
+          const q = document.getElementById('qty-' + id);
+          if (q) q.textContent = '0';
+          opt.classList.remove('selected');
+        }
+        opt.style.display = 'none';
+      } else {
+        opt.style.display = '';
+      }
+    });
+
+    updateTotal();
+    renderGuestNames();
   }
 
   // Dynamically build guest inputs (and "under 2" checkboxes) per event. Preserves typed values and checkbox state across re-renders.
@@ -2459,8 +2516,15 @@
         if (eventOrder.includes(k) && guestsByEvent[k]) {
           under2Count = guestsByEvent[k].filter(g => g.under2).length;
         }
-        const paying = Math.max(0, n - under2Count);
-        const lineTotal = prices[k] * paying;
+        let lineTotal;
+        if (k === 'vip') {
+          lineTotal = pricesClassmate.vip * n;
+        } else {
+          const guestSeats = guestCountFor(k);
+          const ownSeats = Math.max(0, n - guestSeats);
+          const payingGuests = Math.max(0, guestSeats - under2Count);
+          lineTotal = ownSeats * ownPriceFor(k) + payingGuests * pricesGuest[k];
+        }
         let label = n > 1 ? `${names[k]} <span style="color:rgba(255,255,255,0.4)">&times;${n}</span>` : names[k];
         if (under2Count > 0) {
           label += ` <span style="color:rgba(201,168,76,0.75);font-size:11px">&middot; ${under2Count} under 2 (free)</span>`;
@@ -3080,6 +3144,9 @@
 
     renderDirectory(classmates);
   }
+
+  // Initialize ticket selector to match the (default) class-status selection.
+  applyStatusToSelector();
 
   // Run sync on page load
   syncFromSheet();
